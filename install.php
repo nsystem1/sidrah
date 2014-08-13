@@ -46,23 +46,16 @@ switch ($stage)
 			}
 			
 			// Check if the database connection is correct.
-			$db_link = @mysql_connect($db_server, $db_username, $db_password);
-			
-			if (!$db_link)
+			try
 			{
-				echo install_error_message("الرجاء التأكد من إعدادت خادم قاعدة البيانات.");
+				$dbh = new PDO('mysql:host=${db_server};dbname=${db_name}', $db_username, $db_password);
+			}
+			catch (PDOException $e)
+			{
+				echo install_error_message("الرجاء التأكد من إعدادات قاعدة البيانات.");
 				return;
 			}
-			
-			// Check if the database name is correct.
-			$db_select = @mysql_select_db($db_name, $db_link);
-			
-			if (!$db_select)
-			{
-				echo install_error_message("الرجاء التأكد من إعدادات اسم قاعدة البيانات.");
-				return;
-			}
-			
+
 			// Check if the SMS configurations is correct.
 			$sms_result = 1; // TODO: install_send_sms($sms_username, $sms_password, $sms_sender, 112233, array(mobile_test), "السلام عليكم");
 			
@@ -1099,14 +1092,22 @@ function install_create_config_inc($db_server, $db_username, $db_password, $db_n
 			"member_min_names" => 4
 		),
 		
-		"Version" => array(
-			"version" => "1.0.0"
-		),
-		
 		"Stage" => array(
 			"family_tree_stage" => "admin_creation"
 		),
-		
+
+		"Upload" => array(
+			"media_max_size" => 6144,
+			"media_large_width" => 640,
+			"media_large_height" => 640,
+			"media_thumb_width" => 64,
+			"media_thumb_height" => 64,
+		),
+
+		"Version" => array(
+			"version" => "1.1.0"
+		),
+
 		"Author" => array(
 			"family_tree_author" => "حسام الزغيبي"
 		),
