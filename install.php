@@ -85,14 +85,12 @@ switch ($stage)
 			
 			// 2. Create database tables.
 			install_create_tables();
-			
-			// TODO: There is a warning appears in here.
 
 			// Redirect the user.
-			// echo install_success_message(
-			// 	"تم إنشاء ملف الإعدادت و جداول قاعدة البيانات بنجاح.",
-			// 	"install.php"
-			// );
+			echo install_success_message(
+				"تم إنشاء ملف الإعدادت و جداول قاعدة البيانات بنجاح.",
+				"install.php"
+			);
 		}
 		else
 		{
@@ -1433,31 +1431,35 @@ function install_create_tables()
 	
 	foreach ($sql_queries as $sql_query)
 	{
+		$sql_query = trim($sql_query);
+
 		if (!empty($sql_query))
 		{
 			$stmt = $dbh->prepare($sql_query);
 			$stmt->execute();
 		}
+
 	}
 
 	# Insert the tribe name,
-	$stmt = $dbh->prepare("INSERT INTO tribe (id, name) VALUES (:main_tribe_id, :main_tribe_name)");
-	$stmt->bindParam(":main_tribe_id", $main_tribe_id);
-	$stmt->bindParam(":main_tribe_name", $main_tribe_name);
+	$stmt = $dbh->prepare("INSERT INTO tribe (id, name) VALUES (:id, :name)");
+	$stmt->bindParam(":id", $main_tribe_id);
+	$stmt->bindParam(":name", $main_tribe_name);
 	$stmt->execute();
 
 	// Insert the tribe as a member.
-	$stmt = $dbh->prepare("INSERT INTO member (id, tribe_id, name, father_id, gender, fullname) VALUES (1, :main_tribe_id, :main_tribe_name, -1, 1, :main_tribe_name)");
-	$stmt->bindParam(":main_tribe_id", $main_tribe_id);
-	$stmt->bindParam(":main_tribe_name", $main_tribe_name);
+	$stmt = $dbh->prepare("INSERT INTO member (id, tribe_id, name, father_id, gender, fullname) VALUES (1, :tribe_id, :name, -1, 1, :fullname)");
+	$stmt->bindParam(":tribe_id", $main_tribe_id);
+	$stmt->bindParam(":name", $main_tribe_name);
+	$stmt->bindParam(":fullname", $main_tribe_name);
 	$stmt->execute();
 	
 	// Insert the tribe as a user.
 
 	$username = "{$main_tribe_name}1";
 
-	$stmt = $dbh->prepare("INSERT INTO user (member_id, username) VALUES (1, :main_tribe_name");
-	$stmt->bindParam(":main_tribe_name", $username);
+	$stmt = $dbh->prepare("INSERT INTO user (member_id, username) VALUES (1, :username)");
+	$stmt->bindParam(":username", $username);
 	$stmt->execute();
 }
 
