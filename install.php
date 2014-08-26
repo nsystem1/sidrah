@@ -3,10 +3,12 @@
 // install file for familytree script.
 // @author Hussam Al-Zughaibi <hossam_zee@yahoo.com>
 
+define("app_version", "1.1");
 define("mobile_test", "");
 define("config_filename", "inc/config.inc.php");
 
-$current_stage = install_get_current_stage();
+$dbh = null;
+$current_stage = install_get_current_stage($dbh);
 $stage = addslashes(@$_GET["stage"]);
 
 switch ($stage)
@@ -29,6 +31,7 @@ switch ($stage)
 		if (!empty($submit))
 		{
 			// If the user submitted the form.
+			// TODO: Consider using different formula for escaping.
 			$db_server = trim(addslashes(@$_POST["db_server"]));
 			$db_username = trim(addslashes(@$_POST["db_username"]));
 			$db_password = trim(addslashes(@$_POST["db_password"]));
@@ -48,7 +51,8 @@ switch ($stage)
 			// Check if the database connection is correct.
 			try
 			{
-				$dbh = new PDO('mysql:host=${db_server};dbname=${db_name}', $db_username, $db_password);
+				// TOOD: Check if there is any security issues here.
+				$dbh = new PDO("mysql:host=${db_server};dbname=${db_name}", $db_username, $db_password);
 			}
 			catch (PDOException $e)
 			{
@@ -82,11 +86,13 @@ switch ($stage)
 			// 2. Create database tables.
 			install_create_tables();
 			
+			// TODO: There is a warning appears in here.
+
 			// Redirect the user.
-			echo install_success_message(
-				"تم إنشاء ملف الإعدادت و جداول قاعدة البيانات بنجاح.",
-				"install.php"
-			);
+			// echo install_success_message(
+			// 	"تم إنشاء ملف الإعدادت و جداول قاعدة البيانات بنجاح.",
+			// 	"install.php"
+			// );
 		}
 		else
 		{
@@ -131,8 +137,14 @@ switch ($stage)
 			$password = install_sha1_salt($admin_password);
 			
 			// Insert a new user into user table.
-			$insert_user = mysql_query("INSERT INTO user (username, password, usergroup) VALUES ('$username', '$password', 'admin')");
+			$stmt = $dbh->prepare("INSERT INTO user (username, password, usergroup) VALUES (:username, :password, 'admin')");
 			
+			$stmt->bindParam(":username", $username);
+			$stmt->bindParam(":password", $password);
+
+			// Execute.
+			$stmt->execute();
+
 			// Login.
 			install_login($username, $password);
 
@@ -430,7 +442,7 @@ switch ($stage)
 		else if ($method == "offset")
 		{
 			// Send an SMS message.
-			$mysql_query = mysql_query("$query LIMIT 1 OFFSET $offset");
+			$mysql_query = §query("$query LIMIT 1 OFFSET $offset");
 			$member = mysql_fetch_array($mysql_query);
 
 			// Generate a username and a password.
@@ -479,7 +491,7 @@ switch ($stage)
 
 // functions.
 // private
-function install_get_current_stage()
+function install_get_current_stage(&$dbh)
 {
 	// Get the current stage to start from it.
 	if (!file_exists(config_filename))
@@ -491,9 +503,11 @@ function install_get_current_stage()
 		require_once(config_filename);
 	
 		// Connect to the database.
-		$link = mysql_connect(database_server, database_username, database_password);
-		mysql_select_db(database_name, $link);
-		
+		$database_server = database_server;
+		$database_name = database_name;
+
+		$dbh = new PDO("mysql:host=${database_server};dbname=${database_name}", database_username, database_password);
+
 		return family_tree_stage;
 	}
 }
@@ -1105,7 +1119,7 @@ function install_create_config_inc($db_server, $db_username, $db_password, $db_n
 		),
 
 		"Version" => array(
-			"version" => "1.1.0"
+			"version" => app_version
 		),
 
 		"Author" => array(
@@ -1169,9 +1183,14 @@ function install_create_tables()
 {
 	require_once(config_filename);
 
-	// Connect to database.
-	$link = mysql_connect(database_server, database_username, database_password);
-	mysql_select_db(database_name, $link);
+	// Connect to the database.
+	$database_server = database_server;
+	$database_name = database_name;
+
+	$dbh = new PDO("mysql:host=${database_server};dbname=${database_name}", database_username, database_password);
+
+	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 	
 	// Get tribe variables.
 	$main_tribe_id = main_tribe_id;
@@ -1407,10 +1426,6 @@ function install_create_tables()
 		  `created` int(11) NOT NULL,
 		  PRIMARY KEY (`id`)
 		);
-		
-		INSERT INTO tribe (id, name) VALUES ('$main_tribe_id', '$main_tribe_name');
-		INSERT INTO member (id, tribe_id, name, father_id, gender, fullname) VALUES (1, '$main_tribe_id', '$main_tribe_name', '-1', '1', '$main_tribe_name');
-		INSERT INTO user (member_id, username) VALUES ('1', '{$main_tribe_name}1');
 	";
 	
 	// Explode sql into many queries.
@@ -1418,7 +1433,31 @@ function install_create_tables()
 	
 	foreach ($sql_queries as $sql_query)
 	{
-		$execute_query = mysql_query($sql_query);
+		if (!empty($sql_query))
+		{
+			$stmt = $dbh->prepare($sql_query);
+			$stmt->execute();
+		}
 	}
+
+	# Insert the tribe name,
+	$stmt = $dbh->prepare("INSERT INTO tribe (id, name) VALUES (:main_tribe_id, :main_tribe_name)");
+	$stmt->bindParam(":main_tribe_id", $main_tribe_id);
+	$stmt->bindParam(":main_tribe_name", $main_tribe_name);
+	$stmt->execute();
+
+	// Insert the tribe as a member.
+	$stmt = $dbh->prepare("INSERT INTO member (id, tribe_id, name, father_id, gender, fullname) VALUES (1, :main_tribe_id, :main_tribe_name, -1, 1, :main_tribe_name)");
+	$stmt->bindParam(":main_tribe_id", $main_tribe_id);
+	$stmt->bindParam(":main_tribe_name", $main_tribe_name);
+	$stmt->execute();
+	
+	// Insert the tribe as a user.
+
+	$username = "{$main_tribe_name}1";
+
+	$stmt = $dbh->prepare("INSERT INTO user (member_id, username) VALUES (1, :main_tribe_name");
+	$stmt->bindParam(":main_tribe_name", $username);
+	$stmt->execute();
 }
 
