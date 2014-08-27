@@ -185,7 +185,7 @@ switch ($stage)
 		$main_tribe_name = main_tribe_name;
 		
 		// Get the id of the member.
-		$id = addslashes(@$_GET["id"]);
+		$id = @$_GET["id"];
 		$id = empty($id) ? "1" : $id;
 		
 		// Display the family tree.
@@ -268,8 +268,8 @@ switch ($stage)
 		
 		if (!empty($submit))
 		{
-			$username = trim(addslashes(@$_POST["username"]));
-			$password = trim(addslashes(@$_POST["password"]));
+			$username = trim(@$_POST["username"]);
+			$password = trim(@$_POST["password"]);
 		
 			// Check if the username or the password is empty.
 			if (empty($username) || empty($password))
@@ -279,11 +279,16 @@ switch ($stage)
 			}
 			
 			$sha1_password = install_sha1_salt($password);
-			
+
 			// Check if the user information is correct.
-			$get_user_info_query = mysql_query("SELECT * FROM user WHERE username = '$username' AND password = '$sha1_password'");
+			$get_user_info_query = $dbh->prepare("SELECT * FROM user WHERE username = :username AND password = :sha1_password");
+			
+			$get_user_info_query->bindParam(":username", $username);
+			$get_user_info_query->bindParam(":sha1_password", $sha1_password);
+
+			$get_user_info_query->execute();
 	
-			if (mysql_num_rows($get_user_info_query) == 0)
+			if ($get_user_info_query->rowCount() == 0)
 			{
 				echo install_error_message("اسم المستخدم أو كلمة المرور غير صحيحة.");
 				return;
@@ -321,26 +326,29 @@ switch ($stage)
 	
 	case "view_member":
 
-		$id = addslashes(@$_GET["id"]);
-		$submit = addslashes(@$_POST["submit"]);
+		$id = @$_GET["id"];
+		$submit = @$_POST["submit"];
 		
 		// Search for the member id.
-		$get_member_query = mysql_query("SELECT member.id AS id, member.name AS name, member.gender AS gender, member.fullname AS fullname, member.mobile AS mobile, user.usergroup AS usergroup, member.is_alive AS is_alive FROM member, user WHERE member.id = user.member_id AND member.id = '$id'");
-		
-		if (mysql_num_rows($get_member_query) == 0)
+		$get_member_query = $dbh->prepare("SELECT member.id AS id, member.name AS name, member.gender AS gender, member.fullname AS fullname, member.mobile AS mobile, user.usergroup AS usergroup, member.is_alive AS is_alive FROM member, user WHERE member.id = user.member_id AND member.id = :id");
+		$get_member_query->bindParam(":id", $id);
+		$get_member_query->execute();
+
+
+		if ($get_member_query->rowCount() == 0)
 		{
 			echo "Not Found.";
 			return;
 		}
 		
 		// Get the member information.
-		$member = mysql_fetch_array($get_member_query);
+		$member = $get_member_query->fetch(PDO::FETCH_ASSOC);
 		
 		if (!empty($submit))
 		{
-			$is_alive = addslashes(@$_POST["is_alive"]);
-			$usergroup = addslashes(@$_POST["usergroup"]);
-			$mobile = addslashes(@$_POST["mobile"]);
+			$is_alive = @$_POST["is_alive"];
+			$usergroup = @$_POST["usergroup"];
+			$mobile = @$_POST["mobile"];
 			$sons = @$_POST["sons"];
 			$daughters = @$_POST["daughters"];
 			
@@ -381,11 +389,22 @@ switch ($stage)
 			}
 			
 			// Update the values of the member.
-			$update_member_query = mysql_query("UPDATE member SET is_alive = '$is_alive', mobile = '$mobile' WHERE id = '$id'");
+			$update_member_query = $dbh->prepare("UPDATE member SET is_alive = :is_alive, mobile = :mobile WHERE id = :id");
+
+			$update_member_query->bindParam(":is_alive", $is_alive);
+			$update_member_query->bindParam(":mobile", $mobile);
+			$update_member_query->bindParam(":id", $id);
+
+			$update_member_query->execute();	
 			
 			// Update the values of the user.
-			$update_user_query = mysql_query("UPDATE user SET usergroup = '$usergroup' WHERE member_id = '$id'");
-			
+			$update_user_query = $dbh->prepare("UPDATE user SET usergroup = :usergroup WHERE member_id = :id");
+
+			$update_user_query->bindParam(":usergroup", $usergroup);
+			$update_user_query->bindParam(":id", $id);
+
+			$update_user_query->execute();
+
 			// Done, redirect to the previous page.
 			echo install_success_message(
 				"تم تحديث بيانات الاسم بنجاح.",
@@ -615,19 +634,26 @@ function install_login($username, $password)
 
 function install_is_logged_in()
 {
+	global $dbh;
+
 	if (!isset($_COOKIE["install_familytree_username"]) && !isset($_COOKIE["install_familytree_password"]))
 	{
 		return false;
 	}
 	
 	// Escape the data, someone might attack server.
-	$cookie_username = addslashes($_COOKIE["install_familytree_username"]);
-	$cookie_password = addslashes($_COOKIE["install_familytree_password"]);
+	$cookie_username = $_COOKIE["install_familytree_username"];
+	$cookie_password = $_COOKIE["install_familytree_password"];
 	
 	// Otherwise, there is information.
-	$get_user_info_query = mysql_query("SELECT * FROM user WHERE username = '$cookie_username' AND password = '$cookie_password'");
-	
-	if (mysql_num_rows($get_user_info_query) == 0)
+	$get_user_info_query = $dbh->prepare("SELECT * FROM user WHERE username = :cookie_username AND password = :cookie_password");
+
+	$get_user_info_query->bindParam(":cookie_username", $cookie_username);
+	$get_user_info_query->bindParam(":cookie_password", $cookie_password);
+
+	$get_user_info_query->execute();
+
+	if ($get_user_info_query->rowCount() == 0)
 	{
 		return false;
 	}
@@ -979,12 +1005,21 @@ function install_string_to_unicode($string)
 // private
 function install_add_child($father_id, $name, $gender, $fullname_postfix)
 {
+	global $dbh;
+
 	$main_tribe_id = main_tribe_id;
 	
 	// Check if the member already exists.
-	$get_member_query = mysql_query("SELECT * FROM member WHERE tribe_id = '$main_tribe_id' AND father_id = '$father_id' AND name = '$name' AND gender = '$gender'");
+	$get_member_query = $dbh->prepare("SELECT * FROM member WHERE tribe_id = :main_tribe_id AND father_id = :father_id AND name = :name AND gender = :gender");
+
+	$get_member_query->bindParam(":main_tribe_id", $main_tribe_id);
+	$get_member_query->bindParam(":father_id", $father_id);
+	$get_member_query->bindParam(":name", $name);
+	$get_member_query->bindParam(":gender", $gender);
+
+	$get_member_query->execute();
 	
-	if (mysql_num_rows($get_member_query) > 0)
+	if ($get_member_query->rowCount() > 0)
 	{
 		return;
 	}
@@ -1145,22 +1180,28 @@ function install_create_config_inc($db_server, $db_username, $db_password, $db_n
 // private
 function install_get_member_children_json($tribe_id, $father_id = -1)
 {
+	// TODO: Remove this variable ASAP.
+	global $dbh;
+
 	$conditions = array();
 	
 	if ($tribe_id != null)
 	{
-		$conditions []= "tribe_id = '$tribe_id'";
+		$conditions []= "tribe_id = $tribe_id";
 	}
 
-	$conditions []= "father_id = '$father_id'";
+	$conditions []= "father_id = $father_id";
 
-	$condition = implode("AND ", $conditions);
-	$get_children_query = mysql_query("SELECT id, father_id, name, gender FROM member WHERE $condition ORDER BY id");
+	$condition = implode(" AND ", $conditions);
+
+	$get_children_query = $dbh->prepare("SELECT id, father_id, name, gender FROM member WHERE $condition ORDER BY id");
+	$get_children_query->execute();
+
 	$return = "";
 	
-	if (mysql_num_rows($get_children_query) > 0)
+	if ($get_children_query->rowCount() > 0)
 	{
-		while ($child = mysql_fetch_array($get_children_query))
+		while ($child = $get_children_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$return .= sprintf("{id:\t\"%s\",\nname:\t\"<div class='node'>%s</div>\",\nchildren:[", $child["id"], $child["name"]);		
 			
@@ -1186,9 +1227,6 @@ function install_create_tables()
 	$database_name = database_name;
 
 	$dbh = new PDO("mysql:host=${database_server};dbname=${database_name}", database_username, database_password);
-
-	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$dbh->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 	
 	// Get tribe variables.
 	$main_tribe_id = main_tribe_id;

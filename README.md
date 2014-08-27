@@ -10,6 +10,9 @@ TODO:
 6. Validate inputs.
 7. gitignore.
 8. Consider removing classes folder.
+9. Consider changing global.
+10. Consider dealing with composer.
+11. Consider removing un-necc. files.
 
 A family tree web application that has been created using PHP and uses MySQL as a database engine.
 
