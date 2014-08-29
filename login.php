@@ -12,8 +12,8 @@ if (!empty($submit))
 	// variables
 	$hashed_password = "";
 
-	$username = trim(mysql_real_escape_string(arabic_number($username)));
-	$password = trim(mysql_real_escape_string(arabic_number($password)));
+	$username = trim(arabic_number($username));
+	$password = trim(arabic_number($password));
 
 	if (empty($username) || empty($password))
 	{
@@ -24,10 +24,17 @@ if (!empty($submit))
 	}
 	else
 	{
-		$hashed_password = md5_salt($password);
+		$hashed_password = sha1_salt($password);
+		echo $hashed_password;
 		
-		$select_user_query = mysql_query("SELECT * FROM user WHERE username = '$username' AND password = '$hashed_password'");
-		$user_num_rows = mysql_num_rows($select_user_query);
+		$select_user_query = $dbh->prepare("SELECT * FROM user WHERE username = :username AND password = :hashed_password");
+		
+		$select_user_query->bindParam(":username", $username);
+		$select_user_query->bindParam(":hashed_password", $hashed_password);
+
+		$select_user_query->execute();
+
+		$user_num_rows = $select_user_query->rowCount();
 		
 		if ($user_num_rows == 0)
 		{
@@ -39,7 +46,7 @@ if (!empty($submit))
 	}
 	
 	$cookie_time = time()+21600;
-	$user = mysql_fetch_array($select_user_query);
+	$user = $select_user_query->fetch(PDO::FETCH_ASSOC);
 	$member = get_member_id($user["member_id"]);
 
 	// Save the cookie of the user information.
@@ -48,6 +55,7 @@ if (!empty($submit))
 		
 	// Update the last login time.
 	$now = time();
+	
 	$update_last_login_query = mysql_query("UPDATE user SET last_login_time = '$now' WHERE id = '$user[id]'");
 	
 	if (!empty($url))

@@ -26,10 +26,10 @@ switch ($action)
 				return;
 			}
 			
-			$md5_captcha = md5_salt($captcha);
+			$sha1_captcha = sha1_salt($captcha);
 	
 			// Check if the captcha is missed up.
-			if ($_SESSION["reset_password"] != $md5_captcha)
+			if ($_SESSION["reset_password"] != $sha1_captcha)
 			{
 				echo error_message("الرجاء إدخال رمز التحقّق بشكل صحيح.");
 				return;
@@ -43,7 +43,7 @@ switch ($action)
 				$user_info = mysql_fetch_array($get_user_query);
 				
 				$verification_code = sprintf("%04d", rand(0, 9999));				
-				$hashed_verification_code = md5_salt($verification_code);
+				$hashed_verification_code = sha1_salt($verification_code);
 
 				$_SESSION["sidrah_verification_code"] = $hashed_verification_code;
 				$_SESSION["sidrah_mobile"] = $user_info["mobile"];
@@ -108,7 +108,7 @@ switch ($action)
 		if (!empty($submit))
 		{
 			$verification_code = mysql_real_escape_string(arabic_number(@$_POST["verification_code"]));
-			$hashed_verification_code = md5_salt($verification_code);
+			$hashed_verification_code = sha1_salt($verification_code);
 			
 			if ($hashed_verification_code != $session_verification_code)
 			{
@@ -126,7 +126,7 @@ switch ($action)
 		
 				// Generate a new password.
 				$password = generate_key();
-				$hashed_password = md5_salt($password);
+				$hashed_password = sha1_salt($password);
 		
 				// Update a password.
 				$update_password_query = mysql_query("UPDATE user SET password = '$hashed_password' WHERE username = '$user_info[username]'");
@@ -200,7 +200,7 @@ if (!empty($submit))
 		
 		// Generate a new password.
 		$password = generate_key();
-		$hashed_password = md5_salt($password);
+		$hashed_password = sha1_salt($password);
 		
 		// Update a password.
 		$update_password_query = mysql_query("UPDATE user SET password = '$hashed_password' WHERE username = '$user_info[username]'");

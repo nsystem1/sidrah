@@ -165,7 +165,7 @@ switch ($action)
 							}
 							else
 							{
-								$hash_file = hash_file("md5", $tmp_name);
+								$hash_file = hash_file("sha1", $tmp_name);
 						
 								// TODO: Check if the file already been uploaded.
 					

@@ -36,7 +36,7 @@ if (!empty($submit))
 	}
 	
 	// Check if the old password is correct.
-	if (md5_salt($old_password) != $user["password"])
+	if (sha1_salt($old_password) != $user["password"])
 	{
 		echo error_message("كلمة المرور الحاليّة لا تتطابق مع كلمة المرور المدخلة.");
 		return;
@@ -50,7 +50,7 @@ if (!empty($submit))
 	}
 	
 	// OK, update the password of the user.
-	$password = md5_salt($new_password1);
+	$password = sha1_salt($new_password1);
 	$update_password_query = mysql_query("UPDATE user SET password = '$password' WHERE member_id = '$member_id'");
 	
 	// Logout after all,

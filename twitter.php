@@ -63,10 +63,10 @@ switch ($action)
 				return;
 			}
 	
-			$md5_user_id = md5_salt(mysql_real_escape_string($user_info->id));
+			$sha1_user_id = sha1_salt(mysql_real_escape_string($user_info->id));
 	
 			// Search for the user id.
-			$select_user_query = mysql_query("SELECT * FROM user WHERE twitter_userid = '$md5_user_id' LIMIT 1");
+			$select_user_query = mysql_query("SELECT * FROM user WHERE twitter_userid = '$sha1_user_id' LIMIT 1");
 	
 			// Check if the user has not been found.
 			if (mysql_num_rows($select_user_query) == 0)
@@ -142,9 +142,9 @@ switch ($action)
 				return;
 			}
 
-			$md5_salt = md5_salt($user_info->id);
+			$sha1_salt = sha1_salt($user_info->id);
 			
-			$get_user_query = mysql_query("SELECT * FROM user WHERE twitter_userid = '$md5_salt' LIMIT 1");
+			$get_user_query = mysql_query("SELECT * FROM user WHERE twitter_userid = '$sha1_salt' LIMIT 1");
 			
 			if (mysql_num_rows($get_user_query) == 1)
 			{
@@ -152,7 +152,7 @@ switch ($action)
 				return;
 			}
 			
-			$update_user_query = mysql_query("UPDATE user SET twitter_userid = '$md5_salt', twitter_oauth_token = '{$access_token['oauth_token']}', twitter_oautho_secret = '{$access_token['oauth_token_secret']}' WHERE id = '$user[id]'");
+			$update_user_query = mysql_query("UPDATE user SET twitter_userid = '$sha1_salt', twitter_oauth_token = '{$access_token['oauth_token']}', twitter_oautho_secret = '{$access_token['oauth_token_secret']}' WHERE id = '$user[id]'");
 			
 			echo success_message(
 				"تم ربط حسابك في تويتر بنجاح.",

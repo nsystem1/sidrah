@@ -34,7 +34,7 @@ function database_connect()
 	$database_server = database_server;
 	$database_name = database_name;
 
-	$dbh = new PDO("mysql:host=${database_server};dbname=${database_name}", $db_username, $db_password);
+	$dbh = new PDO("mysql:host=${database_server};dbname=${database_name}", database_username, database_password);
 
 	return $dbh;
 }
@@ -253,9 +253,9 @@ function user_information()
 }
 
 // public
-function md5_salt($string)
+function sha1_salt($string)
 {
-	return md5($string . sidrah_salt);
+	return sha1($string . sidrah_salt);
 }
 
 // public
@@ -2443,7 +2443,7 @@ function create_user($id, $name)
 		
 		$username = "$name$id";
 		$password = generate_key();
-		$hashed_password = md5_salt($password);
+		$hashed_password = sha1_salt($password);
 		
 		$sms_received = 0;
 		

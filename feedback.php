@@ -24,10 +24,10 @@ if (!empty($submit))
 		return;
 	}
 	
-	$md5_captcha = md5_salt($captcha);
+	$sha1_captcha = sha1_salt($captcha);
 	
 	// Check if the captcha is missed up.
-	if ($_SESSION["feedback"] != $md5_captcha)
+	if ($_SESSION["feedback"] != $sha1_captcha)
 	{
 		echo error_message("الرجاء إدخال رمز التحقّق بشكل صحيح.");
 		return;

@@ -8,7 +8,7 @@ require_once("inc/functions.inc.php");
 $page = mysql_real_escape_string(@$_GET["page"]);
 
 switch ($page)
-{
+
 	default: case "feedback":
 		$session_name = "feedback";
 	break;
@@ -20,10 +20,10 @@ switch ($page)
 
 // Generate a random number.
 $random_number = sprintf("%05d", rand(0, 99999));
-$md5_random_number = md5_salt($random_number);
+$sha1_random_number = sha1_salt($random_number);
 
 // Set the session variable.
-$_SESSION[$session_name] = $md5_random_number;
+$_SESSION[$session_name] = $sha1_random_number;
 
 // Draw the image.
 $image = imagecreatetruecolor(46, 20);
