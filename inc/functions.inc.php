@@ -25,11 +25,15 @@ function redirect_to_install_or_not()
 
 require_once("config.inc.php");
 
+$dbh = null;
+
 function database_connect()
 {
+	global $dbh;
+
 	$database_link = @mysql_connect(database_server, database_username, database_password);
 	$database_connect = @mysql_select_db(database_name, $database_link);
-	
+
 	return $database_connect;
 }
 

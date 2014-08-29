@@ -1,6 +1,6 @@
 <?php
 
-// install file for familytree script.
+// install file for sidrah script.
 // @author Hussam Al-Zughaibi <hossam_zee@yahoo.com>
 
 define("app_version", "1.1");
@@ -147,7 +147,7 @@ switch ($stage)
 			install_login($username, $password);
 
 			// Update config variable.
-			install_update_config_variable("family_tree_stage", "family_initialization");
+			install_update_config_variable("sidrah_stage", "family_initialization");
 			
 			// Redirect the user.
 			echo install_success_message(
@@ -193,7 +193,7 @@ switch ($stage)
 
 		// Get the javascript file.
 		$js = install_template(
-			"views/js/install_familytree_spacetree.js",
+			"views/js/install_sidrah_spacetree.js",
 			array(
 				"id" => $id,
 				"members_json" => $members_json
@@ -202,7 +202,7 @@ switch ($stage)
 		
 		// Get the content.
 		$content = install_template(
-			"views/install_familytree.html"
+			"views/install_sidrah.html"
 		);
 		
 		// Get the header.
@@ -449,7 +449,7 @@ switch ($stage)
 		}
 
 		// Update config variable.
-		install_update_config_variable("family_tree_stage", "sms_sending");
+		install_update_config_variable("sidrah_stage", "sms_sending");
 		install_redirect("install.php?t=" . time());
 	break;
 	
@@ -524,7 +524,7 @@ switch ($stage)
 	case "update_stage_to_launch":
 	
 		// Update config variable.
-		install_update_config_variable("family_tree_stage", "launch");
+		install_update_config_variable("sidrah_stage", "launch");
 		install_redirect("install.php?t=" . time());
 	break;
 }
@@ -548,7 +548,7 @@ function install_get_current_stage(&$dbh)
 
 		$dbh = new PDO("mysql:host=${database_server};dbname=${database_name}", database_username, database_password);
 
-		return family_tree_stage;
+		return sidrah_stage;
 	}
 }
 
@@ -566,7 +566,7 @@ function install_template($name, $replacements = null)
 	}
 	
 	$content = str_replace("{main_tribe_name}", @main_tribe_name, $content);
-	$content = str_replace("{family_tree_author}", @family_tree_author, $content);
+	$content = str_replace("{sidrah_author}", @sidrah_author, $content);
 	
 	return $content;
 }
@@ -642,7 +642,7 @@ function install_redirect($page)
 // private
 function install_sha1_salt($string)
 {
-	return sha1($string . familytree_salt);
+	return sha1($string . sidrah_salt);
 }
 
 // private
@@ -651,22 +651,22 @@ function install_login($username, $password)
 	$cookie_time = time() + 21600;
 
 	// Save the cookie of the user information.
-	setcookie("install_familytree_username", $username, $cookie_time);
-	setcookie("install_familytree_password", $password, $cookie_time);
+	setcookie("install_sidrah_username", $username, $cookie_time);
+	setcookie("install_sidrah_password", $password, $cookie_time);
 }
 
 function install_is_logged_in()
 {
 	global $dbh;
 
-	if (!isset($_COOKIE["install_familytree_username"]) && !isset($_COOKIE["install_familytree_password"]))
+	if (!isset($_COOKIE["install_sidrah_username"]) && !isset($_COOKIE["install_sidrah_password"]))
 	{
 		return false;
 	}
 	
 	// Escape the data, someone might attack server.
-	$cookie_username = $_COOKIE["install_familytree_username"];
-	$cookie_password = $_COOKIE["install_familytree_password"];
+	$cookie_username = $_COOKIE["install_sidrah_username"];
+	$cookie_password = $_COOKIE["install_sidrah_password"];
 	
 	// Otherwise, there is information.
 	$get_user_info_query = $dbh->prepare("SELECT * FROM user WHERE username = :cookie_username AND password = :cookie_password");
@@ -701,10 +701,10 @@ function install_update_config_variable($config_variable, $to_stage)
 	// Get the current family tree strage.
 	$config_contents = file_get_contents(config_filename);
 	preg_match('/define\("' . $config_variable . '", "(.*)"\);/isU', $config_contents, $match);
-	$family_tree_stage = $match[1];
+	$sidrah_stage = $match[1];
 	
 	// Set some variables.
-	$old_variable_string = sprintf('define("%s", "%s");', $config_variable, $family_tree_stage);
+	$old_variable_string = sprintf('define("%s", "%s");', $config_variable, $sidrah_stage);
 	$new_variable_string = sprintf('define("%s", "%s");', $config_variable, $to_stage);
 	
 	// Replace the old with the new one.
@@ -1139,7 +1139,7 @@ function install_create_config_inc($db_server, $db_username, $db_password, $db_n
 	
 	// Generate some keys.
 	$sms_delete_key = install_generate_key(5);
-	$family_tree_salt = install_generate_key(64, true, true, true);
+	$sidrah_salt = install_generate_key(64, true, true, true);
 	$script_url = "http://" . $_SERVER["SERVER_NAME"] . str_replace("/install.php", "", $_SERVER["REQUEST_URI"]);
 
 	// Configurations.
@@ -1165,7 +1165,7 @@ function install_create_config_inc($db_server, $db_username, $db_password, $db_n
 		),
 		
 		"Salt" => array(
-			"familytree_salt" => $family_tree_salt
+			"sidrah_salt" => $sidrah_salt
 		),
 		
 		"Url" => array(
@@ -1182,7 +1182,7 @@ function install_create_config_inc($db_server, $db_username, $db_password, $db_n
 		),
 		
 		"Stage" => array(
-			"family_tree_stage" => "admin_creation"
+			"sidrah_stage" => "admin_creation"
 		),
 
 		"Upload" => array(
@@ -1198,7 +1198,7 @@ function install_create_config_inc($db_server, $db_username, $db_password, $db_n
 		),
 
 		"Author" => array(
-			"family_tree_author" => "حسام الزغيبي"
+			"sidrah_author" => "حسام الزغيبي"
 		),
 	);
 	
