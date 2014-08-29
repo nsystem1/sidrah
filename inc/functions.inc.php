@@ -1,5 +1,28 @@
 <?php
 
+redirect_to_install_or_not();
+
+// private
+function redirect_to_install_or_not()
+{
+	if (!file_exists("inc/config.inc.php"))
+	{
+		redirect("install.php");
+		exit();
+	}
+	else
+	{
+		require_once("config.inc.php");
+		
+		// Check what is the stage of the script.
+		if (sidrah_stage != "launch")
+		{
+			redirect("install.php");
+			exit();	
+		}
+	}
+}
+
 require_once("config.inc.php");
 
 function database_connect()

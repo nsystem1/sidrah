@@ -89,7 +89,7 @@ switch ($stage)
 			// Redirect the user.
 			echo install_success_message(
 				"تم إنشاء ملف الإعدادت و جداول قاعدة البيانات بنجاح.",
-				"install.php"
+				"install.php?t=" . time()
 			);
 		}
 		else
@@ -152,7 +152,7 @@ switch ($stage)
 			// Redirect the user.
 			echo install_success_message(
 				"تم إنشاء المدير المؤقت بنجاح.",
-				"install.php"
+				"install.php?t=" . time()
 			);
 		}
 		else
@@ -299,7 +299,7 @@ switch ($stage)
 			
 			echo install_success_message(
 				"تمت عملية تسجيل الدخول بنجاح.",
-				"install.php"
+				"install.php?t=" . time()
 			);
 		}
 		else
@@ -333,7 +333,6 @@ switch ($stage)
 		$get_member_query = $dbh->prepare("SELECT member.id AS id, member.name AS name, member.gender AS gender, member.fullname AS fullname, member.mobile AS mobile, user.usergroup AS usergroup, member.is_alive AS is_alive FROM member, user WHERE member.id = user.member_id AND member.id = :id");
 		$get_member_query->bindParam(":id", $id);
 		$get_member_query->execute();
-
 
 		if ($get_member_query->rowCount() == 0)
 		{
@@ -408,7 +407,7 @@ switch ($stage)
 			// Done, redirect to the previous page.
 			echo install_success_message(
 				"تم تحديث بيانات الاسم بنجاح.",
-				"install.php?id=$id"
+				"install.php?id=$id&t=" . time() 
 			);
 		}
 		else
@@ -438,9 +437,20 @@ switch ($stage)
 	
 	case "update_stage_to_sms_sending":
 	
+		$query = "SELECT id, name, mobile FROM member WHERE is_alive = 1 AND mobile != 0";
+
+		$stmt = $dbh->prepare($query);
+		$stmt->execute();
+
+		if ($stmt->rowCount() == 0)
+		{
+			echo install_error_message("لا يُمكن البدء في هذه الخطوة لعدم وجود أيّ رقم جوّال مسجّل.");
+			return;
+		}
+
 		// Update config variable.
 		install_update_config_variable("family_tree_stage", "sms_sending");
-		install_redirect("install.php");
+		install_redirect("install.php?t=" . time());
 	break;
 	
 	case "send_sms_message":
@@ -448,27 +458,38 @@ switch ($stage)
 		$message = addslashes(@$_POST["message"]);
 		$method = addslashes(@$_POST["method"]);
 		$offset = (int) addslashes(@$_POST["offset"]);
-		$query = "SELECT id, name, mobile FROM member WHERE is_alive = '1' AND mobile != '0'";
+		$query = "SELECT id, name, mobile FROM member WHERE is_alive = 1 AND mobile != 0";
 
 		if ($method == "count")
 		{
-			$mysql_query = mysql_query($query);
-			echo mysql_num_rows($mysql_query);
+			$stmt = $dbh->prepare($query);
+			$stmt->execute();
+
+			echo $stmt->rowCount();
+
 			return;
 		}
 		else if ($method == "offset")
 		{
 			// Send an SMS message.
-			$mysql_query = §query("$query LIMIT 1 OFFSET $offset");
-			$member = mysql_fetch_array($mysql_query);
+			$stmt = $dbh->prepare("$query LIMIT 1 OFFSET $offset");
+			$stmt->execute();
+
+			$member = $stmt->fetch(FETCH_ASSOC);
 
 			// Generate a username and a password.
-			$username = "$member[name]$member[id]";
+			$username = "{$member[name]}{$member[id]}";
 			$password = install_generate_key();
 			$sha1_password = install_sha1_salt($password);
 
 			// Set the password for the current user.
-			$set_user_password_query = mysql_query("UPDATE user SET username = '$username', password = '$sha1_password' WHERE member_id = '$member[id]'");
+			$set_user_password_query = $dbh->prepare("UPDATE user SET username = :username, password = :sha1_password WHERE member_id = :member_id");
+
+			$set_user_password_query->bindParam(":username", $username);
+			$set_user_password_query->bindParam(":sha1_password", $sha1_password);
+			$set_user_password_query->bindParam(":member_id", $member["id"]);
+
+			$set_user_password_query->execute();
 
 			// Replace the text with the password.
 			$message = install_text_replace(
@@ -490,7 +511,9 @@ switch ($stage)
 			// Update sms received.
 			if ($status == 1)
 			{
-				$update_sms_received_query = mysql_query("UPDATE user SET sms_received = 1 WHERE member_id = '$member[id]'");
+				$update_sms_received_query = $dbh->prepare("UPDATE user SET sms_received = 1 WHERE member_id = :member_id");
+				$update_sms_received_query->bindParam(":member_id", $member["id"]);
+				$update_sms_received_query->execute();
 			}
 
 			echo $status;
@@ -502,7 +525,7 @@ switch ($stage)
 	
 		// Update config variable.
 		install_update_config_variable("family_tree_stage", "launch");
-		install_redirect("install.php");
+		install_redirect("install.php?t=" . time());
 	break;
 }
 
@@ -668,7 +691,7 @@ function install_redirect_to_login_or_not()
 {
 	if (install_is_logged_in() == false)
 	{
-		install_redirect("install.php?stage=login");
+		install_redirect("install.php?stage=login&t=" . time());
 	}
 }
 
@@ -1026,11 +1049,30 @@ function install_add_child($father_id, $name, $gender, $fullname_postfix)
 	
 	// Otherwise, insert a new member.
 	$member_fullname = "$name $fullname_postfix";
-	$insert_member_query = mysql_query("INSERT INTO member (tribe_id, father_id, name, gender, fullname) VALUES ('$main_tribe_id', '$father_id', '$name', '$gender', '$member_fullname')");
-	$member_id = mysql_insert_id();
+	
+	$insert_member_query = $dbh->prepare("INSERT INTO member (tribe_id, father_id, name, gender, fullname) VALUES (:main_tribe_id, :father_id, :name, :gender, :member_fullname)");
+	
+	$insert_member_query->bindParam(":main_tribe_id", $main_tribe_id);
+	$insert_member_query->bindParam(":father_id", $father_id);
+	$insert_member_query->bindParam(":name", $name);
+	$insert_member_query->bindParam(":gender", $gender);
+	$insert_member_query->bindParam(":member_fullname", $member_fullname);
+
+	// Execute the query.
+	$insert_member_query->execute();
+
+	// Get the last inserted id.
+	$member_id = $dbh->lastInsertId();
 	
 	// And, insert a new user.
-	$insert_user_query = mysql_query("INSERT INTO user (member_id, username) VALUES ('$member_id', '$name{$member_id}')");
+	$insert_user_query = $dbh->prepare("INSERT INTO user (member_id, username) VALUES (:member_id, :username)");
+
+	$username = "{$name}{$member_id}";
+
+	$insert_user_query->bindParam(":member_id", $member_id);
+	$insert_user_query->bindParam(":username", $username);
+
+	$insert_user_query->execute();
 }
 
 // private

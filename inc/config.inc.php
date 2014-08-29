@@ -7,17 +7,17 @@ define("database_password", "secret");
 define("database_name", "sidrah");
 
 // SMS
-define("sms_username", "a");
-define("sms_password", "a");
-define("sms_sender", "a");
-define("sms_delete_key", "17631");
+define("sms_username", "1");
+define("sms_password", "1");
+define("sms_sender", "1");
+define("sms_delete_key", "53530");
 
 // Tribe
 define("main_tribe_name", "العائلة");
 define("main_tribe_id", "1");
 
 // Salt
-define("familytree_salt", "l3Bx3Qb1Zz9Yv5Qj7Gu3Dm2Eo9Rw9Ia4Qc3Vs3Wr3Tp1Gg5Wn3Cq8Gu4Bm2Yv3Gl");
+define("sidrah_salt", "F0rE0gT9wC1wN7gI2oA0hA7fL0qR9iU1gM3dS1bP2cL7sR0vG0uO0mT5lJ2jS9lY");
 
 // Url
 define("script_url", "http://sidrah.local");
@@ -30,7 +30,7 @@ define("user_max_length", "40");
 define("member_min_names", "4");
 
 // Stage
-define("family_tree_stage", "family_initialization");
+define("sidrah_stage", "launch");
 
 // Upload
 define("media_max_size", "6144");

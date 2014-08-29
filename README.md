@@ -13,6 +13,11 @@ TODO:
 9. Consider changing global.
 10. Consider dealing with composer.
 11. Consider removing un-necc. files.
+12. Consider having the mobile field as a string started with the international code.
+13. Consider running so many tests and security checks.
+14. There are issues when redirecting in install.php.
+16. Indian numbers has some issues.
+17. Replace every family tree to sidrah.
 
 A family tree web application that has been created using PHP and uses MySQL as a database engine.
 
