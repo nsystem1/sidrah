@@ -25,7 +25,6 @@ if (!empty($submit))
 	else
 	{
 		$hashed_password = sha1_salt($password);
-		echo $hashed_password;
 		
 		$select_user_query = $dbh->prepare("SELECT * FROM user WHERE username = :username AND password = :hashed_password");
 		
@@ -44,10 +43,17 @@ if (!empty($submit))
 			return;
 		}
 	}
-	
+
 	$cookie_time = time()+21600;
 	$user = $select_user_query->fetch(PDO::FETCH_ASSOC);
 	$member = get_member_id($user["member_id"]);
+
+	// Check if the user has no related member.
+	if ($member == false)
+	{
+		echo error_message("لا يُمكن تسجيل الدخول بهذا المستخدم لعدم ارتباطه بفردٍ من الأفراد، الرجاء تسجيل الدخول بمستخدمٍ آخر.");
+		return;
+	}
 
 	// Save the cookie of the user information.
 	setcookie("sidrah_username", $user["username"], $cookie_time);
@@ -55,9 +61,14 @@ if (!empty($submit))
 		
 	// Update the last login time.
 	$now = time();
-	
-	$update_last_login_query = mysql_query("UPDATE user SET last_login_time = '$now' WHERE id = '$user[id]'");
-	
+
+	$update_last_login_query = $dbh->prepare("UPDATE user SET last_login_time = :now WHERE id = :user_id");
+
+	$update_last_login_query->bindParam(":now", $now);
+	$update_last_login_query->bindParam(":user_id", $user["id"]);
+
+	$update_last_login_query->execute();
+
 	if (!empty($url))
 	{
 		$redirect = $url;

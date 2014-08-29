@@ -1924,12 +1924,17 @@ function get_wife_id($wife_id)
 // public
 function get_member_id($member_id, $condition = "")
 {
-	$condition_query = (!empty($condition)) ? "AND $condition" : "";
-	$get_member_id_query = mysql_query("SELECT * FROM member WHERE id = '$member_id' $condition_query");
+	global $dbh;
 
-	if (mysql_num_rows($get_member_id_query) > 0)
+	$condition_query = (!empty($condition)) ? "AND $condition" : "";
+
+	$get_member_id_query = $dbh->prepare("SELECT * FROM member WHERE id = :member_id $condition_query");
+	$get_member_id_query->bindParam(":member_id", $member_id);
+	$get_member_id_query->execute();
+
+	if ($get_member_id_query->rowCount() > 0)
 	{
-		$one_member = mysql_fetch_array($get_member_id_query);
+		$one_member = $get_member_id_query->fetch(PDO::FETCH_ASSOC);
 		return $one_member;
 	}
 	
