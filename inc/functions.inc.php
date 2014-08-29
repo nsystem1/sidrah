@@ -31,10 +31,12 @@ function database_connect()
 {
 	global $dbh;
 
-	$database_link = @mysql_connect(database_server, database_username, database_password);
-	$database_connect = @mysql_select_db(database_name, $database_link);
+	$database_server = database_server;
+	$database_name = database_name;
 
-	return $database_connect;
+	$dbh = new PDO("mysql:host=${database_server};dbname=${database_name}", $db_username, $db_password);
+
+	return $dbh;
 }
 
 function redirect($page)
