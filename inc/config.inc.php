@@ -10,14 +10,14 @@ define("database_name", "sidrah");
 define("sms_username", "1");
 define("sms_password", "1");
 define("sms_sender", "1");
-define("sms_delete_key", "48570");
+define("sms_delete_key", "69554");
 
 // Tribe
 define("main_tribe_name", "العائلة");
 define("main_tribe_id", "1");
 
 // Salt
-define("sidrah_salt", "U3jE1lH8pY6vC1tW6nX0bM3cU1pM0lX8sG0sR3lH2bC3dW2qJ1oK6vN4wC9vN8pG");
+define("sidrah_salt", "Y0uV4rY3cB2dZ3lC0bG9wG2vU0hH4eR3dM2lE1tG2xK2eV3dW5yT8bO6aV8kZ5rD");
 
 // Url
 define("script_url", "http://sidrah.local");

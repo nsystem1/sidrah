@@ -1,5 +1,7 @@
 ![alt Sidrah](sidrah.png "Sidrah")
 
+A family tree web application that has been created using PHP and uses MySQL as a database engine.
+
 TODO:
 =======
 1. Change some names into global variables (or constants).
@@ -18,8 +20,7 @@ TODO:
 14. There are issues when redirecting in install.php.
 16. Indian numbers has some issues.
 17. Replace every family tree to sidrah.
-
-A family tree web application that has been created using PHP and uses MySQL as a database engine.
+18. Checking the MySQL encoding.
 
 Requirements:
 =======

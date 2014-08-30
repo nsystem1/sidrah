@@ -46,7 +46,7 @@ function redirect($page)
 
 function redirect_to_login()
 {
-	$current_url = "http://" . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+	$current_url = "http://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 	redirect("login.php?url=" . urlencode($current_url));
 }
 
