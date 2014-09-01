@@ -1874,11 +1874,13 @@ function get_wives($member_id, $output = "array")
 	$wives_array = array();
 	$wives_hash = array();
 	
-	$get_wives_query = mysql_query("SELECT married.wife_id as wife_id, married.husband_id as husband_id, married.marital_status as ms FROM member, married WHERE (married.husband_id = member.id) AND married.husband_id = '$member_id' ORDER BY married.id DESC");
-	
-	if (mysql_num_rows($get_wives_query) > 0)
+	$get_wives_query = $dbh->prepare("SELECT married.wife_id as wife_id, married.husband_id as husband_id, married.marital_status as ms FROM member, married WHERE (married.husband_id = member.id) AND married.husband_id = :member_id ORDER BY married.id DESC");
+	$get_wives_query->bindParam(":member_id", $member_id);
+	$get_wives_query->execute();
+
+	if ($get_wives_query->rowCount() > 0)
 	{
-		while ($wife = mysql_fetch_array($get_wives_query))
+		while ($wife = $get_wives_query->fetch(FETCH_ASSOC))
 		{
 			$one_wife = get_wife_id($wife["wife_id"]);
 			
