@@ -515,6 +515,275 @@ if (!empty($submit))
 }
 else
 {
-	throw Exception("This feature is not yet implemented.");
+	// --------------------------------------------------
+	// BASIC INFORMATION
+	// --------------------------------------------------
+	$mobile = $member["mobile"];
+	$location = $member["location"];
+	$pob = $member["pob"];
+	$education = $member["education"];
+	$major = $member["major"];
+	$job_title = $member["job_title"];
+	
+	// --------------------------------------------------
+	// MOTHER
+	// --------------------------------------------------
+	$mothers = get_mothers($member["id"]);
+	$mother_info = get_member_id($member["mother_id"]);
+	$mother_name = ($mother_info) ? $mother_info["fullname"] : "";
+
+	// --------------------------------------------------
+	// ALREADY WIVIES
+	// --------------------------------------------------
+	$wives = get_wives($member["id"]);
+	$already_wives = get_wives($member["id"], "hash");
+
+	// --------------------------------------------------
+	// SONS
+	// --------------------------------------------------
+	$sons = get_sons($member["id"]);
+
+	// --------------------------------------------------
+	// DAUGHTERS
+	// --------------------------------------------------
+	$daughters = get_daughters($member["id"]);
+
+	// --------------------------------------------------
+	// COMPANY NAME
+	// --------------------------------------------------
+	$company_name = get_company_name($member["company_id"]);
+
+	// --------------------------------------------------
+	// JS ON LOAD, MOTHERS OPTION	
+	// --------------------------------------------------
+	$js_on_load = "";
+	
+	// Update marital status.
+	$js_on_load .= sprintf("update_marital_status(%d); ", $member["marital_status"]);
+	$js_on_load .= sprintf("update_is_alive(%d); ", $member["is_alive"]);
+
+	// If there is any son.
+	if (count($sons) > 0)
+	{
+		foreach ($sons as $son)
+		{
+			list($dob_y, $dob_m, $dob_d) = sscanf($son["dob"], "%d-%d-%d");
+		
+			$js_on_load .= sprintf("update_son_mom_id(%d, %d); ", $son["id"], $son["mother_id"]);
+			$js_on_load .= sprintf("update_son_is_alive(%d, %d); ", $son["id"], $son["is_alive"]);
+			$js_on_load .= sprintf("update_son_dob_d(%d, %d); ", $son["id"], $dob_d);
+			$js_on_load .= sprintf("update_son_dob_m(%d, %d); ", $son["id"], $dob_m);
+		}
+	}
+	
+	// If there is any daughter.
+	if (count($daughters) > 0)
+	{
+		foreach ($daughters as $daughter)
+		{
+			list($dob_y, $dob_m, $dob_d) = sscanf($daughter["dob"], "%d-%d-%d");
+	
+			$js_on_load .= sprintf("update_daughter_mom_id(%d, %d); ", $daughter["id"], $daughter["mother_id"]);
+			$js_on_load .= sprintf("update_daughter_is_alive(%d, %d); ", $daughter["id"], $daughter["is_alive"]);
+			$js_on_load .= sprintf("update_daughter_marital_status(%d, %d); ", $daughter["id"], $daughter["marital_status"]);
+			$js_on_load .= sprintf("daughter_husband_toggle('daughter_marital_status[%d]'); ", $daughter["id"]);
+			$js_on_load .= sprintf("update_daughter_dob_d(%d, %d); ", $daughter["id"], $dob_d);
+			$js_on_load .= sprintf("update_daughter_dob_m(%d, %d); ", $daughter["id"], $dob_m);
+		}
+	}
+	
+	// If there is any wife.
+	if (count($wives) > 0)
+	{
+		foreach ($wives as $wife)
+		{
+			$js_on_load .= sprintf("update_wife_marital_status(%d, %d); ", $wife["id"], $wife["ms_int"]);
+			$js_on_load .= sprintf("update_wife_is_alive(%d, %d); ", $wife["id"], $wife["is_alive"]);
+		}
+	}
+	
+	// If there is any mother.
+	if (count($mothers) > 0)
+	{
+		foreach ($mothers as $mother)
+		{
+			if ($mother["id"] == $member["mother_id"])
+			{
+				$js_on_load .= "update_mother_ms($mother[ms_int]); ";
+				$js_on_load .= "update_mother_is_alive($mother[is_alive]); ";
+			}
+		}
+	}
+	
+	// --------------------------------------------------
+	// WIVES
+	// --------------------------------------------------
+	$wives_html = "";
+
+	if (count($wives) > 0)
+	{
+		$wives_html = "<h5 class='subheader'>تحديث الزوجات (" . count($wives) . ")</h5><div id='update_wives' class='row'><div class='large-12 columns'>";
+
+		foreach ($wives as $wife)
+		{
+			$wives_html .= "<div class='row'>";
+			$wives_html .= "<div class='large-8 columns'><input class='wife' type='hidden' name='wife[$wife[id]]' value='$wife[fullname]' /><label class='partnername'><a href='update_profile_female.php?id=$wife[id]'>$wife[fullname]</a></label></div>";
+			$wives_html .= "<div class='large-2 small-6 columns'><select id='wife_marital_status_$wife[id]' name='wife_marital_status[$wife[id]]'><option value='2'>زوجة</option><option value='3'>طليقة</option></select></div>";
+			$wives_html .= "<div class='large-2 small-6 columns'><select id='wife_is_alive_$wife[id]' name='wife_is_alive[$wife[id]]'><option value='1'>حيّة ترزق</option><option value='0'>متوفّاة</option></select></div>";
+			$wives_html .= "</div>";
+		}
+
+		$wives_html .= "</div></div>";
+	}
+
+	// --------------------------------------------------
+	// SONS
+	// --------------------------------------------------
+	$sons_html = "";
+	
+	if (count($sons) > 0)
+	{
+		$updated_sons_count = count($sons);
+	
+		$sons_html = "<h5 class='subheader'>تحديث الأبناء ($updated_sons_count)</h5><div id='update_sons' class='row'><div class='large-12 columns'>";
+
+		foreach ($sons as $son)
+		{
+			list($dob_y, $dob_m, $dob_d) = sscanf($son["dob"], "%d-%d-%d");
+			$dob_y = lz($dob_y, 4);
+
+			if ($dob_y == "0000")
+			{
+				$dob_y = "";
+			}
+		
+			if ($son["mobile"] == 0)
+			{
+				$son["mobile"] = "";
+			}
+
+			$sons_html .= "<label>الابن</label><div class='row'>";
+			$sons_html .= "<div class='large-4 small-4 columns'><input class='childname childnamein' type='hidden' name='son[$son[id]]' value='$son[name]' /><a href='update_profile_male.php?id=$son[id]'>$son[name]</a></div>";
+			$sons_html .= "<div class='large-2 small-2 columns'><select name='son_is_alive[$son[id]]' id='son_is_alive_$son[id]'><option value='1'>حيّ يرزق</option><option value='0'>متوفّى</option></select></div>";
+			$sons_html .= "<div class='large-6 small-6 columns'><select class='moms' name='son_mom[$son[id]]' id='son_mom_id_$son[id]'></select></div></div>";
+			$sons_html .= "<div class='row'><div class='large-6 small-6 columns'><input type='text' placeholder='رقم الجوّال' name='son_mobile[$son[id]]' value='$son[mobile]' size='8' /></div>";
+			$sons_html .= "<div class='large-2 small-2 columns'><select name='son_dob_d[$son[id]]' id='son_dob_d_$son[id]'><option value='0'></option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option><option value='21'>21</option><option value='22'>22</option><option value='23'>23</option><option value='24'>24</option><option value='25'>25</option><option value='26'>26</option><option value='27'>27</option><option value='28'>28</option><option value='29'>29</option><option value='30'>30</option></select></div>";
+			$sons_html .= "<div class='large-2 small-2 columns'><select name='son_dob_m[$son[id]]' id='son_dob_m_$son[id]'><option value='0'></option><option value='1'>محرم</option><option value='2'>صفر</option><option value='3'>ربيع الأول</option><option value='4'>ربيع الثاني</option><option value='5'>جمادى الأولى</option><option value='6'>جمادى الثانية</option><option value='7'>رجب</option><option value='8'>شعبان</option><option value='9'>رمضان</option><option value='10'>شوال</option><option value='11'>ذو القعدة</option><option value='12'>ذو الحجة</option></select></div>";
+			$sons_html .= "<div class='large-2 small-2 columns'><input type='text' placeholder='0000' name='son_dob_y[$son[id]]' size='2' value='$dob_y'/></div>\n";
+			$sons_html .= "</div>";
+		}
+
+			$sons_html .= "</div></div>";
+	}
+	
+	// --------------------------------------------------
+	// DAUGHTERS
+	// --------------------------------------------------
+	$daughters_html = "";
+	
+	if (count($daughters) > 0)
+	{
+		$updated_daughters_count = count($daughters);
+	
+		$daughters_html = "<h5 class='subheader'>تحديث البنات ($updated_daughters_count)</h5><div id='updated_daughters' class='row'><div class='large-12 columns'>";
+	
+		foreach ($daughters as $daughter)
+		{
+			list($dob_y, $dob_m, $dob_d) = sscanf($daughter["dob"], "%d-%d-%d");
+			$dob_y = lz($dob_y, 4);
+		
+			if ($dob_y == "0000")
+			{
+				$dob_y = "";
+			}
+		
+			if ($daughter["mobile"] == 0)
+			{
+				$daughter["mobile"] = "";
+			}
+	
+			$daughters_html .= "<label>البنت</label><div class='row'>";
+			$daughters_html .= "<div class='large-2 small-2 columns'><input class='childname childnamein' type='hidden' name='daughter[$daughter[id]]' value='$daughter[name]' /><a href='update_profile_female.php?id=$daughter[id]'>$daughter[name]</a></div>";
+			$daughters_html .= "<div class='large-2 small-2 columns'><select name='daughter_is_alive[$daughter[id]]' id='daughter_is_alive_$daughter[id]'><option value='1'>حيّة ترزق</option><option value='0'>متوفّاة</option></select></div>";
+			$daughters_html .= "<div class='large-1 small-1 columns'><select name='daughter_dob_d[$daughter[id]]' id='daughter_dob_d_$daughter[id]'><option value='0'></option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option><option value='6'>6</option><option value='7'>7</option><option value='8'>8</option><option value='9'>9</option><option value='10'>10</option><option value='11'>11</option><option value='12'>12</option><option value='13'>13</option><option value='14'>14</option><option value='15'>15</option><option value='16'>16</option><option value='17'>17</option><option value='18'>18</option><option value='19'>19</option><option value='20'>20</option><option value='21'>21</option><option value='22'>22</option><option value='23'>23</option><option value='24'>24</option><option value='25'>25</option><option value='26'>26</option><option value='27'>27</option><option value='28'>28</option><option value='29'>29</option><option value='30'>30</option></select></div>";
+			$daughters_html .= "<div class='large-1 small-1 columns'><select name='daughter_dob_m[$daughter[id]]' id='daughter_dob_m_$daughter[id]'><option value='0'></option><option value='1'>محرم</option><option value='2'>صفر</option><option value='3'>ربيع الأول</option><option value='4'>ربيع الثاني</option><option value='5'>جمادى الأولى</option><option value='6'>جمادى الثانية</option><option value='7'>رجب</option><option value='8'>شعبان</option><option value='9'>رمضان</option><option value='10'>شوال</option><option value='11'>ذو القعدة</option><option value='12'>ذو الحجة</option></select></div>";
+			$daughters_html .= "<div class='large-1 small-1 columns'><input type='text' placeholder='0000' name='daughter_dob_y[$daughter[id]]' size='2' value='$dob_y'/></div>";
+			$daughters_html .= "<div class='large-5 small-5 columns'><select class='moms' name='daughter_mom[$daughter[id]]' id='daughter_mom_id_$daughter[id]'></select></div></div>";
+			$daughters_html .= "<div class='row'><div class='large-4 small-4 columns'><input type='text' placeholder='رقم الجوّال' value='$daughter[mobile]' name='daughter_mobile[$daughter[id]]' size='8' /></div>";
+			$daughters_html .= "<div class='large-3 small-3 columns'><select id='dm_$daughter[id]' name='daughter_marital_status[$daughter[id]]' onchange='daughter_husband_toggle(this.name)' class='daughter_ms_select'><option value='1'>عزباء</option><option value='2'>متزوجة</option><option value='3'>طليقة</option><option value='4'>أرملة</option></select></div>";
+			$daughters_html .= "<div class='large-5 small-5 columns'><input type='text' class='sidrah-daughter-husband-autocomplete' id='daughter_husband_$daughter[id]' name='daughter_husband_name[$daughter[id]]' placeholder='اسم الزوج (رباعي)' value='$daughter[husband_name]' /></div>";
+			$daughters_html .= "</div>";
+		}
+		
+		//
+	
+		$daughters_html .= "</div></div>";
+	}
+
+	// --------------------------------------------------
+	// DATE OF BIRTH
+	// --------------------------------------------------
+	$date_of_birth = sscanf($member["dob"], "%d-%d-%d");
+	
+	$dob_y = lz($date_of_birth[0], 4);
+	$dob_m = $date_of_birth[1];
+	$dob_d = $date_of_birth[2];
+
+	if ($dob_y == "0000")
+	{
+		$dob_y = "";
+	}
+
+	// --------------------------------------------------
+	// DATE OF DEATH
+	// --------------------------------------------------
+	$date_of_death = sscanf($member["dod"], "%d-%d-%d");
+	
+	$dod_y = lz($date_of_death[0], 4);
+	$dod_m = $date_of_death[1];
+	$dod_d = $date_of_death[2];
+	
+	if ($dod_y == "0000")
+	{
+		$dod_y = "";
+	}
+	
+
+	// Get the header
+	$header = website_header(
+		"تحديث المعلومات الأساسية للعضو $member[fullname]",
+		"صفحة من أجل تحديث المعلومات الأساسية للعضو $member[fullname]",
+		array(
+			"عائلة", "الزغيبي", "شجرة", "تحديث", "معلومات", "العضو"
+		)
+	);
+
+	// Get the footer.
+	$footer = website_footer();
+
+	// --------------------------------------------------
+	// TEMPLATE
+	// --------------------------------------------------
+	$template = template(
+		"views/update_member_male.html", 
+		array(
+			"js_on_load" => $js_on_load,
+			"fullname" => $member["fullname"], "mother_name" => $mother_name,
+			"member_id" => $member["id"], "suggested_mothers" => $suggested_mothers,
+			"mobile" => $mobile, "location" => $location,
+			"dob_y" => $dob_y, "dob_m" => $dob_m, "dob_d" => $dob_d,
+			"dod_y" => $dod_y, "dod_m" => $dod_m, "dod_d" => $dod_d,
+			"pob" => $pob, "education" => $education,
+			"major" => $major, "company_name" => $company_name,
+			"job_title" => $job_title, "already_wives" => $already_wives,
+			"wives_html" => $wives_html, "sons_html" => $sons_html, "daughters_html" => $daughters_html,
+			"wife_index" => $wife_index, "son_index" => $son_index, "daughter_index" => $daughter_index,
+			"qkey" => $qkey
+		)
+	);
+	
+	echo $header;
+	echo $template;
+	echo $footer;
 }
 

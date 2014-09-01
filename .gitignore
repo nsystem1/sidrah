@@ -1,2 +1,4 @@
 inc/config.inc.php
 logs/*
+.DS_Store
+Thumbs.db
