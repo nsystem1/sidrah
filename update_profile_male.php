@@ -516,6 +516,15 @@ if (!empty($submit))
 else
 {
 	// --------------------------------------------------
+	// COMMON
+	// --------------------------------------------------
+	$suggested_mothers = get_mothers($member["id"], "list");
+	
+	$wife_index = -1;
+	$son_index = -1;
+	$daughter_index = -1;
+
+	// --------------------------------------------------
 	// BASIC INFORMATION
 	// --------------------------------------------------
 	$mobile = $member["mobile"];
