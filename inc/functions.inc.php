@@ -2823,6 +2823,8 @@ function string_to_unicode($string)
 // public
 function get_request_update_notifications()
 {
+	global $dbh;
+
 	$user = user_information();
 	$assigned_to_query = "";
 	
@@ -2832,11 +2834,19 @@ function get_request_update_notifications()
 	}
 	else
 	{
-		$assigned_to_query = "AND assigned_to = '$user[id]'";
+		$assigned_to_query = "AND assigned_to = :user_id";
 	}
 	
-	$get_pending_request = mysql_query("SELECT count(id) AS requests FROM request WHERE status = 'pending' $assigned_to_query");
-	$pending_request = mysql_fetch_array($get_pending_request);
+	$get_pending_request = $dbh->prepare("SELECT count(id) AS requests FROM request WHERE status = 'pending' $assigned_to_query");
+	
+	if (!empty($assigned_to_query))
+	{
+		$get_pending_request->bindParam(":user_id", $user["id"]);
+	}
+
+	$get_pending_request->execute();
+
+	$pending_request = $get_pending_request->fetch(PDO::FETCH_ASSOC);
 	
 	// Returns, number of requests.
 	return $pending_request["requests"];
