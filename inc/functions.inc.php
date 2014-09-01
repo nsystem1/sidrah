@@ -151,9 +151,13 @@ function get_member_children_json($tribe_id = main_tribe_id, $father_id = -1, $u
 // public
 function get_sons($id, $of = "father")
 {
-	$get_sons_query = mysql_query("SELECT * FROM member WHERE gender = '1' AND {$of}_id = '$id'");
+	global $dbh;
+
+	$get_sons_query = $dbh->prepare("SELECT * FROM member WHERE gender = 1 AND {$of}_id = :id");
+	$get_sons_query->bindParam(":id", $id);
+	$get_sons_query->execute();
 	
-	if (mysql_num_rows($get_sons_query) == 0)
+	if ($get_sons_query->rowCount() == 0)
 	{
 		return array();
 	}
@@ -161,7 +165,7 @@ function get_sons($id, $of = "father")
 	{
 		$sons = array();
 		
-		while ($son = mysql_fetch_array($get_sons_query))
+		while ($son = $get_sons_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$sons []= array(
 				"id" => $son["id"], "name" => $son["name"], "mother_id" => $son["mother_id"], "father_id" => $son["father_id"],
