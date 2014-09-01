@@ -1965,12 +1965,19 @@ function get_member_id($member_id, $condition = "")
 // public
 function get_user_id($user_id, $condition = "")
 {
-	$condition_query = (!empty($condition)) ? "AND $condition" : "";
-	$get_user_id_query = mysql_query("SELECT user.id as id, user.username as username, user.usergroup as usergroup, member.fullname as fullname, member.name as name, member.id as member_id, user.assigned_root_id as assigned_root_id FROM user, member WHERE user.member_id = member.id AND user.id = '$user_id' $condition_query");
+	global $dbh;
 
-	if (mysql_num_rows($get_user_id_query) > 0)
+	$condition_query = (!empty($condition)) ? "AND $condition" : "";
+
+	// TODO: The variable $condition_query could cause some issues because it is not escaping.
+	
+	$get_user_id_query = $dbh->prepare("SELECT user.id as id, user.username as username, user.usergroup as usergroup, member.fullname as fullname, member.name as name, member.id as member_id, user.assigned_root_id as assigned_root_id FROM user, member WHERE user.member_id = member.id AND user.id = :user_id $condition_query");
+	$get_user_id_query->bindParam(":user_id", $user_id);
+	$get_user_id_query->execute();
+
+	if ($get_user_id_query->rowCount() > 0)
 	{
-		$one_user = mysql_fetch_array($get_user_id_query);
+		$one_user = $get_user_id_query->fetch(PDO::FETCH_ASSOC);
 		return $one_user;
 	}
 	
