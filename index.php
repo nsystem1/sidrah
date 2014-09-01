@@ -36,8 +36,12 @@ else
 	$now_date_int = $current_hijri_day + ($current_hijri_month*29) + ($current_hijri_year*355);
 		
 	// Get the current events.
-	$get_current_events_query = mysql_query("SELECT * FROM event WHERE (day + month*29 + year*355) = $now_date_int ORDER BY id DESC LIMIT $events_limit");
-	$current_events_count = mysql_num_rows($get_current_events_query);
+	$get_current_events_query = $dbh->prepare("SELECT * FROM event WHERE (day + month*29 + year*355) = :now_date_int ORDER BY id DESC LIMIT :events_limit");
+	$get_current_events_query->bindParam(":now_date_int", $now_date_int);
+	$get_current_events_query->bindParam(":events_limit", $events_limit);
+	$get_current_events_query->execute();
+
+	$current_events_count = $get_current_events_query->rowCount();
 		
 	if ($current_events_count == 0)
 	{
@@ -47,7 +51,7 @@ else
 	{
 		$current_events = "<ul>";
 		
-		while ($current_event = mysql_fetch_array($get_current_events_query))
+		while ($current_event = $get_current_events_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$current_events .= "<li><a href='calendar.php?action=view_event&id=$current_event[id]' class='whitelink'>$current_event[title]</a> <span class='datetime'>(في $current_event[day]/$current_event[month]/$current_event[year])</span></li>";
 		}
@@ -56,8 +60,14 @@ else
 	}
 	
 	// Get the future events.
-	$get_future_events_query = mysql_query("SELECT * FROM event WHERE (day + month*29 + year*355) > $now_date_int ORDER BY id DESC LIMIT $events_limit");
-	$future_events_count = mysql_num_rows($get_future_events_query);
+	$get_future_events_query = $dbh->prepare("SELECT * FROM event WHERE (day + month*29 + year*355) > :now_date_int ORDER BY id DESC LIMIT :events_limit");
+	
+	$get_future_events_query->bindParam(":now_date_int", $now_date_int);
+	$get_future_events_query->bindParam(":events_limit", $events_limit);
+	
+	$get_future_events_query->execute();
+
+	$future_events_count = $get_future_events_query->rowCount();
 	
 	if ($future_events_count == 0)
 	{
@@ -67,7 +77,7 @@ else
 	{
 		$future_events = "<ul>";
 		
-		while ($future_event = mysql_fetch_array($get_future_events_query))
+		while ($future_event = $get_future_events_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$future_events .= "<li><a href='calendar.php?action=view_event&id=$future_event[id]' class='whitelink'>$future_event[title]</a> <span class='datetime'>(في $future_event[day]/$future_event[month]/$future_event[year])</span></li>";
 		}
