@@ -1785,14 +1785,18 @@ function update_member_age($member_id, $age)
 // public [array|hash]
 function get_mothers($member_id, $output = "array")
 {
+	global $dbh;
+
 	$mothers_array = array();
 	$mothers_hash = "";
 	
-	$get_member_query = mysql_query("SELECT father_id FROM member WHERE id = '$member_id'");
-	
-	if (mysql_num_rows($get_member_query) > 0)
+	$get_member_query = $dbh->prepare("SELECT father_id FROM member WHERE id = :member_id");
+	$get_member_query->bindParam(":member_id", $member_id);
+	$get_member_query->execute();
+
+	if ($get_member_query->rowCount() > 0)
 	{
-		$member = mysql_fetch_array($get_member_query);
+		$member = $get_member_query->fetch(PDO::FETCH_ASSOC);
 		
 		if ($output == "array")
 		{
@@ -1865,6 +1869,8 @@ function get_husbands($member_id, $output = "array")
 // public [array|hash]
 function get_wives($member_id, $output = "array")
 {
+	global $dbh;
+
 	$wives_array = array();
 	$wives_hash = array();
 	
