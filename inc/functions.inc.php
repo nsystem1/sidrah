@@ -4790,6 +4790,8 @@ function create_member_card($member_id, $colors = array(), $direction = "horizon
 
 function media($event_id = -1)
 {
+	global $dbh;
+
 	// Get the information of the user.
 	$user = user_information();
 	$media_is_event = 0;
@@ -4815,13 +4817,22 @@ function media($event_id = -1)
 	}
 	
 	// Get the related medias.
-	$event_condition = ($event_id == -1) ? "" : "WHERE event_id = '$event_id'";
-	$get_medias_query = mysql_query("SELECT * FROM media $event_condition ORDER BY created DESC");
+	$event_condition = ($event_id == -1) ? "" : "WHERE event_id = :event_id";
+	
+	$get_medias_query = $dbh->prepare("SELECT * FROM media $event_condition ORDER BY created DESC");
+	
+	if (!empty($event_condition))
+	{
+		$get_medias_query->bindParam(":event_id", $event_id);
+	}
+	
+	$get_medias_query->execute();
+
 	$medias = "";
 
-	if (mysql_num_rows($get_medias_query) > 0)
+	if ($get_medias_query->rowCount() > 0)
 	{
-		while ($media = mysql_fetch_array($get_medias_query))
+		while ($media = $get_medias_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$medias .= "<a href='media.php?action=view_media&id=$media[id]'><img src='views/medias/photos/thumb/$media[name]' title='$media[title]' /></a> ";
 		}
