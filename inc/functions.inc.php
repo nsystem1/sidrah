@@ -180,9 +180,13 @@ function get_sons($id, $of = "father")
 // public
 function get_daughters($id, $of = "father")
 {
-	$get_daughters_query = mysql_query("SELECT * FROM member WHERE gender = '0' AND {$of}_id = '$id'");
+	global $dbh;
+
+	$get_daughters_query = $dbh->prepare("SELECT * FROM member WHERE gender = 0 AND {$of}_id = :id");
+	$get_daughters_query->bindParam(":id", $id);
+	$get_daughters_query->execute();
 	
-	if (mysql_num_rows($get_daughters_query) == 0)
+	if ($get_daughters_query->rowCount() == 0)
 	{
 		return array();
 	}
@@ -190,7 +194,7 @@ function get_daughters($id, $of = "father")
 	{
 		$daughters = array();
 		
-		while ($daughter = mysql_fetch_array($get_daughters_query))
+		while ($daughter = $get_daughters_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$husband_name = "";
 
