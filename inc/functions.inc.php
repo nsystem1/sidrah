@@ -2862,12 +2862,15 @@ function get_request_update_notifications()
 // public
 function get_notifications()
 {
-	
+	global $dbh;
 
 	$user = user_information();
 
-	$get_notifications = mysql_query("SELECT count(id) AS notifications FROM notification WHERE user_id = '$user[id]' AND is_read = '0'");
-	$updates_notifications = mysql_fetch_array($get_notifications);
+	$get_notifications = $dbh->prepare("SELECT count(id) AS notifications FROM notification WHERE user_id = :user_id AND is_read = 0");
+	$get_notifications->bindParam(":user_id", $user["id"]);
+	$get_notifications->execute();
+
+	$updates_notifications = $get_notifications->fetch(PDO::FETCH_ASSOC);
 	
 	// Returns, number of requests.
 	return $updates_notifications["notifications"];
