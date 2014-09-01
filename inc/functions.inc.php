@@ -218,6 +218,7 @@ function get_daughters($id, $of = "father")
 // public
 function user_information()
 {
+	global $dbh;
 	
 	// COOKIE
 	if (!isset($_COOKIE["sidrah_username"]) && !isset($_COOKIE["sidrah_password"]))
@@ -226,19 +227,24 @@ function user_information()
 	}
 
 	// Escape the data, someone might attack server.
-	$cookie_username = mysql_real_escape_string($_COOKIE["sidrah_username"]);
-	$cookie_password = mysql_real_escape_string($_COOKIE["sidrah_password"]);
+	$cookie_username = $_COOKIE["sidrah_username"];
+	$cookie_password = $_COOKIE["sidrah_password"];
 
 	// Otherwise, there is information.
-	$get_user_info_query = mysql_query("SELECT * FROM user WHERE username = '$cookie_username' AND password = '$cookie_password'");
+	$get_user_info_query = $dbh->prepare("SELECT * FROM user WHERE username = :cookie_username AND password = :cookie_password");
+
+	$get_user_info_query->bindParam(":cookie_username", $cookie_username);
+	$get_user_info_query->bindParam(":cookie_password", $cookie_password);
+
+	$get_user_info_query->execute();
 	
-	if (mysql_num_rows($get_user_info_query) == 0)
+	if ($get_user_info_query->rowCount() == 0)
 	{
 		return array("group" => "visitor");
 	}
 	else
 	{
-		$user = mysql_fetch_array($get_user_info_query);
+		$user = $get_user_info_query->fetch(PDO::FETCH_ASSOC);
 
 		return array(
 			"id" => $user["id"],
@@ -246,8 +252,7 @@ function user_information()
 			"password" => $user["password"],
 			"group" => $user["usergroup"],
 			"member_id" => $user["member_id"],
-			"first_login" => $user["first_login"],
-			"twitter_userid" => $user["twitter_userid"]
+			"first_login" => $user["first_login"]
 		);
 	}
 }
@@ -3046,17 +3051,6 @@ function logged_in_box()
 		}
 
 		$notifications = get_all_notifications();
-		
-		// Check if the user is not connected with Twitter.
-		if (empty($user["twitter_userid"]))
-		{
-			$callback = "twitter.php?action=link";
-			$cockpit .= "<div class='large-3 small-6 columns'><a class='small button large-12 small-12 columns'  href='twitter.php?action=authorize&callback=$callback'>ربط الحساب مع تويتر (@)</a></div>";
-		}
-		else
-		{
-			$cockpit .= "<div class='large-3 small-6 columns'><a class='small button secondary large-12 small-12 columns' href='twitter.php?action=unlink'>إلغاء ربط الحساب مع تويتر (@)</a></div>";
-		}
 
 		// Set the logged template
 		$logged = template(
