@@ -2862,6 +2862,8 @@ function get_request_update_notifications()
 // public
 function get_notifications()
 {
+	
+
 	$user = user_information();
 
 	$get_notifications = mysql_query("SELECT count(id) AS notifications FROM notification WHERE user_id = '$user[id]' AND is_read = '0'");
@@ -2966,6 +2968,8 @@ function get_committees_nominee_congratulations()
 
 function logged_in_box()
 {
+	global $dbh;
+
 	// Get the information of the user.
 	$user = user_information();
 	$url = @$_GET["url"];
@@ -2993,22 +2997,6 @@ function logged_in_box()
 			return;
 		}
 		
-		/* TODO: Uncomment when committees have been released.
-		// Check if there is any committees.
-		$get_committes_member_query = mysql_query("SELECT committee.name AS name, committee.id AS id FROM committee, member_committee WHERE member_committee.committee_id = committee.id AND member_committee.member_id = '$member[id]' AND member_committee.status != 'rejected'")or die(mysql_error());
-		$committees = "";
-		
-		if (mysql_num_rows($get_committes_member_query) > 0)
-		{
-			$committees = '<li class="notice_string">اللجان</li>';
-		
-			while ($committee = mysql_fetch_array($get_committes_member_query))
-			{
-				$committees .= "<li><a href='committees.php?do=view_committee&id=$committee[id]'><i class='icon-flag'></i> $committee[name]</a></li>";
-			}
-		}
-		*/
-		
 		$cockpit = "";
 		
 		// Check if the user is an admin.
@@ -3035,24 +3023,22 @@ function logged_in_box()
 				$related_fullname = "";
 			}
 			
-			$get_inactive_users_query = mysql_query("SELECT count(user.id) as users_count FROM user, member WHERE user.member_id = member.id AND user.first_login = '1' AND member.mobile != '0' AND member.fullname LIKE '%$related_fullname'");
-			$inative_users_fetch = mysql_fetch_array($get_inactive_users_query);
+			// TODO: This has to be fixed.
+			$get_inactive_users_query = $dbh->prepare("SELECT count(user.id) as users_count FROM user, member WHERE user.member_id = member.id AND user.first_login = 1 AND member.mobile != 0 AND member.fullname LIKE ''");
+			//$get_inactive_users_query->bindParam(":related_fullname", "zee", PDO::PARAM_STR);
+			$get_inactive_users_query->execute();
+
+			$inative_users_fetch = $get_inactive_users_query->fetch(PDO::FETCH_ASSOC);
 			$inactive_users_count = $inative_users_fetch["users_count"];
+
 			$cockpit .= "<div class='large-3 small-6 columns'><a class='small secondary button large-12 small-12 columns' href='inactive_users.php'>أعضاء غير فاعلين ($inactive_users_count)</a></div>";
 			
 			if ($user["group"] == "admin")
-			{	
-				/* TODO: Uncomment when committees have been released.
-				// Get the committees.
-				$get_committees_query = mysql_query("SELECT COUNT(id) as committees_count FROM committee");
-				$committees_one = mysql_fetch_array($get_committees_query);
-				$committees_count = $committees_one["committees_count"];
-				$cockpit .= "<li><a href='manage_committees.php'><i class='icon-leaf'></i> إدارة اللجان ($committees_count)</a></li>";
-				*/
-				
+			{
 				// Get the moderators.
-				$get_moderators_query = mysql_query("SELECT COUNT(id) as moderators_count FROM user WHERE usergroup = 'moderator'");
-				$moderators_one = mysql_fetch_array($get_moderators_query);
+				$get_moderators_query = $dbh->prepare("SELECT COUNT(id) as moderators_count FROM user WHERE usergroup = 'moderator'");
+				$get_moderators_query->execute();
+				$moderators_one = $get_moderators_query->fetch(PDO::FETCH_ASSOC);
 				$moderators_count = $moderators_one["moderators_count"];
 				$cockpit .= "<div class='large-3 small-6 columns'><a class='small secondary button large-12 small-12 columns'  href='manage_moderators.php'>إدارة المشرفين ($moderators_count)</a></div>";
 				
@@ -3060,14 +3046,16 @@ function logged_in_box()
 				$cockpit .= "<div class='large-3 small-6 columns'><a class='small secondary button large-12 small-12 columns'  href='manage_family_dean.php'>إدارة عمادة العائلة</a></div>";
 				
 				// Manage the jobs
-				$get_jobs_query = mysql_query("SELECT COUNT(id) as jobs_count FROM job");
-				$jobs_one = mysql_fetch_array($get_jobs_query);
+				$get_jobs_query = $dbh->prepare("SELECT COUNT(id) as jobs_count FROM job");
+				$get_jobs_query->execute();
+				$jobs_one = $get_jobs_query->fetch(PDO::FETCH_ASSOC);
 				$jobs_count = $jobs_one["jobs_count"];
 				$cockpit .= "<div class='large-3 small-6 columns'><a class='small secondary button large-12 small-12 columns'  href='manage_jobs.php'>إدارة الوظائف ($jobs_count)</a></div>";
 				
 				// Get tribes count.
-				$get_tribes_query = mysql_query("SELECT COUNT(id) as tribes_count FROM tribe");
-				$tribes_one = mysql_fetch_array($get_tribes_query);
+				$get_tribes_query = $dbh->prepare("SELECT COUNT(id) as tribes_count FROM tribe");
+				$get_tribes_query->execute();
+				$tribes_one = $get_tribes_query->fetch(PDO::FETCH_ASSOC);
 				$tribes_count = $tribes_one["tribes_count"];
 				
 				$cockpit .= "<div class='large-3 small-6 columns'><a class='small secondary button large-12 small-12 columns'  href='send_sms.php'>إرسال SMS</a></div>";
