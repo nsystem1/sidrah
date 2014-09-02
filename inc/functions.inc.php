@@ -1418,18 +1418,25 @@ function add_child($form, $tribe_id, $name, $father_id, $mother_id, $gender, $is
 // public
 function add_child_to_member($childname, $father_id, $gender = 1)
 {
+	global $dbh;
+
 	$father_info = get_member_id($father_id, "gender = '1'");
 	$child_fullname = "$childname $father_info[fullname]";
 	$tribe_id = $father_info["tribe_id"];
 
 	// Check if the child exists.
-	$get_child_query = mysql_query("SELECT id FROM member WHERE tribe_id = '$tribe_id' AND fullname = '$child_fullname' AND gender = '$gender'");
+	$get_child_query = $dbh->prepare("SELECT id FROM member WHERE tribe_id = :tribe_id AND fullname = :child_fullname AND gender = :gender");
+	$get_child_query->bindParam(":tribe_id", $tribe_id);
+	$get_child_query->bindParam(":child_fullname", $child_fullname);
+	$get_child_query->bindParam(":gender", $gender);
+	$get_child_query->execute();
+
 	$childid = null;
 	
-	if (mysql_num_rows($get_child_query) > 0)
+	if ($get_child_query->rowCount() > 0)
 	{
 		// If the child has been found.
-		$child_info = mysql_fetch_array($get_child_query);
+		$child_info = $get_child_query->fetch(PDO::FETCH_ASSOC);
 		$childid = $child_info["id"];
 	}
 	else
@@ -1438,8 +1445,16 @@ function add_child_to_member($childname, $father_id, $gender = 1)
 	
 		// If the child has (not) been found.
 		// Insert the child, with the fullname too.
-		$insert_child_query = mysql_query("INSERT INTO member (tribe_id, father_id, name, fullname, gender, created) VALUES ('$tribe_id', '$father_info[id]', '$childname', '$child_fullname', '$gender', '$now')");
-		$childid = mysql_insert_id();
+		$insert_child_query = $dbh->prepare("INSERT INTO member (tribe_id, father_id, name, fullname, gender, created) VALUES (:tribe_id, :father_info_id, :childname, :child_fullname, :gender, :now)");
+		$insert_child_query->bindParam(":tribe_id", $tribe_id);
+		$insert_child_query->bindParam("father_info_id", $father_info["id"]);
+		$insert_child_query->bindParam(":childname", $childname);
+		$insert_child_query->bindParam(":child_fullname", $child_fullname);
+		$insert_child_query->bindParam(":gender", $gender);
+		$insert_child_query->bindParam(":now", $now);
+		$insert_child_query->execute();
+
+		$childid = $dbh->lastInsertId();
 	}
 
 	// Send mobile message if man, and has a mobile.
