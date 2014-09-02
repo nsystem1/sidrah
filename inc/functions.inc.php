@@ -1153,6 +1153,8 @@ function add_married($husband_id, $wife_id, $marital_status)
 // public
 function update_husband_marital_status($husband_id)
 {
+	global $dbh;
+
 	$wives = get_wives($husband_id);
 	$is_alive_value = "";
 	
@@ -1170,7 +1172,7 @@ function update_husband_marital_status($husband_id)
 			else if ($wife["ms"] == "widow")
 			{
 				$widow_times++;
-				$is_alive_value = ", is_alive = '0'";
+				$is_alive_value = ", is_alive = 0";
 			}
 		}
 	}
@@ -1185,7 +1187,10 @@ function update_husband_marital_status($husband_id)
 	}
 
 	// Update the marital status of the member to be $marital_status.
-	$update_ms_query = mysql_query("UPDATE member SET marital_status = '$marital_status'$is_alive_value WHERE id = '$husband_id'");
+	$update_ms_query = $dbh->prepare("UPDATE member SET marital_status = :marital_status $is_alive_value WHERE id = :husband_id");
+	$update_ms_query->bindParam(":marital_status", $marital_status);
+	$update_ms_query->bindParam(":husband_id", $husband_id);
+	$update_ms_query->execute();
 }
 
 // public
