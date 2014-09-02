@@ -1115,24 +1115,35 @@ function get_tribe_id($tribe_name)
 // public
 function add_married($husband_id, $wife_id, $marital_status)
 {
-	
+	global $dbh;
+
 	// Find the relation, or insert a new one.
-	$get_married_query = mysql_query("SELECT * FROM married WHERE husband_id = '$husband_id' AND wife_id = '$wife_id'");
+	$get_married_query = $dbh->prepare("SELECT * FROM married WHERE husband_id = :husband_id AND wife_id = :wife_id");
+	$get_married_query->bindParam(":husband_id", $husband_id);
+	$get_married_query->bindParam(":wife_id", $wife_id);
+	$get_married_query->execute();
 	
-	if (mysql_num_rows($get_married_query) > 0)
+	if ($get_married_query->rowCount() > 0)
 	{
-		$married_info = mysql_fetch_array($get_married_query);
+		$married_info = $get_married_query->fetch(PDO::FETCH_ASSOC);
 		$married_id = $married_info["id"];
 	}
 	else
 	{
 		// Insert a new relation.
-		$insert_married_query = mysql_query("INSERT INTO married (husband_id, wife_id) VALUES ('$husband_id', '$wife_id')");
-		$married_id = mysql_insert_id();
+		$insert_married_query = $dbh->prepare("INSERT INTO married (husband_id, wife_id) VALUES (:husband_id, :wife_id)");
+		$insert_married_query->bindParam(":husband_id", $husband_id);
+		$insert_married_query->bindParam(":wife_id", $wife_id);
+		$insert_married_query->execute();
+
+		$married_id = $dbh->lastInsertId();
 	}
 	
 	// Update marital status of the entry.
-	$update_married_query = mysql_query("UPDATE married SET marital_status = '$marital_status' WHERE id = '$married_id'");
+	$update_married_query = $dbh->prepare("UPDATE married SET marital_status = :marital_status WHERE id = :married_id");
+	$update_married_query->bindParam(":marital_status", $marital_status);
+	$update_married_query->bindParam(":married_id", $married_id);
+	$update_married_query->execute();
 	
 	// Update the marital status of both, husband and wife.
 	update_husband_marital_status($husband_id);
