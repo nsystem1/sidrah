@@ -1194,7 +1194,7 @@ function update_husband_marital_status($husband_id)
 }
 
 // public
-function ($wife_id)
+function update_wife_marital_status($wife_id)
 {
 	global $dbh;
 
@@ -1273,7 +1273,7 @@ function ($wife_id)
 	
 	if ($widower_times > 0)
 	{
-		$is_alive_value = ", is_alive = '0'";
+		$is_alive_value = ", is_alive = 0";
 	}
 	
 	// Update the marital status of the member to be $marital_status.
@@ -1299,35 +1299,51 @@ function update_member_is_alive($member_id, $is_alive = 1)
 // public
 function add_child($form, $tribe_id, $name, $father_id, $mother_id, $gender, $is_alive, $mobile, $dob = "", $location = "", $marital_status = "", $visible = "")
 {
+	global $dbh;
+
 	// Depending on the form type, is it: male, or female.
 	if ($form == "male")
 	{
-		$where = "AND (father_id = '$father_id')";
+		$where = "AND (father_id = :father_id)";
 	}
 	else
 	{
-		$where = "AND (father_id = '$father_id' AND (mother_id = '$mother_id' OR mother_id = '-1'))";
+		$where = "AND (father_id = :father_id AND (mother_id = :mother_id OR mother_id = -1))";
 	}
 
 	// Search for the child if exists.
-	$get_child_query = mysql_query("SELECT id FROM member WHERE tribe_id = '$tribe_id' AND name = '$name' AND gender = '$gender' $where");
+	$get_child_query = $dbh->prepare("SELECT id FROM member WHERE tribe_id = :tribe_id AND name = :name AND gender = :gender $where");
+
+	$get_child_query->bindParam("tribe_id", $tribe_id);
+	$get_child_query->bindParam("name", $name);
+	$get_child_query->bindParam(":gender", $gender);
+	$get_child_query->bindParam(":father_id", $father_id);
+
+	if ($form != "male")
+	{
+		$get_child_query->bindParam(":mother_id", $mother_id);
+	}
+
+	$get_child_query->execute();
+
+	// TODO: Fix this to work with PDO.
 
 	$sql_array = array(
-		"tribe_id" => "'$tribe_id'",
-		"name" => "'$name'",
-		"father_id" => "'$father_id'",
-		"mother_id" => "'$mother_id'",
-		"gender" => "'$gender'",
-		"is_alive" => "'$is_alive'",
-		"mobile" => "'$mobile'",
-		"dob" => "'$dob'",
-		"marital_status" => "'$marital_status'",
-		"visible" => "'$visible'"
+		"tribe_id" => ":tribe_id'",
+		"name" => ":name",
+		"father_id" => ":father_id",
+		"mother_id" => ":mother_id",
+		"gender" => ":gender",
+		"is_alive" => ":is_alive",
+		"mobile" => ":mobile",
+		"dob" => ":dob",
+		"marital_status" => ":marital_status",
+		"visible" => ":visible"
 	);
 	
 	$child_id = null;
 	
-	if (mysql_num_rows($get_child_query) == 0)
+	if ($get_child_query->rowCount() == 0)
 	{
 		// Add location too.
 		$sql_array["location"] = "'$location'";
@@ -1338,8 +1354,18 @@ function add_child($form, $tribe_id, $name, $father_id, $mother_id, $gender, $is
 		$now = time();
 	
 		// Insert a new one.
-		$insert_child = mysql_query("INSERT INTO member($sql_k, created) VALUES ($sql_v, '$now')");
-		$id = mysql_insert_id();
+		$insert_child = $dbh->prepare("INSERT INTO member($sql_k, created) VALUES ($sql_v, :now)");
+
+		foreach ($sql_array as $key => $value)
+		{
+			// TODO: This must be tested and verified.
+			$insert_child->bindParam(":{$key}", ${$key});
+		}
+
+		$insert_child->bindParam(":now", $now);
+		$insert_child->execute();
+
+		$id = $dbh->lastInsertId();
 
 		// Update the fullname of the child.
 		update_fullname($id);
@@ -1350,25 +1376,29 @@ function add_child($form, $tribe_id, $name, $father_id, $mother_id, $gender, $is
 	}
 	else
 	{
-		$member = mysql_fetch_array($get_child_query);
+		$member = $get_child_query->fetch(PDO::FETCH_ASSOC);
 		$sql_update = "";
 
 		// Update the member marital status, is alive, and so on.
 		foreach ($sql_array as $key => $value)
 		{
-			if ($value == "''")
-			{
-				continue;
-			}
-
-			$sql_update .= "$key = $value, ";
+			$sql_update .= "$key = :$key, ";
 		}
 		
-		$full_update_sql = "UPDATE member SET " . substr($sql_update, 0, strlen($sql_update)-2) . " WHERE id = '$member[id]'"; 
-		$update_member_query = mysql_query($full_update_sql);
+		$full_update_sql = "UPDATE member SET " . substr($sql_update, 0, strlen($sql_update)-2) . " WHERE id = :member_id"; 
+		$update_member_query = $dbh->prepare($full_update_sql);
+
+		foreach ($sql_array as $key => $value)
+		{
+			// TODO: This must be verified.
+			$update_member_query->bindParam(":{$key}", ${$key});
+		}
+
+		$update_member_query->bindParam(":member_id", $member["id"]);
+		$update_member_query->execute();
 
 		// LOG:
-		if (mysql_affected_rows() > 0)
+		if ($update_member_query->rowCount() > 0)
 		{
 			echo "Update a child: " . print_r($sql_array, 1);	
 		}

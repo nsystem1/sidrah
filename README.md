@@ -22,6 +22,7 @@ TODO:
 17. Replace every family tree to sidrah.
 18. Checking the MySQL encoding.
 19. Remove addspecial... function from everything.
+20. Logging.
 
 Requirements:
 =======
