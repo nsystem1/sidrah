@@ -341,6 +341,8 @@ function delete_member($id)
 // public
 function update_fullname($id)
 {
+	global $dbh;
+
 	$member = get_member_id($id);
 	$fullname = "";
 	
@@ -349,7 +351,12 @@ function update_fullname($id)
 		$fullname = $member["name"];
 		
 		// Update the tribe
-		$update_tribe_query = mysql_query("UPDATE tribe SET name = '$member[name]' WHERE id = '$member[tribe_id]'");
+		$update_tribe_query = $dbh->prepare("UPDATE tribe SET name = :member_name WHERE id = :member_tribe_id");
+
+		$update_tribe_query->bindParam(":member_name", $member["name"]);
+		$update_tribe_query->bindParam(":member_tribe_id", $member["tribe_id"]);
+
+		$update_tribe_query->execute();
 	}
 	else
 	{
@@ -358,17 +365,22 @@ function update_fullname($id)
 	}
 	
 	// Update the fullname of the member.
-	$update_member_fullname_query = mysql_query("UPDATE member SET fullname = '$fullname' WHERE id = '$id'");
+	$update_member_fullname_query = $dbh->prepare("UPDATE member SET fullname = :fullname WHERE id = :id");
+	$update_member_fullname_query->bindParam(":fullname", $fullname);
+	$update_member_fullname_query->bindParam(":id", $id);
+	$update_member_fullname_query->execute();
 	
 	// Get parent
 	$parent = ($member["gender"] == 1) ? "father" : "mother";
 	
 	// Get all children and remove them.
-	$get_children_query = mysql_query("SELECT id FROM member WHERE {$parent}_id = '$member[id]'");
+	$get_children_query = $dbh->prepare("SELECT id FROM member WHERE {$parent}_id = :member_id");
+	$get_children_query->bindParam(":member_id", $member["id"]);
+	$get_children_query->execute();
 	
-	if (mysql_num_rows($get_children_query) > 0)
+	if ($get_children_query->rowCount() > 0)
 	{
-		while ($child = mysql_fetch_array($get_children_query))
+		while ($child = $get_children_query->fetch(PDO::FETCH_ASSOC))
 		{
 			update_fullname($child["id"]);
 		}
