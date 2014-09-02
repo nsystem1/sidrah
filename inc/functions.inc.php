@@ -378,7 +378,9 @@ function update_fullname($id)
 	$get_children_query->bindParam(":member_id", $member["id"]);
 	$get_children_query->execute();
 	
-	if ($get_children_query->rowCount() > 0)
+	$affected_rows = $get_children_query->rowCount();
+
+	if ($affected_rows > 0)
 	{
 		while ($child = $get_children_query->fetch(PDO::FETCH_ASSOC))
 		{
@@ -386,7 +388,7 @@ function update_fullname($id)
 		}
 	}
 
-	return mysql_affected_rows();
+	return $affected_rows;
 }
 
 // public
