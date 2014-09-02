@@ -1194,7 +1194,7 @@ function update_husband_marital_status($husband_id)
 }
 
 // public
-function update_wife_marital_status($wife_id)
+function ($wife_id)
 {
 	global $dbh;
 
@@ -1286,8 +1286,14 @@ function update_wife_marital_status($wife_id)
 // public
 function update_member_is_alive($member_id, $is_alive = 1)
 {
-	$update_query = mysql_query("UPDATE member SET is_alive = '$is_alive' WHERE id = '$member_id'");
-	return mysql_affected_rows();
+	global $dbh;
+
+	$update_query = $dbh->prepare("UPDATE member SET is_alive = :is_alive WHERE id = :member_id");
+	$update_query->bindParam(":is_alive", $is_alive);
+	$update_query->bindParam(":member_id", $member_id);
+	$update_query->execute();
+
+	return $update_query->rowCount();
 }
 
 // public
