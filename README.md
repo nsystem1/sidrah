@@ -21,6 +21,7 @@ TODO:
 16. Indian numbers has some issues.
 17. Replace every family tree to sidrah.
 18. Checking the MySQL encoding.
+19. Remove addspecial... function from everything.
 
 Requirements:
 =======

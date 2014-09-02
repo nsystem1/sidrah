@@ -1089,19 +1089,26 @@ function rep_percent($total, $over)
 // public
 function get_tribe_id($tribe_name)
 {
+	global $dbh;
+
 	// Check first, if found, then everything is ok.
-	$get_tribe_query = mysql_query("SELECT id FROM tribe WHERE name = '$tribe_name' LIMIT 1");
+	$get_tribe_query = $dbh->prepare("SELECT id FROM tribe WHERE name = :tribe_name LIMIT 1");
+	$get_tribe_query->bindParam(":tribe_name", $tribe_name);
+	$get_tribe_query->execute();
 	
-	if (mysql_num_rows($get_tribe_query) > 0)
+	if ($get_tribe_query->rowCount() > 0)
 	{
-		$tribe = mysql_fetch_array($get_tribe_query);
+		$tribe = $get_tribe_query->fetch(PDO::FETCH_ASSOC);
 		return $tribe["id"];
 	}
 	else
 	{
 		// Insert a new tribe.
-		$insert_tribe = mysql_query("INSERT INTO tribe (name) VALUES ('$tribe_name')");
-		return mysql_insert_id();
+		$insert_tribe = $dbh->prepare("INSERT INTO tribe (name) VALUES (:tribe_name)");
+		$insert_tribe->bindParam(":tribe_name", $tribe_name);
+		$insert_tribe->execute();
+
+		return $dbh->lastInsertId();
 	}
 }
 
