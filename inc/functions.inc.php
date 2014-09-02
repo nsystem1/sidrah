@@ -1000,14 +1000,20 @@ function rep_dead_mercy_female($index)
 // public
 function rep_company($id)
 {
+	global $dbh;
+
 	if ($id == -1)
 	{
 		return "";
 	}
 	else
 	{
-		$get_company_query = mysql_query("SELECT name FROM company WHERE id = '$id'");
-		$company = mysql_fetch_array($get_company_query);
+		$get_company_query = $dbh->prepare("SELECT name FROM company WHERE id = :id");
+		$get_company_query->bindParam(":id", $id);
+		$get_company_query->execute();
+
+		$company = $get_company_query->fetch(PDO::FETCH_ASSOC);
+		
 		return $company["name"];
 	}
 }
