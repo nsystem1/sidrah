@@ -79,6 +79,8 @@ function alert($message, $type = "success")
 // usergroup = [visitor|user|moderator|admin]
 function get_member_children_json($tribe_id = main_tribe_id, $father_id = -1, $usergroup = "visitor", $related_fullname = null)
 {
+	global  $dbh;
+
 	$conditions = array();
 	
 	if ($tribe_id != null)
@@ -100,14 +102,16 @@ function get_member_children_json($tribe_id = main_tribe_id, $father_id = -1, $u
 	}
 
 	$condition = implode("AND ", $conditions);
-	$get_children_query = mysql_query("SELECT id, father_id, name, nickname, dob, dod, gender FROM member WHERE $condition ORDER BY id");
+
+	$get_children_query = $dbh->prepare("SELECT id, father_id, name, nickname, dob, dod, gender FROM member WHERE $condition ORDER BY id");
+	$get_children_query->execute();
+
 	$return = "";
 	
-	if (mysql_num_rows($get_children_query) > 0)
+	if ($get_children_query->rowCount() > 0)
 	{
-		while ($child = mysql_fetch_array($get_children_query))
+		while ($child = $get_children_query->fetch(PDO::FETCH_ASSOC))
 		{
-
 			if (empty($child["nickname"]))
 			{
 				$nickname = "";
@@ -116,7 +120,7 @@ function get_member_children_json($tribe_id = main_tribe_id, $father_id = -1, $u
 			{
 				$nickname = " (" . $child["nickname"] . ")";
 			}
-			
+
 			$date = "";
 			
 			$display_dob = privacy_display($child["id"], "dob", $usergroup, false, false, ($usergroup == "moderator"));
@@ -275,6 +279,8 @@ function sha1_salt($string)
 // Delete all related sons, daughters, relationships, hobbies, etc.
 function delete_member($id)
 {
+	global $dbh;
+
 	// Check if the member does exist.
 	$member = get_member_id($id);
 	
@@ -284,33 +290,47 @@ function delete_member($id)
 		if ($member["gender"] == 1 && $member["father_id"] == -1)
 		{
 			// Delete the tribe
-			$delete_tribe_query = mysql_query("DELETE FROM tribe WHERE id = '$member[tribe_id]'");
+			$delete_tribe_query = $dbh->prepare("DELETE FROM tribe WHERE id = :member_tribe_id");
+			$delete_tribe_query->bindParam(":member_tribe_id", $member["tribe_id"]);
+			$delete_tribe_query->execute();
 		}
 	
 		$parent = ($member["gender"] == 1) ? "father" : "mother";
 		$partner = ($member["gender"] == 1) ? "husband" : "wife";
 		
 		// Delete this member.
-		$delete_member_query = mysql_query("DELETE FROM member WHERE id = '$member[id]'");
+		$delete_member_query = $dbh->prepare("DELETE FROM member WHERE id = :member_id");
+		$delete_member_query->bindParam(":member_id", $member["id"]);
+		$delete_member_query->execute();
 		
 		// Delete user mapped to this member.
-		$delete_user_query = mysql_query("DELETE FROM user WHERE member_id = '$member[id]'");
+		$delete_user_query = $dbh->prepare("DELETE FROM user WHERE member_id = :member_id");
+		$delete_user_query->bindParam(":member_id", $member["id"]);
+		$delete_user_query->execute();
 		
 		// Delete all married relations.
-		$delete_married_query = mysql_query("DELETE FROM married WHERE {$partner}_id = '$member[id]'");
+		$delete_married_query = $dbh->prepare("DELETE FROM married WHERE {$partner}_id = :member_id");
+		$delete_married_query->bindParam(":member_id", $member["id"]);
+		$delete_married_query->execute();
 		
 		// Delete all pending requests affecting this member.
-		$delete_pending_requests_query = mysql_query( "DELETE FROM request WHERE status = 'pending' AND affected_id = '$member[id]'");
+		$delete_pending_requests_query = $dbh->prepare( "DELETE FROM request WHERE status = 'pending' AND affected_id = :member_id");
+		$delete_pending_requests_query->bindParam(":member_id", $member["id"]);
+		$delete_pending_requests_query->execute();
 		
 		// Delete all hobbies.
-		$delete_hobbies_query = mysql_query("DELETE FROM member_hobby WHERE member_id = '$member[id]'");
+		$delete_hobbies_query = $dbh->prepare("DELETE FROM member_hobby WHERE member_id = :member_id");
+		$delete_hobbies_query->bindParam(":member_id", $member["id"]);
+		$delete_hobbies_query->execute();
 		
 		// Get all children and remove them.
-		$get_children_query = mysql_query("SELECT id FROM member WHERE {$parent}_id = '$member[id]'");
+		$get_children_query = $dbh->prepare("SELECT id FROM member WHERE {$parent}_id = :member_id");
+		$get_children_query->bindParam(":member_id", $member["id"]);
+		$get_children_query->execute();
 
-		if (mysql_num_rows($get_children_query) > 0)
+		if ($get_children_query->rowCount() > 0)
 		{
-			while ($child = mysql_fetch_array($get_children_query))
+			while ($child = $get_children_query->fetch(PDO::FETCH_ASSOC))
 			{
 				delete_member($child["id"]);
 			}
