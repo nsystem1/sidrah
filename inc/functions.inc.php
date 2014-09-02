@@ -1196,6 +1196,8 @@ function update_husband_marital_status($husband_id)
 // public
 function update_wife_marital_status($wife_id)
 {
+	global $dbh;
+
 	$last_relation = 2;
 	$husbands = get_husbands($wife_id);
 	
@@ -1275,8 +1277,10 @@ function update_wife_marital_status($wife_id)
 	}
 	
 	// Update the marital status of the member to be $marital_status.
-	$update_ms_query = mysql_query("UPDATE member SET marital_status = '$marital_status'$is_alive_value WHERE id = '$wife_id'");
-	return;
+	$update_ms_query = $dbh->prepare("UPDATE member SET marital_status = :marital_status $is_alive_value WHERE id = :wife_id");
+	$update_ms_query->bindParam(":marital_status", $marital_status);
+	$update_ms_query->bindParam(":wife_id", $wife_id);
+	$update_ms_query->execute();
 }
 
 // public
