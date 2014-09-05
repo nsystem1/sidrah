@@ -115,7 +115,12 @@ switch ($action)
 			}
 			
 			// Get the events for this day.
-			$get_this_day_events_query = mysql_query("SELECT COUNT(id) AS events_count FROM event WHERE day = '$day' AND month = '$hijri_month' AND year = '$hijri_year'");
+			$get_this_day_events_query = $dbh->prepare("SELECT COUNT(id) AS events_count FROM event WHERE day = :day AND month = :hijri_month AND year = :hijri_year");
+$dbh->bindParam(":day", $day);
+$dbh->bindParam(":hijri_month", $hijri_month);
+$dbh->bindParam(":hijri_year", $hijri_year);
+$dbh->execute();
+
 			$fetch_this_day_events = mysql_fetch_array($get_this_day_events_query);
 			$events_count = $fetch_this_day_events["events_count"];
 			
@@ -139,7 +144,12 @@ switch ($action)
 			}
 			else
 			{
-				$get_this_day_events_query = mysql_query("SELECT * FROM event WHERE day = '$day' AND month = '$hijri_month' AND year = '$hijri_year'");
+				$get_this_day_events_query = $dbh->prepare("SELECT * FROM event WHERE day = :day AND month = :hijri_month AND year = :hijri_year");
+$dbh->bindParam(":day", $day);
+$dbh->bindParam(":hijri_month", $hijri_month);
+$dbh->bindParam(":hijri_year", $hijri_year);
+$dbh->execute();
+
 				
 				while ($event = mysql_fetch_array($get_this_day_events_query))
 				{
@@ -193,7 +203,11 @@ switch ($action)
 		$now_date_int = $current_hijri_day + ($current_hijri_month*29) + ($current_hijri_year*355);
 		
 		// Get the current events.
-		$get_current_events_query = mysql_query("SELECT * FROM event WHERE (day + month*29 + year*355) = $now_date_int ORDER BY id DESC LIMIT $events_limit");
+		$get_current_events_query = $dbh->prepare("SELECT * FROM event WHERE (day + month*29 + year*355) = :now_date_int ORDER BY id DESC LIMIT :events_limit");
+$dbh->bindParam(":now_date_int", $now_date_int);
+$dbh->bindParam(":events_limit", $events_limit);
+$dbh->execute();
+
 		$current_events_count = mysql_num_rows($get_current_events_query);
 		
 		if ($current_events_count == 0)
@@ -212,7 +226,11 @@ switch ($action)
 		}
 		
 		// Get the future events.
-		$get_future_events_query = mysql_query("SELECT * FROM event WHERE (day + month*29 + year*355) > $now_date_int ORDER BY id DESC LIMIT $events_limit");
+		$get_future_events_query = $dbh->prepare("SELECT * FROM event WHERE (day + month*29 + year*355) > :now_date_int ORDER BY id DESC LIMIT :events_limit");
+$dbh->bindParam(":now_date_int", $now_date_int);
+$dbh->bindParam(":events_limit", $events_limit);
+$dbh->execute();
+
 		$future_events_count = mysql_num_rows($get_future_events_query);
 		
 		if ($future_events_count == 0)
@@ -230,7 +248,11 @@ switch ($action)
 		}
 
 		// Get the past events.
-		$get_past_events_query = mysql_query("SELECT * FROM event WHERE (day + month*29 + year*355) < $now_date_int ORDER BY id DESC LIMIT $events_limit");
+		$get_past_events_query = $dbh->prepare("SELECT * FROM event WHERE (day + month*29 + year*355) < :now_date_int ORDER BY id DESC LIMIT :events_limit");
+$dbh->bindParam(":now_date_int", $now_date_int);
+$dbh->bindParam(":events_limit", $events_limit);
+$dbh->execute();
+
 		$past_events_count = mysql_num_rows($get_past_events_query);
 		
 		if ($past_events_count == 0)
@@ -287,7 +309,12 @@ switch ($action)
 		$hijri_year = @$_GET["hijri_year"];
 		
 		// Check if the day does exist.
- 		$get_this_day_events_query = mysql_query("SELECT event.id AS id, event.title AS title, event.author_id AS author_id, event.day AS day, event.month AS month, event.year AS year, user.username AS author_username, member.fullname AS author_fullname FROM event, member, user WHERE event.author_id = member.id AND member.id = user.member_id AND event.day = '$hijri_day' AND event.month = '$hijri_month' AND event.year = '$hijri_year'");
+ 		$get_this_day_events_query = $dbh->prepare("SELECT event.id AS id, event.title AS title, event.author_id AS author_id, event.day AS day, event.month AS month, event.year AS year, user.username AS author_username, member.fullname AS author_fullname FROM event, member, user WHERE event.author_id = member.id AND member.id = user.member_id AND event.day = :hijri_day AND event.month = :hijri_month AND event.year = :hijri_year");
+$dbh->bindParam(":hijri_day", $hijri_day);
+$dbh->bindParam(":hijri_month", $hijri_month);
+$dbh->bindParam(":hijri_year", $hijri_year);
+$dbh->execute();
+
  		$this_day_events_count = mysql_num_rows($get_this_day_events_query);
  		
  		if ($this_day_events_count == 0)
@@ -322,7 +349,10 @@ switch ($action)
 		$id = @$_GET["id"];
 		
 		// Check if the event does exist.
-		$get_event_query = mysql_query("SELECT event.id AS id, event.type AS type, event.title AS title, event.content AS content, event.location AS location, event.latitude AS latitude, event.longitude AS longitude, event.created AS created, event.time AS time, event.author_id AS author_id, event.day AS day, event.month AS month, event.year AS year, user.username AS author_username, member.fullname AS author_fullname, member.photo AS author_photo, member.gender AS author_gender FROM event, member, user WHERE event.author_id = member.id AND member.id = user.member_id AND event.id = '$id'");
+		$get_event_query = $dbh->prepare("SELECT event.id AS id, event.type AS type, event.title AS title, event.content AS content, event.location AS location, event.latitude AS latitude, event.longitude AS longitude, event.created AS created, event.time AS time, event.author_id AS author_id, event.day AS day, event.month AS month, event.year AS year, user.username AS author_username, member.fullname AS author_fullname, member.photo AS author_photo, member.gender AS author_gender FROM event, member, user WHERE event.author_id = member.id AND member.id = user.member_id AND event.id = :id");
+$dbh->bindParam(":id", $id);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_event_query) == 0)
 		{
@@ -336,7 +366,10 @@ switch ($action)
 		if ($event["type"] == "meeting" || $event["type"] == "wedding")
 		{			
 			// Get the count of the members who said will come.
-			$get_all_members_come_query = mysql_query("SELECT COUNT(id) AS come_count FROM event_reaction WHERE event_id = '$event[id]' AND reaction = 'come'");
+			$get_all_members_come_query = $dbh->prepare("SELECT COUNT(id) AS come_count FROM event_reaction WHERE event_id = :event_id AND reaction = 'come'");
+$dbh->bindParam(":event_id", $event["id"]);
+$dbh->execute();
+
 			$fetch_all_members_come = mysql_fetch_array($get_all_members_come_query);
 			$come_count = $fetch_all_members_come["come_count"];
 			
@@ -347,7 +380,11 @@ switch ($action)
 			else
 			{
 				// Get a bunch of the members who said will come.
-				$get_bunch_members_come_query = mysql_query("SELECT user.username AS username, member.fullname AS fullname, member.id AS id FROM user, member, event_reaction WHERE user.member_id = member.id AND event_reaction.member_id = member.id AND event_reaction.event_id = '$event[id]' AND reaction = 'come' ORDER BY RAND() LIMIT $members_limit");
+				$get_bunch_members_come_query = $dbh->prepare("SELECT user.username AS username, member.fullname AS fullname, member.id AS id FROM user, member, event_reaction WHERE user.member_id = member.id AND event_reaction.member_id = member.id AND event_reaction.event_id = :event_id AND reaction = 'come' ORDER BY RAND() LIMIT :members_limit");
+$dbh->bindParam(":event_id", $event["id"]);
+$dbh->bindParam(":members_limit", $members_limit);
+$dbh->execute();
+
 				$bunch_members_come_count = mysql_num_rows($get_bunch_members_come_query);
 			
 				// To hold members.
@@ -371,7 +408,10 @@ switch ($action)
 			$event_reactions = "<h5>ينوون الحضور <small>($come_count)</small></h5><p>$come_members</p>";
 			
 			// Get the count of the members who said will not come.
-			$get_all_members_not_come_query = mysql_query("SELECT COUNT(id) AS not_come_count FROM event_reaction WHERE event_id = '$event[id]' AND reaction = 'not_come'");
+			$get_all_members_not_come_query = $dbh->prepare("SELECT COUNT(id) AS not_come_count FROM event_reaction WHERE event_id = :event_id AND reaction = 'not_come'");
+$dbh->bindParam(":event_id", $event["id"]);
+$dbh->execute();
+
 			$fetch_all_members_not_come = mysql_fetch_array($get_all_members_not_come_query);
 			$not_come_count = $fetch_all_members_not_come["not_come_count"];
 			
@@ -384,14 +424,21 @@ switch ($action)
 			$no_react_condition = "NOT IN (SELECT member_id FROM event_reaction WHERE event_id = '$event[id]')";
 	
 			// Get the members who did not decide yet.
-			$get_all_members_no_react_query = mysql_query("SELECT COUNT(user.id) AS no_react_count FROM user, member WHERE user.member_id = member.id AND member.id AND member.gender = 1 AND member.id $no_react_condition");
+			$get_all_members_no_react_query = $dbh->prepare("SELECT COUNT(user.id) AS no_react_count FROM user, member WHERE user.member_id = member.id AND member.id AND member.gender = 1 AND member.id :no_react_condition");
+$dbh->bindParam(":no_react_condition", $no_react_condition);
+$dbh->execute();
+
 			$fetch_all_members_no_react = mysql_fetch_array($get_all_members_no_react_query);
 			$no_react_count = $fetch_all_members_no_react["no_react_count"];
 			
 			if ($no_react_count > 0)
 			{
 				// Get a bunch of the members who did not react.
-				$get_bunch_members_no_react_query = mysql_query("SELECT user.username AS username, member.fullname AS fullname, member.id AS id FROM user, member WHERE user.member_id = member.id AND member.id AND member.gender = 1 AND member.id $no_react_condition ORDER BY RAND() LIMIT $members_limit");
+				$get_bunch_members_no_react_query = $dbh->prepare("SELECT user.username AS username, member.fullname AS fullname, member.id AS id FROM user, member WHERE user.member_id = member.id AND member.id AND member.gender = 1 AND member.id :no_react_condition ORDER BY RAND() LIMIT :members_limit");
+$dbh->bindParam(":no_react_condition", $no_react_condition);
+$dbh->bindParam(":members_limit", $members_limit);
+$dbh->execute();
+
 				$bunch_members_no_react_count = mysql_num_rows($get_bunch_members_no_react_query);
 			
 				// To hold members.
@@ -630,7 +677,21 @@ switch ($action)
 			// Everything is sweet.
 			$now = time();
 			
-			$insert_event_query = mysql_query("INSERT INTO event (day, month, year, title, content, type, location, latitude, longitude, time, author_id, created) VALUES ('$hijri_day', '$hijri_month', '$hijri_year', '$title', '$content', '$type', '$location', '$latitude', '$longitude', '$time', '$member[id]', '$now')");
+			$insert_event_query = $dbh->prepare("INSERT INTO event (day, month, year, title, content, type, location, latitude, longitude, time, author_id, created) VALUES (:hijri_day, :hijri_month, :hijri_year, :title, :content, :type, :location, :latitude, :longitude, :time, :member_id, :now)");
+$dbh->bindParam(":hijri_day", $hijri_day);
+$dbh->bindParam(":hijri_month", $hijri_month);
+$dbh->bindParam(":hijri_year", $hijri_year);
+$dbh->bindParam(":title", $title);
+$dbh->bindParam(":content", $content);
+$dbh->bindParam(":type", $type);
+$dbh->bindParam(":location", $location);
+$dbh->bindParam(":latitude", $latitude);
+$dbh->bindParam(":longitude", $longitude);
+$dbh->bindParam(":time", $time);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 			$inserted_event_id = mysql_insert_id();
 			
 			$event_link = "calendar.php?action=view_event&id=$inserted_event_id";
@@ -690,7 +751,10 @@ switch ($action)
 		$id = @$_GET["id"];
 		
 		// Check if the event is correct.
-		$get_event_query = mysql_query("SELECT * FROM event WHERE id = '$id'");
+		$get_event_query = $dbh->prepare("SELECT * FROM event WHERE id = :id");
+$dbh->bindParam(":id", $id);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_event_query) == 0)
 		{
@@ -858,7 +922,10 @@ switch ($action)
 		}
 		
 		// Check if the event does exist.
-		$get_event_query = mysql_query("SELECT event.id AS id, event.title AS title, event.content AS content, event.location AS location, event.latitude AS latitude, event.longitude AS longitude, event.created AS created, event.time AS time, event.author_id AS author_id, event.day AS day, event.month AS month, event.year AS year, user.username AS author_username, member.fullname AS author_fullname, member.photo AS author_photo, member.gender AS author_gender FROM event, member, user WHERE event.author_id = member.id AND member.id = user.member_id AND event.id = '$id'");
+		$get_event_query = $dbh->prepare("SELECT event.id AS id, event.title AS title, event.content AS content, event.location AS location, event.latitude AS latitude, event.longitude AS longitude, event.created AS created, event.time AS time, event.author_id AS author_id, event.day AS day, event.month AS month, event.year AS year, user.username AS author_username, member.fullname AS author_fullname, member.photo AS author_photo, member.gender AS author_gender FROM event, member, user WHERE event.author_id = member.id AND member.id = user.member_id AND event.id = :id");
+$dbh->bindParam(":id", $id);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_event_query) == 0)
 		{
@@ -870,16 +937,28 @@ switch ($action)
 		$event = mysql_fetch_array($get_event_query);
 		
 		// Delete the event.
-		$delete_event_query = mysql_query("DELETE FROM event WHERE id = '$event[id]'");
+		$delete_event_query = $dbh->prepare("DELETE FROM event WHERE id = :event_id");
+$dbh->bindParam(":event_id", $event["id"]);
+$dbh->execute();
+
 		
 		// Delete comment likes.
-		$delete_comment_likes_query = mysql_query("DELETE FROM comment_like WHERE comment_id IN (SELECT id FROM comment WHERE event_id = '$event[id]')");
+		$delete_comment_likes_query = $dbh->prepare("DELETE FROM comment_like WHERE comment_id IN (SELECT id FROM comment WHERE event_id = :event_id)");
+$dbh->bindParam(":event_id", $event["id"]);
+$dbh->execute();
+
 		
 		// Delete comments related.
-		$delete_comments_query = mysql_query("DELETE FROM comment WHERE event_id = '$event[id]'");
+		$delete_comments_query = $dbh->prepare("DELETE FROM comment WHERE event_id = :event_id");
+$dbh->bindParam(":event_id", $event["id"]);
+$dbh->execute();
+
 		
 		// Delete reactions related.
-		$delete_reactions_query = mysql_query("DELETE FROM event_reaction WHERE event_id = '$event[id]'");
+		$delete_reactions_query = $dbh->prepare("DELETE FROM event_reaction WHERE event_id = :event_id");
+$dbh->bindParam(":event_id", $event["id"]);
+$dbh->execute();
+
 		
 		// Done.
 		echo success_message(
@@ -893,7 +972,10 @@ switch ($action)
 		$event_id = @$_GET["event_id"];
 		
 		// Check if the event does exist.
-		$get_event_query = mysql_query("SELECT * FROM event WHERE id = '$event_id'");
+		$get_event_query = $dbh->prepare("SELECT * FROM event WHERE id = :event_id");
+$dbh->bindParam(":event_id", $event_id);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_event_query) == 0)
 		{
@@ -916,7 +998,13 @@ switch ($action)
 
 			// Insert the comment.
 			$now = time();
-			$insert_event_comment_query = mysql_query("INSERT INTO comment (event_id, content, author_id, created) VALUES ('$event[id]', '$content', '$member[id]', '$now')");
+			$insert_event_comment_query = $dbh->prepare("INSERT INTO comment (event_id, content, author_id, created) VALUES (:event_id, :content, :member_id, :now)");
+$dbh->bindParam(":event_id", $event["id"]);
+$dbh->bindParam(":content", $content);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 			$inserted_comment_id = mysql_insert_id();
 			
 			// Set a variable to hold notify/not-notify user ids.
@@ -927,7 +1015,10 @@ switch ($action)
 			//$not_notify_user_ids []= $user["id"];
 		
 			// Get the author id of the event.
-			$get_event_author_query = mysql_query("SELECT id FROM user WHERE member_id = '$event[author_id]'");
+			$get_event_author_query = $dbh->prepare("SELECT id FROM user WHERE member_id = :event_author_id");
+$dbh->bindParam(":event_author_id", $event["author_id"]);
+$dbh->execute();
+
 			$fetch_event_author = mysql_fetch_array($get_event_author_query);
 			$event_author_user_id = $fetch_event_author["id"];
 			
@@ -951,7 +1042,12 @@ switch ($action)
 			}
 			
 			// Get the comments before this comment.
-			$get_users_before_query = mysql_query("SELECT DISTINCT user.id AS id FROM comment, user WHERE comment.author_id = user.member_id AND comment.event_id = '$event[id]' AND comment.created < $now $not_in_users_condition");
+			$get_users_before_query = $dbh->prepare("SELECT DISTINCT user.id AS id FROM comment, user WHERE comment.author_id = user.member_id AND comment.event_id = :event_id AND comment.created < :now :not_in_users_condition");
+$dbh->bindParam(":event_id", $event["id"]);
+$dbh->bindParam(":now", $now);
+$dbh->bindParam(":not_in_users_condition", $not_in_users_condition);
+$dbh->execute();
+
 			$users_before_count = mysql_num_rows($get_users_before_query);
 			
 			if ($users_before_count > 0)
@@ -988,7 +1084,10 @@ switch ($action)
 		$comment_id = @$_GET["comment_id"];
 		
 		// Check if the comment does exist.
-		$get_comment_query = mysql_query("SELECT comment.*, event.title AS event_title FROM comment, event WHERE event.id = comment.event_id AND comment.id = '$comment_id'");
+		$get_comment_query = $dbh->prepare("SELECT comment.*, event.title AS event_title FROM comment, event WHERE event.id = comment.event_id AND comment.id = :comment_id");
+$dbh->bindParam(":comment_id", $comment_id);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_comment_query) == 0)
 		{
@@ -1000,7 +1099,11 @@ switch ($action)
 		$comment = mysql_fetch_array($get_comment_query);
 		
 		// Check if the member has liked this comment before.
-		$get_member_likes_query = mysql_query("SELECT * FROM comment_like WHERE comment_id = '$comment[id]' AND member_id = '$member[id]'");
+		$get_member_likes_query = $dbh->prepare("SELECT * FROM comment_like WHERE comment_id = :comment_id AND member_id = :member_id");
+$dbh->bindParam(":comment_id", $comment["id"]);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_member_likes_query) > 0)
 		{
@@ -1016,14 +1119,22 @@ switch ($action)
 		}
 		
 		$now = time();
-		$like_comment_query = mysql_query("INSERT INTO comment_like (comment_id, member_id, created) VALUES ('$comment[id]', '$member[id]', '$now')");
+		$like_comment_query = $dbh->prepare("INSERT INTO comment_like (comment_id, member_id, created) VALUES (:comment_id, :member_id, :now)");
+$dbh->bindParam(":comment_id", $comment["id"]);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 		
 		// Set the notification.
 		$desc = "$user[username] أُعجب بتعليقك على مناسبة: $comment[event_title].";
 		$link = "calendar.php?action=view_event&id=$comment[event_id]#comment_$comment[id]";
 		
 		// Get the user id of the comment author.
-		$get_comment_user_query = mysql_query("SELECT id FROM user WHERE member_id = '$comment[author_id]'");
+		$get_comment_user_query = $dbh->prepare("SELECT id FROM user WHERE member_id = :comment_author_id");
+$dbh->bindParam(":comment_author_id", $comment["author_id"]);
+$dbh->execute();
+
 		$fetch_comment_user = mysql_fetch_array($get_comment_user_query);
 		
 		// Notify the commenter.
@@ -1045,7 +1156,11 @@ switch ($action)
 		$reaction = @$_GET["reaction"];
 		
 		// Check if the event does exist.
-		$get_event_query = mysql_query("SELECT * FROM event WHERE id = '$id' AND (day+month*29+year*355) >  $hijri_date_int");
+		$get_event_query = $dbh->prepare("SELECT * FROM event WHERE id = :id AND (day+month*29+year*355) >  :hijri_date_int");
+$dbh->bindParam(":id", $id);
+$dbh->bindParam(":hijri_date_int", $hijri_date_int);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_event_query) == 0)
 		{
@@ -1057,7 +1172,11 @@ switch ($action)
 		$event = mysql_fetch_array($get_event_query);
 		
 		// Check if the member has already react.
-		$get_member_reaction_query = mysql_query("SELECT * FROM event_reaction WHERE event_id = '$event[id]' AND member_id = '$member[id]'");
+		$get_member_reaction_query = $dbh->prepare("SELECT * FROM event_reaction WHERE event_id = :event_id AND member_id = :member_id");
+$dbh->bindParam(":event_id", $event["id"]);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_member_reaction_query) > 0)
 		{
@@ -1068,7 +1187,10 @@ switch ($action)
 		$desc = "";
 		
 		// Get the user id of the event author.
-		$get_user_id_query = mysql_query("SELECT * FROM user WHERE member_id = '$event[author_id]'");
+		$get_user_id_query = $dbh->prepare("SELECT * FROM user WHERE member_id = :event_author_id");
+$dbh->bindParam(":event_author_id", $event["author_id"]);
+$dbh->execute();
+
 		$author_user = mysql_fetch_array($get_user_id_query);
 		
 		switch ($reaction)
@@ -1088,7 +1210,13 @@ switch ($action)
 		$now = time();
 		
 		// Insert event reaction.
-		$insert_event_reaction_query = mysql_query("INSERT INTO event_reaction (event_id, member_id, reaction, created) VALUES ('$event[id]', '$member[id]', '$reaction', '$now')");
+		$insert_event_reaction_query = $dbh->prepare("INSERT INTO event_reaction (event_id, member_id, reaction, created) VALUES (:event_id, :member_id, :reaction, :now)");
+$dbh->bindParam(":event_id", $event["id"]);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->bindParam(":reaction", $reaction);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 
 		// Notify the author of the event.
 		$link = "calendar.php?action=view_event&id=$event[id]";
