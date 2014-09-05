@@ -3,7 +3,7 @@
 require_once("inc/functions.inc.php");
 
 $user = user_information();
-$id = mysql_real_escape_string(@$_GET["id"]);
+$id = @$_GET["id"];
 
 // Check if the member does exist.
 $member = get_member_id($id);
