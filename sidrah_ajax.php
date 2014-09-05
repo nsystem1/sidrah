@@ -6,7 +6,7 @@ require_once("inc/functions.inc.php");
 $user = user_information();
 
 // Get variables.
-$action = mysql_real_escape_string(@$_GET["action"]);
+$action = @$_GET["action"];
 
 switch ($action)
 {
@@ -20,9 +20,9 @@ switch ($action)
 		}
 	
 		// Get variables.
-		$username = trim(mysql_real_escape_string(@$_GET["name"]));
-		$new_username = trim(mysql_real_escape_string(@$_GET["new_username"]));
-		$name = trim(mysql_real_escape_string(@$_GET["name"]));
+		$username = trim(@$_GET["name"]);
+		$new_username = trim(@$_GET["new_username"]);
+		$name = trim(@$_GET["name"]);
 		
 		if (check_user_availability($username, $new_username, $name))
 		{
@@ -38,10 +38,10 @@ switch ($action)
 	
 	case "send_sms_message":
 
-		$to = mysql_real_escape_string(@$_POST["to"]);
-		$message = mysql_real_escape_string(@$_POST["message"]);
-		$method = mysql_real_escape_string(@$_POST["method"]);
-		$offset = (int) mysql_real_escape_string(@$_POST["offset"]);
+		$to = @$_POST["to"];
+		$message = @$_POST["message"];
+		$method = @$_POST["method"];
+		$offset = (int) @$_POST["offset"];
 
 		// Get the prepared relation depending on the id (to).
 		$get_prepared_relation_query = mysql_query("SELECT * FROM prepared_relation WHERE id = '$to'");
@@ -83,7 +83,7 @@ switch ($action)
 	
 	case "get_request_update_code":
 	
-		$key = mysql_real_escape_string(@$_GET["key"]);
+		$key = @$_GET["key"];
 		
 		// Check if the request update does exist.
 		$get_request_query = mysql_query("SELECT phpscript FROM request WHERE random_key = '$key'");
@@ -115,9 +115,9 @@ switch ($action)
 		}
 		else
 		{
-			$media_title = mysql_real_escape_string(@$_POST["media_title"]);
-			$media_is_event = mysql_real_escape_string(@$_GET["media_is_event"]);
-			$event_id = mysql_real_escape_string(@$_GET["event_id"]);
+			$media_title = @$_POST["media_title"];
+			$media_is_event = @$_GET["media_is_event"];
+			$event_id = @$_GET["event_id"];
 			$media = @$_FILES["media_file"];
 
 			// TODO: Check if the event does exists.
@@ -283,8 +283,8 @@ switch ($action)
 	
 	case "get_node":
 	
-		$tribe_id = mysql_real_escape_string(@$_GET["tribe_id"]);
-		$id = mysql_real_escape_string(@$_GET["id"]);
+		$tribe_id = @$_GET["tribe_id"];
+		$id = @$_GET["id"];
 
 		// Get the member information from database.
 		$get_member_query = mysql_query("SELECT * FROM member WHERE tribe_id = '$tribe_id' AND id = '$id'");
@@ -422,12 +422,12 @@ switch ($action)
 	
 	case "answer_ramadan_question":
 	
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
+		$submit = @$_POST["submit"];
 		
 		if (!empty($submit))
 		{
-			$question_id = mysql_real_escape_string(@$_POST["question_id"]);
-			$answer = mysql_real_escape_string(@$_POST["answer"]);
+			$question_id = @$_POST["question_id"];
+			$answer = @$_POST["answer"];
 			
 			// Check if the question id does exist.
 			$check_question_query = mysql_query("SELECT id FROM ramadan_question WHERE id = '$question_id'");
@@ -469,13 +469,13 @@ switch ($action)
 	
 	case "rotate_image":
 		
-		$type = mysql_real_escape_string(@$_GET["type"]);
+		$type = @$_GET["type"];
 		
 		switch ($type)
 		{
 			case "media":
 			
-				$id = mysql_real_escape_string(@$_GET["id"]);
+				$id = @$_GET["id"];
 				
 				// Check if the media exists.
 				$get_media_query = mysql_query("SELECT * FROM media WHERE id = '$id'");
