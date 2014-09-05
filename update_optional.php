@@ -12,8 +12,8 @@ if ($user["group"] == "visitor")
 }
 
 // Global variables
-$id = mysql_real_escape_string(@$_GET["id"]);
-$submit = mysql_real_escape_string(@$_POST["submit"]);
+$id = @$_GET["id"];
+$submit = @$_POST["submit"];
 
 if (empty($id))
 {
@@ -53,19 +53,19 @@ if (!$is_admin && !$is_me)
 if (!empty($submit))
 {
 	// Post variables.
-	$phone_home = mysql_real_escape_string(trim(arabic_number(@$_POST["phone_home"])));
-	$email = mysql_real_escape_string(trim(@$_POST["email"]));
-	$phone_work = mysql_real_escape_string(trim(arabic_number(@$_POST["phone_work"])));
-	$living = mysql_real_escape_string(trim(@$_POST["living"]));
-	$neighborhood = mysql_real_escape_string(trim(@$_POST["neighborhood"]));
-	$salary = mysql_real_escape_string(trim(@$_POST["salary"]));
-	$blood_type = mysql_real_escape_string(trim(@$_POST["blood_type"]));
+	$phone_home = trim(arabic_number(@$_POST["phone_home"]));
+	$email = trim(@$_POST["email"]);
+	$phone_work = trim(arabic_number(@$_POST["phone_work"]));
+	$living = trim(@$_POST["living"]);
+	$neighborhood = trim(@$_POST["neighborhood"]);
+	$salary = trim(@$_POST["salary"]);
+	$blood_type = trim(@$_POST["blood_type"]);
 	
-	$website = mysql_real_escape_string(trim(@$_POST["website"]));
-	$facebook = mysql_real_escape_string(trim(@$_POST["facebook"]));
-	$twitter = mysql_real_escape_string(trim(@$_POST["twitter"]));
-	$linkedin = mysql_real_escape_string(trim(@$_POST["linkedin"]));
-	$flickr = mysql_real_escape_string(trim(@$_POST["flickr"]));
+	$website = trim(@$_POST["website"]);
+	$facebook = trim(@$_POST["facebook"]);
+	$twitter = trim(@$_POST["twitter"]);
+	$linkedin = trim(@$_POST["linkedin"]);
+	$flickr = trim(@$_POST["flickr"]);
 	
 	$hobbies = @$_POST["hobbies"];
 	$new_hobbies = @$_POST["new_hobbies"];
