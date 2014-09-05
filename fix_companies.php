@@ -146,7 +146,7 @@ $dbh->bindParam(":condition", $condition);
 $dbh->bindParam(":fc_name", $fc["name"]);
 $dbh->execute();
 
-		$related_rows_count = mysql_num_rows($get_similar_query);
+		$related_rows_count = $get_similar_query->rowCount();
 
 		if ($related_rows_count > 0)
 		{
