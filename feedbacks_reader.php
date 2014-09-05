@@ -15,7 +15,7 @@ if ($user["group"] != "admin")
 $get_bugs_query = $dbh->prepare("SELECT * FROM feedback WHERE type = 'bug'");
 $dbh->execute();
 
-$bugs_count = mysql_num_rows($get_bugs_query);
+$bugs_count = $get_bugs_query->rowCount();
 $bugs_html = "";
 
 // Walk up-on the bugs.
@@ -35,7 +35,7 @@ else
 $get_ideas_query = $dbh->prepare("SELECT * FROM feedback WHERE type = 'idea'");
 $dbh->execute();
 
-$ideas_count = mysql_num_rows($get_ideas_query);
+$ideas_count = $get_ideas_query->rowCount();
 $ideas_html = "";
 
 // Walk up-on the ideas.
@@ -55,7 +55,7 @@ else
 $get_praises_query = $dbh->prepare("SELECT * FROM feedback WHERE type = 'praise'");
 $dbh->execute();
 
-$praises_count = mysql_num_rows($get_praises_query);
+$praises_count = $get_praises_query->rowCount();
 $praises_html = "";
 
 // Walk up-on the praises.
