@@ -56,7 +56,7 @@ $dbh->execute();
 			return;
 		}
 		
-		$user_member = mysql_fetch_array($get_user_member_query);
+		$user_member = $get_user_member_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Now, Update information of the user to be a moderator.
 		$update_query = $dbh->prepare("UPDATE user SET usergroup = 'moderator', assigned_root_id = :moderator_root_info_id WHERE id = :user_member_id");
@@ -187,7 +187,7 @@ $dbh->execute();
 				
 				// Get number of members from the same root (and the number of the requests).
 				$root_members_query = mysql_query("SELECT COUNT(id) as members_count FROM member WHERE fullname LIKE '%$root_fullname'");
-				$root_members_fetch = @mysql_fetch_array($root_members_query);
+				$root_members_fetch = @$root_members_query->fetch(PDO::FETCH_ASSOC);
 				$root_members_count = @$root_members_fetch["members_count"];
 				
 				// Get number of pending requests for this moderator.
@@ -195,13 +195,13 @@ $dbh->execute();
 $dbh->bindParam(":moderator_id", $moderator["id"]);
 $dbh->execute();
 
-				$pendong_requests_fetch = @mysql_fetch_array($get_pending_requests_query);
+				$pendong_requests_fetch = @$get_pending_requests_query->fetch(PDO::FETCH_ASSOC);
 				$pending_requests_count = @$pendong_requests_fetch["requests_count"];
 				$pending_requests = ($pending_requests_count == 0) ? "" : "<i class='icon-warning-sign'></i> $pending_requests_count";
 				
 				// Get the inactive members.
 				$get_inactive_users_query = mysql_query("SELECT count(user.id) as users_count FROM user, member WHERE user.member_id = member.id AND user.first_login = '1' AND member.mobile != '0' AND member.fullname LIKE '%$root_fullname'");
-				$inative_users_fetch = mysql_fetch_array($get_inactive_users_query);
+				$inative_users_fetch = $get_inactive_users_query->fetch(PDO::FETCH_ASSOC);
 				$inactive_users_count = $inative_users_fetch["users_count"];
 				
 				$moderators_html .= "<tr data-id='$moderator[id]' id='table_$moderator[id]' class='onerow'><td><input type='checkbox' name='check[$moderator[id]]' id='check_$moderator[id]' /></td><td><b><a href='familytree.php?id=$moderator[member_id]'>$moderator[username]</a></b><p class='hide-for-small'>($moderator_info[fullname])</p></td><td><div class='row'><div class='large-12 columns'><input type='text' name='moderator_root[$moderator[id]]' value='$root_fullname' class='sidrah-name-autocomplete' /></div></div></td><td class='hide-for-small'><center>$root_members_count</center></td><td class='hide-for-small'><center>$pending_requests</center></td><td class='hide-for-small'><center>$inactive_users_count</center></td></tr>";
