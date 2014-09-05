@@ -23,7 +23,10 @@ switch ($action)
 		$id = @$_GET["id"];
 
 		// Get the media.
-		$get_media_query = mysql_query("SELECT media.*, member.fullname AS member_fullname, member.photo AS member_photo, member.gender AS member_gender, user.username FROM media, member, user WHERE media.author_id = member.id AND member.id = user.member_id AND media.id = '$id'");
+		$get_media_query = $dbh->prepare("SELECT media.*, member.fullname AS member_fullname, member.photo AS member_photo, member.gender AS member_gender, user.username FROM media, member, user WHERE media.author_id = member.id AND member.id = user.member_id AND media.id = :id");
+$dbh->bindParam(":id", $id);
+$dbh->execute();
+
 
 		if (mysql_num_rows($get_media_query) == 0)
 		{
@@ -35,10 +38,16 @@ switch ($action)
 		$media = mysql_fetch_array($get_media_query);
 
 		// Update the views of the media.
-		$update_media_views_query = mysql_query("UPDATE media SET views = views+1 WHERE id = '$media[id]'");
+		$update_media_views_query = $dbh->prepare("UPDATE media SET views = views+1 WHERE id = :media_id");
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->execute();
+
 
 		// Get the event.
-		$get_event_query = mysql_query("SELECT * FROM event WHERE id = '$media[event_id]'");
+		$get_event_query = $dbh->prepare("SELECT * FROM event WHERE id = :media_event_id");
+$dbh->bindParam(":media_event_id", $media["event_id"]);
+$dbh->execute();
+
 
 		if (mysql_num_rows($get_event_query) == 0)
 		{
@@ -51,12 +60,18 @@ switch ($action)
 		}
 		
 		// Get the media likes.
-		$get_media_likes_query = mysql_query("SELECT COUNT(id) as media_likes FROM media_reaction WHERE media_id = '$media[id]' AND reaction = 'like'");
+		$get_media_likes_query = $dbh->prepare("SELECT COUNT(id) as media_likes FROM media_reaction WHERE media_id = :media_id AND reaction = 'like'");
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->execute();
+
 		$fetch_media_likes = mysql_fetch_array($get_media_likes_query);
 
 		
 		// Get the tagmembers in media.
-		$get_tagmember_query = mysql_query("SELECT member.id AS member_id, member.fullname, tagmember.* FROM member, tagmember WHERE tagmember.member_id = member.id AND tagmember.type = 'media' AND tagmember.content_id = '$media[id]'");
+		$get_tagmember_query = $dbh->prepare("SELECT member.id AS member_id, member.fullname, tagmember.* FROM member, tagmember WHERE tagmember.member_id = member.id AND tagmember.type = 'media' AND tagmember.content_id = :media_id");
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->execute();
+
 		$tagmembers_string = "";
 
 		if (mysql_num_rows($get_tagmember_query) > 0)
@@ -76,7 +91,10 @@ switch ($action)
 		}
 		
 		// Check if the media has an event.
-		$get_media_event_query = mysql_query("SELECT id, title FROM event WHERE id = '$media[event_id]'");
+		$get_media_event_query = $dbh->prepare("SELECT id, title FROM event WHERE id = :media_event_id");
+$dbh->bindParam(":media_event_id", $media["event_id"]);
+$dbh->execute();
+
 		$media_event = "";
 		
 		if (mysql_num_rows($get_media_event_query) > 0)
@@ -86,7 +104,11 @@ switch ($action)
 		}
 		
 		// Get the previous media.
-		$get_previous_media_query = mysql_query("SELECT id, title FROM media WHERE event_id = '$media[event_id]' AND id < $media[id] ORDER BY id DESC");
+		$get_previous_media_query = $dbh->prepare("SELECT id, title FROM media WHERE event_id = :media_event_id AND id < :media_id ORDER BY id DESC");
+$dbh->bindParam(":media_event_id", $media["event_id"]);
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->execute();
+
 		$previous_media = "";
 		
 		if (mysql_num_rows($get_previous_media_query) > 0)
@@ -96,7 +118,11 @@ switch ($action)
 		}
 		
 		// Get the next media.
-		$get_next_media_query = mysql_query("SELECT id, title FROM media WHERE event_id = '$media[event_id]' AND id > $media[id]");
+		$get_next_media_query = $dbh->prepare("SELECT id, title FROM media WHERE event_id = :media_event_id AND id > :media_id");
+$dbh->bindParam(":media_event_id", $media["event_id"]);
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->execute();
+
 		$next_media = "";
 		
 		if (mysql_num_rows($get_next_media_query) > 0)
@@ -174,7 +200,10 @@ switch ($action)
 		}
 		
 		// Get the media.
-		$get_media_query = mysql_query("SELECT * FROM media WHERE id = '$id'");
+		$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :id");
+$dbh->bindParam(":id", $id);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_media_query) == 0)
 		{
@@ -187,10 +216,18 @@ switch ($action)
 		$now = time();
 		
 		// Insert the like.
-		$insert_media_like_query = mysql_query("INSERT INTO media_reaction (media_id, member_id, reaction, created) VALUES ('$media[id]', '$member[id]', 'like', '$now')");
+		$insert_media_like_query = $dbh->prepare("INSERT INTO media_reaction (media_id, member_id, reaction, created) VALUES (:media_id, :member_id, 'like', :now)");
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 
 		// Get the user of the media.
-		$get_media_user_query = mysql_query("SELECT * FROM user WHERE member_id = '$media[author_id]'");
+		$get_media_user_query = $dbh->prepare("SELECT * FROM user WHERE member_id = :media_author_id");
+$dbh->bindParam(":media_author_id", $media["author_id"]);
+$dbh->execute();
+
 
 		if (mysql_num_rows($get_media_user_query) > 0)
 		{
@@ -220,7 +257,10 @@ switch ($action)
 		$media_id = @$_GET["media_id"];
 		
 		// Check if the media does exist.
-		$get_media_query = mysql_query("SELECT * FROM media WHERE id = '$media_id'");
+		$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :media_id");
+$dbh->bindParam(":media_id", $media_id);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_media_query) == 0)
 		{
@@ -244,11 +284,20 @@ switch ($action)
 
 			// Insert the comment.
 			$now = time();
-			$insert_media_comment_query = mysql_query("INSERT INTO media_comment (media_id, content, author_id, created) VALUES ('$media[id]', '$content', '$member[id]', '$now')");
+			$insert_media_comment_query = $dbh->prepare("INSERT INTO media_comment (media_id, content, author_id, created) VALUES (:media_id, :content, :member_id, :now)");
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->bindParam(":content", $content);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 			$inserted_comment_id = mysql_insert_id();
 			
 			// Get the count of media comments.
-			$get_media_comments_query = mysql_query("SELECT COUNT(id) AS comments_count FROM media_comment WHERE media_id = '$media[id]'");
+			$get_media_comments_query = $dbh->prepare("SELECT COUNT(id) AS comments_count FROM media_comment WHERE media_id = :media_id");
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->execute();
+
 			$fetch_media_comments = mysql_fetch_array($get_media_comments_query);
 			
 			// Update the media thumb to be with comments count.
@@ -262,7 +311,10 @@ switch ($action)
 			//$not_notify_user_ids []= $user["id"];
 		
 			// Get the author id of the media.
-			$get_media_author_query = mysql_query("SELECT id FROM user WHERE member_id = '$media[author_id]'");
+			$get_media_author_query = $dbh->prepare("SELECT id FROM user WHERE member_id = :media_author_id");
+$dbh->bindParam(":media_author_id", $media["author_id"]);
+$dbh->execute();
+
 			$fetch_media_author = mysql_fetch_array($get_media_author_query);
 			$media_author_user_id = $fetch_media_author["id"];
 			
@@ -286,7 +338,12 @@ switch ($action)
 			}
 			
 			// Get the comments before this comment.
-			$get_users_before_query = mysql_query("SELECT DISTINCT user.id AS id FROM media_comment, user WHERE media_comment.author_id = user.member_id AND media_comment.media_id = '$media[id]' AND media_comment.created < $now $not_in_users_condition");
+			$get_users_before_query = $dbh->prepare("SELECT DISTINCT user.id AS id FROM media_comment, user WHERE media_comment.author_id = user.member_id AND media_comment.media_id = :media_id AND media_comment.created < :now :not_in_users_condition");
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->bindParam(":now", $now);
+$dbh->bindParam(":not_in_users_condition", $not_in_users_condition);
+$dbh->execute();
+
 			$users_before_count = mysql_num_rows($get_users_before_query);
 			
 			if ($users_before_count > 0)
@@ -334,7 +391,10 @@ switch ($action)
 		$comment = mysql_fetch_array($get_comment_query);
 		
 		// Get the media.
-		$get_media_query = mysql_query("SELECT * FROM media WHERE id = '$comment[media_id]'");
+		$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :comment_media_id");
+$dbh->bindParam(":comment_media_id", $comment["media_id"]);
+$dbh->execute();
+
 		$media = mysql_fetch_array($get_media_query);
 		
 		// Check if the comment author is the logged in user,
@@ -342,13 +402,22 @@ switch ($action)
 		if ($user["group"] == "admin" || $user["group"] == "moderator" || $user["member_id"] == $comment["author_id"])
 		{
 			// Delete related likes.
-			$delete_likes_query = mysql_query("DELETE FROM media_comment_like WHERE media_comment_id = '$comment[id]'");
+			$delete_likes_query = $dbh->prepare("DELETE FROM media_comment_like WHERE media_comment_id = :comment_id");
+$dbh->bindParam(":comment_id", $comment["id"]);
+$dbh->execute();
+
 			
 			// Then, delete the comment itsef.
-			$delete_comment_query = mysql_query("DELETE FROM media_comment WHERE id = '$comment[id]'");
+			$delete_comment_query = $dbh->prepare("DELETE FROM media_comment WHERE id = :comment_id");
+$dbh->bindParam(":comment_id", $comment["id"]);
+$dbh->execute();
+
 			
 			// Count the comments, and update the media.
-			$get_media_comments_query = mysql_query("SELECT COUNT(id) AS comments_count FROM media_comment WHERE media_id = '$media[id]'");
+			$get_media_comments_query = $dbh->prepare("SELECT COUNT(id) AS comments_count FROM media_comment WHERE media_id = :media_id");
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->execute();
+
 			$fetch_media_comments = mysql_fetch_array($get_media_comments_query);
 
 			// Update the comments count written on thumb.
@@ -373,7 +442,10 @@ switch ($action)
 		$comment_id = @$_GET["comment_id"];
 		
 		// Check if the comment does exist.
-		$get_comment_query = mysql_query("SELECT media_comment.*, media.title AS media_title FROM media_comment, media WHERE media.id = media_comment.media_id AND media_comment.id = '$comment_id'");
+		$get_comment_query = $dbh->prepare("SELECT media_comment.*, media.title AS media_title FROM media_comment, media WHERE media.id = media_comment.media_id AND media_comment.id = :comment_id");
+$dbh->bindParam(":comment_id", $comment_id);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_comment_query) == 0)
 		{
@@ -385,7 +457,11 @@ switch ($action)
 		$comment = mysql_fetch_array($get_comment_query);
 		
 		// Check if the member has liked this comment before.
-		$get_member_likes_query = mysql_query("SELECT * FROM media_comment_like WHERE media_comment_id = '$comment[id]' AND member_id = '$member[id]'");
+		$get_member_likes_query = $dbh->prepare("SELECT * FROM media_comment_like WHERE media_comment_id = :comment_id AND member_id = :member_id");
+$dbh->bindParam(":comment_id", $comment["id"]);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 
 		if (mysql_num_rows($get_member_likes_query) > 0)
 		{
@@ -401,14 +477,22 @@ switch ($action)
 		}
 		
 		$now = time();
-		$like_comment_query = mysql_query("INSERT INTO media_comment_like (media_comment_id, member_id, created) VALUES ('$comment[id]', '$member[id]', '$now')");
+		$like_comment_query = $dbh->prepare("INSERT INTO media_comment_like (media_comment_id, member_id, created) VALUES (:comment_id, :member_id, :now)");
+$dbh->bindParam(":comment_id", $comment["id"]);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 		
 		// Set the notification.
 		$desc = "$user[username] أُعجب بتعليقك على صورة: $comment[media_title].";
 		$link = "media.php?action=view_media&id=$comment[media_id]#comment_$comment[id]";
 		
 		// Get the user id of the comment author.
-		$get_comment_user_query = mysql_query("SELECT id FROM user WHERE member_id = '$comment[author_id]'");
+		$get_comment_user_query = $dbh->prepare("SELECT id FROM user WHERE member_id = :comment_author_id");
+$dbh->bindParam(":comment_author_id", $comment["author_id"]);
+$dbh->execute();
+
 		$fetch_comment_user = mysql_fetch_array($get_comment_user_query);
 		
 		// Notify the commenter.
@@ -426,7 +510,10 @@ switch ($action)
 		$media_id = @$_GET["media_id"];
 		
 		// Check if the media does exist.
-		$get_media_query = mysql_query("SELECT * FROM media WHERE id = '$media_id'");
+		$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :media_id");
+$dbh->bindParam(":media_id", $media_id);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_media_query) == 0)
 		{
@@ -478,7 +565,10 @@ switch ($action)
 		$tagmembers = @$_POST["tagmembers"];
 		
 		// Check if the media does exist.
-		$get_media_query = mysql_query("SELECT * FROM media WHERE id = '$id'");
+		$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :id");
+$dbh->bindParam(":id", $id);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_media_query) == 0)
 		{
@@ -490,7 +580,10 @@ switch ($action)
 		$media = mysql_fetch_array($get_media_query);
 
 		// Get the already added tagmembers.
-		$get_tagmembers_query = mysql_query("SELECT * FROM tagmember WHERE type = 'media' AND content_id = '$media[id]'");
+		$get_tagmembers_query = $dbh->prepare("SELECT * FROM tagmember WHERE type = 'media' AND content_id = :media_id");
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->execute();
+
 		$already_tagmembers = array();
 		
 		if (mysql_num_rows($get_tagmembers_query) > 0)
@@ -513,7 +606,11 @@ switch ($action)
 		{
 			if (!in_array($already_tagmember, $tagmembers_array))
 			{
-				mysql_query("DELETE FROM tagmember WHERE type = 'media' AND content_id = '$media[id]' AND member_id = '$already_tagmember'");
+				$dbh->prepare("DELETE FROM tagmember WHERE type = 'media' AND content_id = :media_id AND member_id = :already_tagmember");
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->bindParam(":already_tagmember", $already_tagmember);
+$dbh->execute();
+
 			}
 		}
 		
@@ -523,7 +620,12 @@ switch ($action)
 		{
 			if (!in_array($tagmember, $already_tagmembers))
 			{
-				mysql_query("INSERT INTO tagmember (type, content_id, member_id, created) VALUES ('media', '$media[id]', '$tagmember', '$now')");
+				$dbh->prepare("INSERT INTO tagmember (type, content_id, member_id, created) VALUES ('media', :media_id, :tagmember, :now)");
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->bindParam(":tagmember", $tagmember);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 			}
 		}
 		
