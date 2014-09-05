@@ -291,7 +291,7 @@ $dbh->bindParam(":member_id", $member["id"]);
 $dbh->bindParam(":now", $now);
 $dbh->execute();
 
-			$inserted_comment_id = mysql_insert_id();
+			$inserted_comment_id = $dbh->lastInsertId();
 			
 			// Get the count of media comments.
 			$get_media_comments_query = $dbh->prepare("SELECT COUNT(id) AS comments_count FROM media_comment WHERE media_id = :media_id");
