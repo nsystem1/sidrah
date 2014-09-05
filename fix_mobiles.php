@@ -38,7 +38,7 @@ AND t.mobiles > 1
 ORDER BY member.mobile
 ");
 
-$similar_mobiles_count = mysql_num_rows($get_similar_mobiles_query);
+$similar_mobiles_count = $get_similar_mobiles_query->rowCount();
 
 echo "<!DOCTYPE HTML>";
 echo "<html lang='ar' dir='rtl'><head><meta charset='utf-8' /></head><body>";
