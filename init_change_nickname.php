@@ -32,7 +32,11 @@ if (!empty($submit))
 	}
 
 	// Start to change the nickname of the member.
-	$update_nickname_query = mysql_query("UPDATE member SET nickname = '$nickname' WHERE id = '$member[id]'");
+	$update_nickname_query = $dbh->prepare("UPDATE member SET nickname = :nickname WHERE id = :member_id");
+$dbh->bindParam(":nickname", $nickname);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 
 	echo success_message(
 		"تم تحديث اللقب بنجاح.",
