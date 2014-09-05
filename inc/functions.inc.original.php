@@ -1562,7 +1562,7 @@ $dbh->execute();
 $dbh->bindParam(":company_name", $company_name);
 $dbh->execute();
 
-		return mysql_insert_id();
+		return $dbh->lastInsertId();
 	}
 	else
 	{
@@ -1716,7 +1716,7 @@ $dbh->execute();
 $dbh->bindParam(":hobby", $hobby);
 $dbh->execute();
 
-		$hobby_id = mysql_insert_id();
+		$hobby_id = $dbh->lastInsertId();
 	}
 	else
 	{
@@ -2273,7 +2273,7 @@ $dbh->bindParam(":gender", $gender);
 $dbh->bindParam(":now", $now);
 $dbh->execute();
 
-			return mysql_insert_id();
+			return $dbh->lastInsertId();
 		}
 	}
 	else
@@ -2315,7 +2315,7 @@ $dbh->bindParam(":fullname", $fullname);
 $dbh->bindParam(":now", $now);
 $dbh->execute();
 
-			$new_father_id = mysql_insert_id();
+			$new_father_id = $dbh->lastInsertId();
 		}
 		
 		// Walk...
@@ -2709,7 +2709,7 @@ $dbh->bindParam(":hashed_password", $hashed_password);
 $dbh->bindParam(":id", $id);
 $dbh->execute();
 
-			$user_id = mysql_insert_id();
+			$user_id = $dbh->lastInsertId();
 			
 			// Send SMS.
 			if ($member["mobile"] != 0)
