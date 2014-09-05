@@ -32,7 +32,10 @@ if (!empty($submit))
 	}
 	
 	// Get the company to be replaced with.
-	$gcrwithquery = mysql_query("SELECT * FROM company WHERE name = '$replace_with_word'");
+	$gcrwithquery = $dbh->prepare("SELECT * FROM company WHERE name = :replace_with_word");
+$dbh->bindParam(":replace_with_word", $replace_with_word);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($gcrwithquery) == 0)
 	{
@@ -47,7 +50,10 @@ if (!empty($submit))
 	// Delete all companies and update members of them.
 	foreach ($clean_words as $clean_word)
 	{
-		$gcw_query = mysql_query("SELECT id, name FROM company WHERE name = $clean_word");
+		$gcw_query = $dbh->prepare("SELECT id, name FROM company WHERE name = :clean_word");
+$dbh->bindParam(":clean_word", $clean_word);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($gcw_query) == 0)
 		{
@@ -57,10 +63,17 @@ if (!empty($submit))
 		$gcw_fetch = mysql_fetch_array($gcw_query);
 		
 		// Delete this company.
-		$delete_company_query = mysql_query("DELETE FROM company WHERE id = '$gcw_fetch[id]'");
+		$delete_company_query = $dbh->prepare("DELETE FROM company WHERE id = :gcw_fetch_id");
+$dbh->bindParam(":gcw_fetch_id", $gcw_fetch["id"]);
+$dbh->execute();
+
 		
 		// Update all members.
-		$update_members_query = mysql_query("UPDATE member SET company_id = '$gcrfetch[id]' WHERE company_id = '$gcw_fetch[id]'");
+		$update_members_query = $dbh->prepare("UPDATE member SET company_id = :gcrfetch_id WHERE company_id = :gcw_fetch_id");
+$dbh->bindParam(":gcrfetch_id", $gcrfetch["id"]);
+$dbh->bindParam(":gcw_fetch_id", $gcw_fetch["id"]);
+$dbh->execute();
+
 		
 	}
 
@@ -102,7 +115,9 @@ else
 	<?php
 
 	// Get companies.
-	$gcq = mysql_query("SELECT id, name FROM company ORDER BY LENGTH(name) ASC");
+	$gcq = $dbh->prepare("SELECT id, name FROM company ORDER BY LENGTH(name) ASC");
+$dbh->execute();
+
 
 	while ($fc = mysql_fetch_array($gcq))
 	{
@@ -126,7 +141,11 @@ else
 	
 		$condition = implode(" AND ", $escaped_words);
 	
-		$get_similar_query = mysql_query("SELECT id, name FROM company WHERE ($condition) AND name != '$fc[name]'");
+		$get_similar_query = $dbh->prepare("SELECT id, name FROM company WHERE (:condition) AND name != :fc_name");
+$dbh->bindParam(":condition", $condition);
+$dbh->bindParam(":fc_name", $fc["name"]);
+$dbh->execute();
+
 		$related_rows_count = mysql_num_rows($get_similar_query);
 
 		if ($related_rows_count > 0)
