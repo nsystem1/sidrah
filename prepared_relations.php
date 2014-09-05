@@ -43,7 +43,10 @@ switch ($action)
 		}
 		
 		// Check if there is a user mapped to the member.
-		$get_user_member_query = mysql_query("SELECT * FROM user WHERE member_id = '$moderator_info[id]'");
+		$get_user_member_query = $dbh->prepare("SELECT * FROM user WHERE member_id = :moderator_info_id");
+$dbh->bindParam(":moderator_info_id", $moderator_info["id"]);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_user_member_query) == 0)
 		{
@@ -54,7 +57,11 @@ switch ($action)
 		$user_member = mysql_fetch_array($get_user_member_query);
 		
 		// Now, Update information of the user to be a moderator.
-		$update_query = mysql_query("UPDATE user SET usergroup = 'moderator', assigned_root_id = '$moderator_root_info[id]' WHERE id = '$user_member[id]'");
+		$update_query = $dbh->prepare("UPDATE user SET usergroup = 'moderator', assigned_root_id = :moderator_root_info_id WHERE id = :user_member_id");
+$dbh->bindParam(":moderator_root_info_id", $moderator_root_info["id"]);
+$dbh->bindParam(":user_member_id", $user_member["id"]);
+$dbh->execute();
+
 		
 		echo success_message(
 			"تم إضافة المشرف بنجاح.",
@@ -92,7 +99,10 @@ switch ($action)
 				foreach ($check as $k => $v)
 				{
 					// Delete the prepared relation.
-					$delete_query = mysql_query("DELETE FROM prepared_relation WHERE id = '$k'");
+					$delete_query = $dbh->prepare("DELETE FROM prepared_relation WHERE id = :k");
+$dbh->bindParam(":k", $k);
+$dbh->execute();
+
 				}
 			}
 		}
@@ -109,7 +119,9 @@ switch ($action)
 	default: case "view_prepared_relations":
 	
 		$prepared_relations_html = "";
-		$get_prepared_relations_query = mysql_query("SELECT * FROM prepared_relation ORDER BY id DESC");
+		$get_prepared_relations_query = $dbh->prepare("SELECT * FROM prepared_relation ORDER BY id DESC");
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_prepared_relations_query) == 0)
 		{
