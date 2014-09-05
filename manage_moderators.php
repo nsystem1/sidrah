@@ -13,15 +13,15 @@ if ($user["group"] != "admin")
 	return;
 }
 
-$action = mysql_real_escape_string(@$_GET["action"]);
+$action = @$_GET["action"];
 
 switch ($action)
 {	
 	case "add_moderator":
 	
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
-		$moderator_name = trim(mysql_real_escape_string(@$_POST["moderator_name"]));
-		$moderator_root_name = trim(mysql_real_escape_string(@$_POST["moderator_root_name"]));
+		$submit = @$_POST["submit"];
+		$moderator_name = trim(@$_POST["moderator_name"]);
+		$moderator_root_name = trim(@$_POST["moderator_root_name"]);
 
 		if (empty($submit))
 		{
@@ -66,8 +66,8 @@ switch ($action)
 	
 	case "update_moderators":
 
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
-		$do = mysql_real_escape_string(@$_POST["do"]);
+		$submit = @$_POST["submit"];
+		$do = @$_POST["do"];
 		$check = @$_POST["check"];
 		$moderator_root = @$_POST["moderator_root"];
 
@@ -92,7 +92,7 @@ switch ($action)
 		{
 			foreach ($check as $k => $v)
 			{
-				$one_moderator_root = trim(mysql_real_escape_string($moderator_root[$k]));
+				$one_moderator_root = trim($moderator_root[$k]);
 				
 				if (empty($one_moderator_root) && $do != "delete")
 				{
