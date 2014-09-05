@@ -2,7 +2,9 @@
 
 require_once("inc/functions.inc.php");
 
-$get_male_members = mysql_query("SELECT id, father_id, name, nickname, mobile, is_alive FROM member WHERE gender = '1'");
+$get_male_members = $dbh->prepare("SELECT id, father_id, name, nickname, mobile, is_alive FROM member WHERE gender = '1'");
+$dbh->execute();
+
 
 while ($male_member = mysql_fetch_array($get_male_members))
 {
@@ -10,7 +12,9 @@ while ($male_member = mysql_fetch_array($get_male_members))
 }
 
 /*
-$get_fullnames = mysql_query("SELECT COUNT(id) as c, fullname FROM member GROUP BY fullname ORDER BY c DESC");
+$get_fullnames = $dbh->prepare("SELECT COUNT(id) as c, fullname FROM member GROUP BY fullname ORDER BY c DESC");
+$dbh->execute();
+
 
 while ($member = mysql_fetch_array($get_fullnames))
 {
