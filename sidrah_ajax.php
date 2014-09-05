@@ -44,7 +44,10 @@ switch ($action)
 		$offset = (int) @$_POST["offset"];
 
 		// Get the prepared relation depending on the id (to).
-		$get_prepared_relation_query = mysql_query("SELECT * FROM prepared_relation WHERE id = '$to'");
+		$get_prepared_relation_query = $dbh->prepare("SELECT * FROM prepared_relation WHERE id = :to");
+$dbh->bindParam(":to", $to);
+$dbh->execute();
+
 
 		if (mysql_num_rows($get_prepared_relation_query) == 0)
 		{
@@ -64,7 +67,11 @@ switch ($action)
 		else if ($method == "offset")
 		{
 			// Send an SMS message.
-			$mysql_query = mysql_query("$query LIMIT 1 OFFSET $offset");
+			$mysql_query = $dbh->prepare(":query LIMIT 1 OFFSET :offset");
+$dbh->bindParam(":query", $query);
+$dbh->bindParam(":offset", $offset);
+$dbh->execute();
+
 			$member = mysql_fetch_array($mysql_query);
 
 			$message = preg_replace('/\{(.*)\}/e', '$member["$1"]', $message);
@@ -86,7 +93,10 @@ switch ($action)
 		$key = @$_GET["key"];
 		
 		// Check if the request update does exist.
-		$get_request_query = mysql_query("SELECT phpscript FROM request WHERE random_key = '$key'");
+		$get_request_query = $dbh->prepare("SELECT phpscript FROM request WHERE random_key = :key");
+$dbh->bindParam(":key", $key);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_request_query) == 0)
 		{
@@ -121,7 +131,10 @@ switch ($action)
 			$media = @$_FILES["media_file"];
 
 			// TODO: Check if the event does exists.
-			$get_event_query = mysql_query("SELECT * FROM event WHERE id = '$event_id'");
+			$get_event_query = $dbh->prepare("SELECT * FROM event WHERE id = :event_id");
+$dbh->bindParam(":event_id", $event_id);
+$dbh->execute();
+
 			$event_exist = mysql_num_rows($get_event_query);
 
 			if ($media_is_event == 1 && $event_exist == 0)
@@ -229,7 +242,18 @@ switch ($action)
 									$now = time();
 									
 									// Insert media into media table.
-									$insert_media_query = mysql_query("INSERT INTO media (event_id, type, name, size, width, height, hash, title, author_id, created) VALUES ('$event_id', 'photo', '$uniqename', '$filesize', '$new_width', '$new_height', '$hash_file', '$media_title', '$user[member_id]', '$now')");
+									$insert_media_query = $dbh->prepare("INSERT INTO media (event_id, type, name, size, width, height, hash, title, author_id, created) VALUES (:event_id, 'photo', :uniqename, :filesize, :new_width, :new_height, :hash_file, :media_title, :user_member_id, :now)");
+$dbh->bindParam(":event_id", $event_id);
+$dbh->bindParam(":uniqename", $uniqename);
+$dbh->bindParam(":filesize", $filesize);
+$dbh->bindParam(":new_width", $new_width);
+$dbh->bindParam(":new_height", $new_height);
+$dbh->bindParam(":hash_file", $hash_file);
+$dbh->bindParam(":media_title", $media_title);
+$dbh->bindParam(":user_member_id", $user["member_id"]);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 									$media_id = mysql_insert_id();
 						
 									$data = array(
@@ -287,7 +311,11 @@ switch ($action)
 		$id = @$_GET["id"];
 
 		// Get the member information from database.
-		$get_member_query = mysql_query("SELECT * FROM member WHERE tribe_id = '$tribe_id' AND id = '$id'");
+		$get_member_query = $dbh->prepare("SELECT * FROM member WHERE tribe_id = :tribe_id AND id = :id");
+$dbh->bindParam(":tribe_id", $tribe_id);
+$dbh->bindParam(":id", $id);
+$dbh->execute();
+
 
 		// TODO: Do some extra checking.
 
@@ -309,7 +337,10 @@ switch ($action)
 			
 			if ($member["father_id"] != -1)
 			{
-				$get_parent_query = mysql_query("SELECT * FROM member WHERE id = '$member[father_id]'");
+				$get_parent_query = $dbh->prepare("SELECT * FROM member WHERE id = :member_father_id");
+$dbh->bindParam(":member_father_id", $member["father_id"]);
+$dbh->execute();
+
 				
 				if (mysql_num_rows($get_parent_query) > 0)
 				{
@@ -383,7 +414,10 @@ switch ($action)
 			$condition = implode("AND ", $conditions);
 
 			// Get the children of the member.
-			$get_children_query = mysql_query("SELECT * FROM member WHERE $condition");
+			$get_children_query = $dbh->prepare("SELECT * FROM member WHERE :condition");
+$dbh->bindParam(":condition", $condition);
+$dbh->execute();
+
 			$children = array();
 
 			if (mysql_num_rows($get_children_query) > 0)
@@ -391,7 +425,10 @@ switch ($action)
 				while ($child = mysql_fetch_array($get_children_query))
 				{
 					// Get the number of children for this child.
-					$get_child_children_query = mysql_query("SELECT id, name FROM member WHERE father_id = '$child[id]'");
+					$get_child_children_query = $dbh->prepare("SELECT id, name FROM member WHERE father_id = :child_id");
+$dbh->bindParam(":child_id", $child["id"]);
+$dbh->execute();
+
 				
 					$children[$child["id"]] = array(
 						"id" => $child["id"],
@@ -430,7 +467,10 @@ switch ($action)
 			$answer = @$_POST["answer"];
 			
 			// Check if the question id does exist.
-			$check_question_query = mysql_query("SELECT id FROM ramadan_question WHERE id = '$question_id'");
+			$check_question_query = $dbh->prepare("SELECT id FROM ramadan_question WHERE id = :question_id");
+$dbh->bindParam(":question_id", $question_id);
+$dbh->execute();
+
 			
 			if (mysql_num_rows($check_question_query) == 0)
 			{
@@ -446,7 +486,11 @@ switch ($action)
 			}
 			
 			// Check if the user already answered this question.
-			$check_answered_query = mysql_query("SELECT id FROM member_question WHERE member_id = '$user[member_id]' AND question_id = '$question_id'");
+			$check_answered_query = $dbh->prepare("SELECT id FROM member_question WHERE member_id = :user_member_id AND question_id = :question_id");
+$dbh->bindParam(":user_member_id", $user["member_id"]);
+$dbh->bindParam(":question_id", $question_id);
+$dbh->execute();
+
 			
 			if (mysql_num_rows($check_answered_query) > 0)
 			{
@@ -456,7 +500,13 @@ switch ($action)
 			
 			// Everything is alright.
 			$now = time();
-			$insert_answer_query = mysql_query("INSERT INTO member_question (member_id, question_id, answer, created) VALUES ('$user[member_id]', '$question_id', '$answer', '$now')");
+			$insert_answer_query = $dbh->prepare("INSERT INTO member_question (member_id, question_id, answer, created) VALUES (:user_member_id, :question_id, :answer, :now)");
+$dbh->bindParam(":user_member_id", $user["member_id"]);
+$dbh->bindParam(":question_id", $question_id);
+$dbh->bindParam(":answer", $answer);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 			
 			// Awesome.
 			echo success_message(
@@ -478,7 +528,10 @@ switch ($action)
 				$id = @$_GET["id"];
 				
 				// Check if the media exists.
-				$get_media_query = mysql_query("SELECT * FROM media WHERE id = '$id'");
+				$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :id");
+$dbh->bindParam(":id", $id);
+$dbh->execute();
+
 				
 				if (mysql_num_rows($get_media_query) == 0)
 				{
