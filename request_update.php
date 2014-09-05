@@ -46,7 +46,7 @@ $dbh->execute();
 		else
 		{
 			// Just execute php script.
-			$request = mysql_fetch_array($get_pending_request);
+			$request = $get_pending_request->fetch(PDO::FETCH_ASSOC);
 			$output = execute_request($request["random_key"], $user["id"]);
 			$affected_info = get_member_id($request["affected_id"]);	
 
@@ -84,7 +84,7 @@ $dbh->execute();
 		else
 		{
 			// Fetch one request.
-			$request = mysql_fetch_array($get_pending_request);
+			$request = $get_pending_request->fetch(PDO::FETCH_ASSOC);
 			$affected_info = get_member_id($request["affected_id"]);
 			$now = time();
 			
