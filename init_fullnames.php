@@ -3,7 +3,9 @@
 require_once("inc/functions.inc.php");
 
 // Get all members.
-$get_members_query = mysql_query("SELECT id, father_id FROM member");
+$get_members_query = $dbh->prepare("SELECT id, father_id FROM member");
+$dbh->execute();
+
 
 // Start updating fullnames of them.
 while ($member = mysql_fetch_array($get_members_query))
