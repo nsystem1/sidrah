@@ -344,7 +344,7 @@ $dbh->bindParam(":now", $now);
 $dbh->bindParam(":not_in_users_condition", $not_in_users_condition);
 $dbh->execute();
 
-			$users_before_count = mysql_num_rows($get_users_before_query);
+			$users_before_count = $get_users_before_query->rowCount();
 			
 			if ($users_before_count > 0)
 			{
