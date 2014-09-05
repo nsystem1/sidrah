@@ -44,7 +44,11 @@ if (!empty($submit))
 	}
 	
 	// Everything is alright.
-	$update_cv_query = mysql_query("UPDATE member SET $cv_sql WHERE id = '$member[id]'");
+	$update_cv_query = $dbh->prepare("UPDATE member SET :cv_sql WHERE id = :member_id");
+$dbh->bindParam(":cv_sql", $cv_sql);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 			
 	// Awesome.
 	echo success_message(
