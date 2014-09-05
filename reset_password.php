@@ -4,7 +4,7 @@ session_start();
 
 require_once("inc/functions.inc.php");
 
-$action = mysql_real_escape_string(@$_GET["action"]);
+$action = @$_GET["action"];
 
 $session_verification_code = @$_SESSION["sidrah_verification_code"];
 $session_mobile = @$_SESSION["sidrah_mobile"];
@@ -13,12 +13,12 @@ switch ($action)
 {
 	default: case "enter_mobile":
 	
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
+		$submit = @$_POST["submit"];
 		
 		if (!empty($submit))
 		{
-			$mobile = mysql_real_escape_string(arabic_number(@$_POST["mobile"]));
-			$captcha = mysql_real_escape_string(arabic_number(@$_POST["captcha"]));
+			$mobile = arabic_number(@$_POST["mobile"]);
+			$captcha = arabic_number(@$_POST["captcha"]);
 
 			if (empty($mobile) || empty($captcha))
 			{
@@ -103,11 +103,11 @@ switch ($action)
 			return;
 		}
 
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
+		$submit = @$_POST["submit"];
 		
 		if (!empty($submit))
 		{
-			$verification_code = mysql_real_escape_string(arabic_number(@$_POST["verification_code"]));
+			$verification_code = arabic_number(@$_POST["verification_code"]);
 			$hashed_verification_code = sha1_salt($verification_code);
 			
 			if ($hashed_verification_code != $session_verification_code)
@@ -176,12 +176,12 @@ switch ($action)
 }
 
 /*
-$submit = mysql_real_escape_string(@$_POST["submit"]);
+$submit = @$_POST["submit"];
 
 if (!empty($submit))
 {
-	$username = trim(mysql_real_escape_string(@$_POST["username"]));
-	$mobile = (int) trim(mysql_real_escape_string(arabic_number(@$_POST["mobile"])));
+	$username = trim(@$_POST["username"]);
+	$mobile = (int) trim(arabic_number(@$_POST["mobile"]));
 	
 	// Check if the username is empty or mobile.
 	if (empty($username) || empty($mobile))
