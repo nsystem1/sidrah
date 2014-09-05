@@ -208,7 +208,7 @@ $dbh->bindParam(":now_date_int", $now_date_int);
 $dbh->bindParam(":events_limit", $events_limit);
 $dbh->execute();
 
-		$current_events_count = mysql_num_rows($get_current_events_query);
+		$current_events_count = $get_current_events_query->rowCount();
 		
 		if ($current_events_count == 0)
 		{
@@ -231,7 +231,7 @@ $dbh->bindParam(":now_date_int", $now_date_int);
 $dbh->bindParam(":events_limit", $events_limit);
 $dbh->execute();
 
-		$future_events_count = mysql_num_rows($get_future_events_query);
+		$future_events_count = $get_future_events_query->rowCount();
 		
 		if ($future_events_count == 0)
 		{
@@ -253,7 +253,7 @@ $dbh->bindParam(":now_date_int", $now_date_int);
 $dbh->bindParam(":events_limit", $events_limit);
 $dbh->execute();
 
-		$past_events_count = mysql_num_rows($get_past_events_query);
+		$past_events_count = $get_past_events_query->rowCount();
 		
 		if ($past_events_count == 0)
 		{
@@ -315,7 +315,7 @@ $dbh->bindParam(":hijri_month", $hijri_month);
 $dbh->bindParam(":hijri_year", $hijri_year);
 $dbh->execute();
 
- 		$this_day_events_count = mysql_num_rows($get_this_day_events_query);
+ 		$this_day_events_count = $get_this_day_events_query->rowCount();
  		
  		if ($this_day_events_count == 0)
  		{
@@ -385,7 +385,7 @@ $dbh->bindParam(":event_id", $event["id"]);
 $dbh->bindParam(":members_limit", $members_limit);
 $dbh->execute();
 
-				$bunch_members_come_count = mysql_num_rows($get_bunch_members_come_query);
+				$bunch_members_come_count = $get_bunch_members_come_query->rowCount();
 			
 				// To hold members.
 				$come_members_array = array();
@@ -439,7 +439,7 @@ $dbh->bindParam(":no_react_condition", $no_react_condition);
 $dbh->bindParam(":members_limit", $members_limit);
 $dbh->execute();
 
-				$bunch_members_no_react_count = mysql_num_rows($get_bunch_members_no_react_query);
+				$bunch_members_no_react_count = $get_bunch_members_no_react_query->rowCount();
 			
 				// To hold members.
 				$no_react_members_array = array();
@@ -1048,7 +1048,7 @@ $dbh->bindParam(":now", $now);
 $dbh->bindParam(":not_in_users_condition", $not_in_users_condition);
 $dbh->execute();
 
-			$users_before_count = mysql_num_rows($get_users_before_query);
+			$users_before_count = $get_users_before_query->rowCount();
 			
 			if ($users_before_count > 0)
 			{
