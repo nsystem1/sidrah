@@ -3886,7 +3886,7 @@ $dbh->execute();
 
 	
 	// True, or False.
-	return (mysql_num_rows($check_member_dean_query) > 0);
+	return ($check_member_dean_query) > 0->rowCount();
 }
 
 // public
@@ -4359,7 +4359,7 @@ function get_event_comments($event_id, &$comments_count, $member_id)
 $dbh->bindParam(":event_id", $event_id);
 $dbh->execute();
 
-	$comments_count = mysql_num_rows($get_event_query);
+	$comments_count = $get_event_query->rowCount();
 	
 	if ($comments_count == 0)
 	{
@@ -4416,7 +4416,7 @@ function get_media_comments($media_id, &$comments_count, $member_id)
 $dbh->bindParam(":media_id", $media_id);
 $dbh->execute();
 
-	$comments_count = mysql_num_rows($get_media_query);
+	$comments_count = $get_media_query->rowCount();
 	
 	// Get the user information.
 	$user = user_information();
