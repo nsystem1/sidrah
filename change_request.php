@@ -5,7 +5,9 @@ require_once("inc/functions.inc.php");
 // Get the user information.
 $user = user_information();
 
-$get_random_request_query = mysql_query("SELECT * FROM request ORDER BY RAND()");
+$get_random_request_query = $dbh->prepare("SELECT * FROM request ORDER BY RAND()");
+$dbh->execute();
+
 $one_request = mysql_fetch_array($get_random_request_query);
 
 // Get the description
