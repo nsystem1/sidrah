@@ -30,7 +30,7 @@ else
 
 // Get the content.
 $get_inactive_users_query = mysql_query("SELECT user.id AS user_id, member.id AS member_id, member.gender AS gender, member.fullname AS fullname, member.mobile AS mobile, member.is_alive AS is_alive, (SELECT COUNT(id) FROM request WHERE affected_id = member.id AND status = 'pending') AS pending_requests FROM user, member WHERE user.member_id = member.id AND user.first_login = '1' AND member.mobile != '0' AND member.fullname LIKE '%$related_fullname' ORDER BY mobile DESC");
-$inactive_users_count = mysql_num_rows($get_inactive_users_query);
+$inactive_users_count = $get_inactive_users_query->rowCount();
 
 if ($inactive_users_count == 0)
 {
