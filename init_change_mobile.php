@@ -4,9 +4,9 @@ require_once("inc/functions.inc.php");
 
 $user = user_information();
 
-$id = mysql_real_escape_string(@$_GET["id"]);
-$submit = mysql_real_escape_string(@$_POST["submit"]);
-$mobile = mysql_real_escape_string(arabic_number(@$_POST["mobile"]));
+$id = @$_GET["id"];
+$submit = @$_POST["submit"];
+$mobile = arabic_number(@$_POST["mobile"]);
 
 // Check if the member does exist.
 $member = get_member_id($id);
