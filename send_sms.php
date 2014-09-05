@@ -40,7 +40,7 @@ if (mysql_num_rows($get_prepared_relations_query) > 0)
 		
 		// Execute the query.
 		$execute_query = mysql_query($query);
-		$fetch_query = mysql_fetch_array($execute_query);
+		$fetch_query = $execute_query->fetch(PDO::FETCH_ASSOC);
 		$count = $fetch_query["counts"];
 
 		$tos .= "<option value='$prepared_relation[id]'>$prepared_relation[name] ($count)</option>";
