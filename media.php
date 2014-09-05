@@ -13,14 +13,14 @@ if ($user["group"] == "visitor")
 
 // Get the member information.
 $member = get_member_id($user["member_id"]);
-$action = mysql_real_escape_string(@$_GET["action"]);
+$action = @$_GET["action"];
 
 switch ($action)
 {
 	default: case "view_media":
 	
 		// 
-		$id = mysql_real_escape_string(@$_GET["id"]);
+		$id = @$_GET["id"];
 
 		// Get the media.
 		$get_media_query = mysql_query("SELECT media.*, member.fullname AS member_fullname, member.photo AS member_photo, member.gender AS member_gender, user.username FROM media, member, user WHERE media.author_id = member.id AND member.id = user.member_id AND media.id = '$id'");
@@ -164,7 +164,7 @@ switch ($action)
 	case "like_media":
 	
 		// Get the id.
-		$id = mysql_real_escape_string(@$_GET["id"]);
+		$id = @$_GET["id"];
 		$can_like = media_member_can_like($id, $member["id"]);
 		
 		if ($can_like == false)
@@ -217,7 +217,7 @@ switch ($action)
 	
 	case "add_comment":
 	
-		$media_id = mysql_real_escape_string(@$_GET["media_id"]);
+		$media_id = @$_GET["media_id"];
 		
 		// Check if the media does exist.
 		$get_media_query = mysql_query("SELECT * FROM media WHERE id = '$media_id'");
@@ -234,13 +234,13 @@ switch ($action)
 		// TODO: Check if the commenting on the media is available.
 		
 		// Post.
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
+		$submit = @$_POST["submit"];
 		
 		if (!empty($submit))
 		{
 
 			// Do some cleaning for the comment (XSS stuff).
-			$content = trim(mysql_real_escape_string(@strip_tags($_POST["content"])));
+			$content = trim(@strip_tags($_POST["content"]));
 
 			// Insert the comment.
 			$now = time();
@@ -320,7 +320,7 @@ switch ($action)
 	
 	case "delete_comment":
 		
-		$comment_id = mysql_real_escape_string(@$_GET["comment_id"]);
+		$comment_id = @$_GET["comment_id"];
 		
 		// Check if the comment exits.
 		$get_comment_query = mysql_query("SELECT * FROM media_comment WHERE id = '$comment_id'")or die(mysql_error());
@@ -370,7 +370,7 @@ switch ($action)
 	
 	case "like_comment":
 	
-		$comment_id = mysql_real_escape_string(@$_GET["comment_id"]);
+		$comment_id = @$_GET["comment_id"];
 		
 		// Check if the comment does exist.
 		$get_comment_query = mysql_query("SELECT media_comment.*, media.title AS media_title FROM media_comment, media WHERE media.id = media_comment.media_id AND media_comment.id = '$comment_id'");
@@ -423,7 +423,7 @@ switch ($action)
 	
 	case "delete_media":
 	
-		$media_id = mysql_real_escape_string(@$_GET["media_id"]);
+		$media_id = @$_GET["media_id"];
 		
 		// Check if the media does exist.
 		$get_media_query = mysql_query("SELECT * FROM media WHERE id = '$media_id'");
@@ -474,8 +474,8 @@ switch ($action)
 	
 	case "update_tagmembers":
 
-		$id = mysql_real_escape_string(@$_GET["id"]);
-		$tagmembers = mysql_real_escape_string(@$_POST["tagmembers"]);
+		$id = @$_GET["id"];
+		$tagmembers = @$_POST["tagmembers"];
 		
 		// Check if the media does exist.
 		$get_media_query = mysql_query("SELECT * FROM media WHERE id = '$id'");
