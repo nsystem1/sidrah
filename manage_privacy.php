@@ -96,7 +96,11 @@ if (!empty($submit))
 			else
 			{
 				// Update the privacy value for the member.
-				$update_privacy = mysql_query("UPDATE member SET privacy_{$one_privacy_name} = '$one_privacy_value' WHERE id = '$member[id]'");
+				$update_privacy = $dbh->prepare("UPDATE member SET privacy_{$one_privacy_name} = :one_privacy_value WHERE id = :member_id");
+$dbh->bindParam(":one_privacy_value", $one_privacy_value);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 			}
 		}
 	}
