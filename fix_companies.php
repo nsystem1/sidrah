@@ -44,7 +44,7 @@ $dbh->execute();
 	}
 	else
 	{
-		$gcrfetch = mysql_fetch_array($gcrwithquery);
+		$gcrfetch = $gcrwithquery->fetch(PDO::FETCH_ASSOC);
 	}
 	
 	// Delete all companies and update members of them.
@@ -60,7 +60,7 @@ $dbh->execute();
 			continue;
 		}
 		
-		$gcw_fetch = mysql_fetch_array($gcw_query);
+		$gcw_fetch = $gcw_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Delete this company.
 		$delete_company_query = $dbh->prepare("DELETE FROM company WHERE id = :gcw_fetch_id");
