@@ -80,7 +80,7 @@ if ($member["fullname"] == "")
 $dbh->bindParam(":member_id", $member["id"]);
 $dbh->execute();
 
-	$member = mysql_fetch_array($get_member_query);
+	$member = $get_member_query->fetch(PDO::FETCH_ASSOC);
 }
 
 if (!empty($submit))
