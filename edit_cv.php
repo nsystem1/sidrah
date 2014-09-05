@@ -11,7 +11,7 @@ if ($user["group"] == "visitor")
 }
 
 // Get the id of the user.
-$id = mysql_real_escape_string(@$_GET["id"]);
+$id = @$_GET["id"];
 
 $member = get_member_id($id);
 
@@ -21,11 +21,11 @@ if ($member == false)
 	return;
 }
 
-$submit = mysql_real_escape_string(@$_POST["submit"]);
+$submit = @$_POST["submit"];
 
 if (!empty($submit))
 {
-	$info = htmlspecialchars(trim(mysql_real_escape_string(@$_POST["info"])));
+	$info = htmlspecialchars(trim(@$_POST["info"]));
 	$cv_sql = "";
 	
 	if (empty($info))
