@@ -5,9 +5,9 @@ require_once("inc/functions.inc.php");
 // Get user information, and the given id.
 $user = user_information();
 
-$tribe_id = mysql_real_escape_string(@$_GET["tribe_id"]);
-$id = mysql_real_escape_string(@$_GET["id"]);
-$view = mysql_real_escape_string(@$_GET["view"]);
+$tribe_id = @$_GET["tribe_id"];
+$id = @$_GET["id"];
+$view = @$_GET["view"];
 
 // Check if the tribe does exist.
 $get_tribe_query = mysql_query("SELECT id, name FROM tribe WHERE id = '$tribe_id'");
