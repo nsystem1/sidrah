@@ -13,11 +13,11 @@ require_once("inc/functions.inc.php");
 $user = user_information();
 
 // Get variables.
-$name = mysql_real_escape_string(@$_GET["name"]);
-$type = mysql_real_escape_string(@$_GET["type"]);
+$name = @$_GET["name"];
+$type = @$_GET["type"];
 $suggested = trim(@$_GET["suggested"]);
-$unique_id = mysql_real_escape_string(@$_GET["unique_id"]);
-$return = mysql_real_escape_string(@$_GET["return"]);
+$unique_id = @$_GET["unique_id"];
+$return = @$_GET["return"];
 
 // Type.
 // mother, father, wife, husband.
