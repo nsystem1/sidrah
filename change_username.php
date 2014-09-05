@@ -13,7 +13,7 @@ if ($user["group"] == "visitor")
 
 $member_id = $user["member_id"];
 
-$submit = mysql_real_escape_string(@$_POST["submit"]);
+$submit = @$_POST["submit"];
 $member = get_member_id($member_id);
 
 if ($member == false)
@@ -26,7 +26,7 @@ if (!empty($submit))
 {
 	// Get variables.
 	$username = $user["username"];
-	$new_username = trim(mysql_real_escape_string(@$_POST["new_username"]));
+	$new_username = trim(@$_POST["new_username"]);
 	$name = $member["name"];
 	
 	if (check_user_availability($username, $new_username, $name) === false)
