@@ -51,7 +51,11 @@ else
 	{
 		$href = "#autocomplete-names-$unique_id";
 		$search_for = escape_confusing("^" . implode(" ", $names) . ".*$");
-		$get_related_names_query = mysql_query("SELECT id, fullname, photo, age, location, job_title FROM member WHERE fullname REGEXP '$search_for' AND tribe_id = '$main_tribe_id' AND is_alive = 1 AND gender = '1' AND age >= 45 ORDER BY fullname ASC LIMIT 8");
+		$get_related_names_query = $dbh->prepare("SELECT id, fullname, photo, age, location, job_title FROM member WHERE fullname REGEXP :search_for AND tribe_id = :main_tribe_id AND is_alive = 1 AND gender = '1' AND age >= 45 ORDER BY fullname ASC LIMIT 8");
+$dbh->bindParam(":search_for", $search_for);
+$dbh->bindParam(":main_tribe_id", $main_tribe_id);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_related_names_query) > 0)
 		{
@@ -116,7 +120,11 @@ else
 
 		$href = "#autocomplete-names-$unique_id";
 		$search_for = escape_confusing("^" . implode(" ", $names) . ".*$");
-		$get_related_names_query = mysql_query("SELECT id, fullname FROM member WHERE fullname REGEXP '$search_for' $condition ORDER BY fullname ASC LIMIT 8");
+		$get_related_names_query = $dbh->prepare("SELECT id, fullname FROM member WHERE fullname REGEXP :search_for :condition ORDER BY fullname ASC LIMIT 8");
+$dbh->bindParam(":search_for", $search_for);
+$dbh->bindParam(":condition", $condition);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_related_names_query) > 0)
 		{
@@ -159,7 +167,11 @@ else
 		
 		// Search exact.
 		$exact_name = escape_confusing("^" . $normalized_name . "$");
-		$get_exact_query = mysql_query("SELECT fullname FROM member WHERE fullname REGEXP '$exact_name' AND gender = '$gender'");
+		$get_exact_query = $dbh->prepare("SELECT fullname FROM member WHERE fullname REGEXP :exact_name AND gender = :gender");
+$dbh->bindParam(":exact_name", $exact_name);
+$dbh->bindParam(":gender", $gender);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_exact_query) > 0)
 		{
@@ -174,7 +186,11 @@ else
 		unset($names[count($names)-1]);
 		
 		$almost_exact_name = escape_confusing("^" . implode(" ", $names) . ".*" . $family_name . "$");
-		$get_almost_exact_query = mysql_query("SELECT id, fullname FROM member WHERE fullname REGEXP '$almost_exact_name' AND gender = '$gender'");
+		$get_almost_exact_query = $dbh->prepare("SELECT id, fullname FROM member WHERE fullname REGEXP :almost_exact_name AND gender = :gender");
+$dbh->bindParam(":almost_exact_name", $almost_exact_name);
+$dbh->bindParam(":gender", $gender);
+$dbh->execute();
+
 
 		if (mysql_num_rows($get_almost_exact_query) > 0)
 		{
@@ -191,7 +207,10 @@ else
 		unset($names[0]);
 		
 		$father_name = escape_confusing("^" . implode(" ", $names) . ".*" . $family_name . "$");
-		$get_childof_query = mysql_query("SELECT fullname FROM member WHERE fullname REGEXP '$father_name' AND gender = '1'");
+		$get_childof_query = $dbh->prepare("SELECT fullname FROM member WHERE fullname REGEXP :father_name AND gender = '1'");
+$dbh->bindParam(":father_name", $father_name);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_childof_query) > 0)
 		{
