@@ -61,7 +61,7 @@ $dbh->execute();
 		if ($method == "count")
 		{
 			$mysql_query = mysql_query($query);
-			echo mysql_num_rows($mysql_query);
+			echo $mysql_query->rowCount();
 			return;
 		}
 		else if ($method == "offset")
@@ -135,7 +135,7 @@ $dbh->execute();
 $dbh->bindParam(":event_id", $event_id);
 $dbh->execute();
 
-			$event_exist = mysql_num_rows($get_event_query);
+			$event_exist = $get_event_query->rowCount();
 
 			if ($media_is_event == 1 && $event_exist == 0)
 			{
