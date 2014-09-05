@@ -43,7 +43,15 @@ if (!empty($submit))
 	}
 	
 	// Insert a new feedback.
-	$insert_feedback_query = mysql_query("INSERT INTO feedback (type, page, content, user_agent, http_referer, created) VALUES ('$type', '$page', '$content', '$user_agent', '$http_referer', '$now')");
+	$insert_feedback_query = $dbh->prepare("INSERT INTO feedback (type, page, content, user_agent, http_referer, created) VALUES (:type, :page, :content, :user_agent, :http_referer, :now)");
+$dbh->bindParam(":type", $type);
+$dbh->bindParam(":page", $page);
+$dbh->bindParam(":content", $content);
+$dbh->bindParam(":user_agent", $user_agent);
+$dbh->bindParam(":http_referer", $http_referer);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 	
 	echo success_message(
 		"شكراً لك على إخبارنا برأيك حول الموقع.",
