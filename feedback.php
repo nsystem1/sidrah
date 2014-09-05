@@ -9,14 +9,14 @@ require_once("inc/functions.inc.php");
 $user = user_information();
 
 // Submit
-$submit = mysql_real_escape_string(@$_POST["submit"]);
+$submit = @$_POST["submit"];
 
 if (!empty($submit))
 {
-	$type = trim(mysql_real_escape_string(@$_POST["type"]));
-	$page = trim(mysql_real_escape_string(@$_POST["page"]));
-	$content = trim(mysql_real_escape_string(@$_POST["content"]));
-	$captcha = trim(mysql_real_escape_string(@$_POST["captcha"]));
+	$type = trim(@$_POST["type"]);
+	$page = trim(@$_POST["page"]);
+	$content = trim(@$_POST["content"]);
+	$captcha = trim(@$_POST["captcha"]);
 	
 	if (empty($type) || empty($page) || empty($content) || empty($captcha))
 	{
@@ -33,8 +33,8 @@ if (!empty($submit))
 		return;
 	}
 	
-	$user_agent = mysql_real_escape_string(@$_SERVER["HTTP_USER_AGENT"]);
-	$http_referer = mysql_real_escape_string(@$_SERVER["HTTP_REFERER"]);
+	$user_agent = @$_SERVER["HTTP_USER_AGENT"];
+	$http_referer = @$_SERVER["HTTP_REFERER"];
 	$now = time();
 	
 	if ($user["group"] != "visitor")
@@ -55,7 +55,7 @@ if (!empty($submit))
 else
 {
 	// Get page.
-	$page = mysql_real_escape_string(@$_GET["page"]);
+	$page = @$_GET["page"];
 
 	// Get the header.
 	$header = website_header(
