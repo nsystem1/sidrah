@@ -99,7 +99,11 @@ if (!empty($submit))
 					imagepng($thumb, "views/pics/{$uniqename}", 9);
 
 					//  Update the profile image.
-					$save_photo_query = mysql_query("UPDATE member SET photo = '$uniqename' WHERE id = '$member[id]'");
+					$save_photo_query = $dbh->prepare("UPDATE member SET photo = :uniqename WHERE id = :member_id");
+$dbh->bindParam(":uniqename", $uniqename);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 						
 					// Destroy some.
 					imagedestroy($src);
