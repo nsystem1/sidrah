@@ -43,7 +43,7 @@ $dbh->execute();
 	
 			if (mysql_num_rows($get_user_query) > 0)
 			{
-				$user_info = mysql_fetch_array($get_user_query);
+				$user_info = $get_user_query->fetch(PDO::FETCH_ASSOC);
 				
 				$verification_code = sprintf("%04d", rand(0, 9999));				
 				$hashed_verification_code = sha1_salt($verification_code);
@@ -128,7 +128,7 @@ $dbh->execute();
 			if (mysql_num_rows($get_user_query) > 0)
 			{
 				// Get user information.
-				$user_info = mysql_fetch_array($get_user_query);
+				$user_info = $get_user_query->fetch(PDO::FETCH_ASSOC);
 		
 				// Generate a new password.
 				$password = generate_key();
@@ -214,7 +214,7 @@ $dbh->execute();
 	if (mysql_num_rows($get_user_query) > 0)
 	{
 		// Get user information.
-		$user_info = mysql_fetch_array($get_user_query);
+		$user_info = $get_user_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Generate a new password.
 		$password = generate_key();
