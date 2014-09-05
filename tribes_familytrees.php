@@ -21,7 +21,9 @@ $header = website_header(
 );
 
 // Set the content.
-$get_all_tribes_query = mysql_query("SELECT tribe_id, tribe_name, members_count FROM (SELECT tribe.id as tribe_id, tribe.name as tribe_name, COUNT(member.tribe_id) as members_count FROM member, tribe WHERE member.tribe_id = tribe.id GROUP BY member.tribe_id) as table1 ORDER BY members_count DESC");
+$get_all_tribes_query = $dbh->prepare("SELECT tribe_id, tribe_name, members_count FROM (SELECT tribe.id as tribe_id, tribe.name as tribe_name, COUNT(member.tribe_id) as members_count FROM member, tribe WHERE member.tribe_id = tribe.id GROUP BY member.tribe_id) as table1 ORDER BY members_count DESC");
+$dbh->execute();
+
 $tribes_count = mysql_num_rows($get_all_tribes_query);
 $tr = 0;
 
