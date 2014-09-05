@@ -27,7 +27,9 @@ $footer = website_footer();
 $tos = "";
 
 // Get the prepared relations.
-$get_prepared_relations_query = mysql_query("SELECT * FROM prepared_relation ORDER BY id DESC");
+$get_prepared_relations_query = $dbh->prepare("SELECT * FROM prepared_relation ORDER BY id DESC");
+$dbh->execute();
+
 
 if (mysql_num_rows($get_prepared_relations_query) > 0)
 {
