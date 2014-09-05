@@ -76,7 +76,10 @@ if ($member["fullname"] == "")
 	update_fullname($member["id"]);
 	
 	// Get the member information again.
-	$get_member_query = mysql_query("SELECT * FROM member WHERE id = '$member[id]'");
+	$get_member_query = $dbh->prepare("SELECT * FROM member WHERE id = :member_id");
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 	$member = mysql_fetch_array($get_member_query);
 }
 
@@ -460,7 +463,17 @@ if (!empty($submit))
 	$title = implode(", ", $title_array);
 	$description = implode("\n", $description_array);
 
-	$insert_request = mysql_query("INSERT INTO request (random_key, title, description, phpscript, affected_id, created_by, assigned_to, created) VALUES ('$random_key', '$title', '$description', '$php', '$affected_id', '$created_by', '$assigned_to', '$now')");
+	$insert_request = $dbh->prepare("INSERT INTO request (random_key, title, description, phpscript, affected_id, created_by, assigned_to, created) VALUES (:random_key, :title, :description, :php, :affected_id, :created_by, :assigned_to, :now)");
+$dbh->bindParam(":random_key", $random_key);
+$dbh->bindParam(":title", $title);
+$dbh->bindParam(":description", $description);
+$dbh->bindParam(":php", $php);
+$dbh->bindParam(":affected_id", $affected_id);
+$dbh->bindParam(":created_by", $created_by);
+$dbh->bindParam(":assigned_to", $assigned_to);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 	
 	// Check if the user is admin
 	$is_admin = ($user["group"] == "admin");
@@ -477,7 +490,10 @@ if (!empty($submit))
 	// Update first time value.
 	if ($member["id"] == $user["member_id"] && $user["first_login"] == 1)
 	{
-		$update_first_login_query = mysql_query("UPDATE user SET first_login = '0' WHERE id = '$user[id]'");
+		$update_first_login_query = $dbh->prepare("UPDATE user SET first_login = '0' WHERE id = :user_id");
+$dbh->bindParam(":user_id", $user["id"]);
+$dbh->execute();
+
 		$redirect = "update_optional.php?id=$affected_id";
 	}
 	else
