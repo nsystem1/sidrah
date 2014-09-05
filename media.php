@@ -35,7 +35,7 @@ $dbh->execute();
 		}
 
 		// Get the media
-		$media = mysql_fetch_array($get_media_query);
+		$media = $get_media_query->fetch(PDO::FETCH_ASSOC);
 
 		// Update the views of the media.
 		$update_media_views_query = $dbh->prepare("UPDATE media SET views = views+1 WHERE id = :media_id");
@@ -56,7 +56,7 @@ $dbh->execute();
 		}
 		else
 		{
-			$event = mysql_fetch_array($get_event_query);
+			$event = $get_event_query->fetch(PDO::FETCH_ASSOC);
 		}
 		
 		// Get the media likes.
@@ -64,7 +64,7 @@ $dbh->execute();
 $dbh->bindParam(":media_id", $media["id"]);
 $dbh->execute();
 
-		$fetch_media_likes = mysql_fetch_array($get_media_likes_query);
+		$fetch_media_likes = $get_media_likes_query->fetch(PDO::FETCH_ASSOC);
 
 		
 		// Get the tagmembers in media.
@@ -99,7 +99,7 @@ $dbh->execute();
 		
 		if (mysql_num_rows($get_media_event_query) > 0)
 		{
-			$fetch_media_event = mysql_fetch_array($get_media_event_query);
+			$fetch_media_event = $get_media_event_query->fetch(PDO::FETCH_ASSOC);
 			$media_event = "<a href='calendar.php?action=view_event&id=$event[id]'>$event[title]</a> ";
 		}
 		
@@ -113,7 +113,7 @@ $dbh->execute();
 		
 		if (mysql_num_rows($get_previous_media_query) > 0)
 		{
-			$fetch_previous_media = mysql_fetch_array($get_previous_media_query);
+			$fetch_previous_media = $get_previous_media_query->fetch(PDO::FETCH_ASSOC);
 			$previous_media = "<a class='small button secondary' href='media.php?id=$fetch_previous_media[id]' title='$fetch_previous_media[title]'>السابق</a>";
 		}
 		
@@ -127,7 +127,7 @@ $dbh->execute();
 		
 		if (mysql_num_rows($get_next_media_query) > 0)
 		{
-			$fetch_next_media = mysql_fetch_array($get_next_media_query);
+			$fetch_next_media = $get_next_media_query->fetch(PDO::FETCH_ASSOC);
 			$next_media = "<a class='small button secondary' href='media.php?id=$fetch_next_media[id]' title='$fetch_next_media[title]'>التالي</a>";
 		}
 		
@@ -212,7 +212,7 @@ $dbh->execute();
 		}
 		
 		// Get the media.
-		$media = mysql_fetch_array($get_media_query);
+		$media = $get_media_query->fetch(PDO::FETCH_ASSOC);
 		$now = time();
 		
 		// Insert the like.
@@ -231,7 +231,7 @@ $dbh->execute();
 
 		if (mysql_num_rows($get_media_user_query) > 0)
 		{
-			$fetch_media_user = mysql_fetch_array($get_media_user_query);
+			$fetch_media_user = $get_media_user_query->fetch(PDO::FETCH_ASSOC);
 			
 			if ($user["id"] != $fetch_media_user["id"])
 			{
@@ -269,7 +269,7 @@ $dbh->execute();
 		}
 		
 		// Get the media.
-		$media = mysql_fetch_array($get_media_query);
+		$media = $get_media_query->fetch(PDO::FETCH_ASSOC);
 		
 		// TODO: Check if the commenting on the media is available.
 		
@@ -298,7 +298,7 @@ $dbh->execute();
 $dbh->bindParam(":media_id", $media["id"]);
 $dbh->execute();
 
-			$fetch_media_comments = mysql_fetch_array($get_media_comments_query);
+			$fetch_media_comments = $get_media_comments_query->fetch(PDO::FETCH_ASSOC);
 			
 			// Update the media thumb to be with comments count.
 			draw_comments_count_thumb($media["name"], $fetch_media_comments["comments_count"]);
@@ -315,7 +315,7 @@ $dbh->execute();
 $dbh->bindParam(":media_author_id", $media["author_id"]);
 $dbh->execute();
 
-			$fetch_media_author = mysql_fetch_array($get_media_author_query);
+			$fetch_media_author = $get_media_author_query->fetch(PDO::FETCH_ASSOC);
 			$media_author_user_id = $fetch_media_author["id"];
 			
 			// Check if the author of the media is not the same with the author of the comment.
@@ -388,14 +388,14 @@ $dbh->execute();
 			return;
 		}
 		
-		$comment = mysql_fetch_array($get_comment_query);
+		$comment = $get_comment_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Get the media.
 		$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :comment_media_id");
 $dbh->bindParam(":comment_media_id", $comment["media_id"]);
 $dbh->execute();
 
-		$media = mysql_fetch_array($get_media_query);
+		$media = $get_media_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Check if the comment author is the logged in user,
 		// Or if the user is admin or moderator.
@@ -418,7 +418,7 @@ $dbh->execute();
 $dbh->bindParam(":media_id", $media["id"]);
 $dbh->execute();
 
-			$fetch_media_comments = mysql_fetch_array($get_media_comments_query);
+			$fetch_media_comments = $get_media_comments_query->fetch(PDO::FETCH_ASSOC);
 
 			// Update the comments count written on thumb.
 			draw_comments_count_thumb($media["name"], $fetch_media_comments["comments_count"]);
@@ -454,7 +454,7 @@ $dbh->execute();
 		}
 		
 		// Get the event.
-		$comment = mysql_fetch_array($get_comment_query);
+		$comment = $get_comment_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Check if the member has liked this comment before.
 		$get_member_likes_query = $dbh->prepare("SELECT * FROM media_comment_like WHERE media_comment_id = :comment_id AND member_id = :member_id");
@@ -493,7 +493,7 @@ $dbh->execute();
 $dbh->bindParam(":comment_author_id", $comment["author_id"]);
 $dbh->execute();
 
-		$fetch_comment_user = mysql_fetch_array($get_comment_user_query);
+		$fetch_comment_user = $get_comment_user_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Notify the commenter.
 		notify("media_comment_like", $fetch_comment_user["id"], $desc, $link);
@@ -522,7 +522,7 @@ $dbh->execute();
 		}
 		
 		// Get the media.
-		$media = mysql_fetch_array($get_media_query);
+		$media = $get_media_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Check if the user can delete the media.
 		if ($user["group"] == "admin" || $user["member_id"] == $media["author_id"])
@@ -577,7 +577,7 @@ $dbh->execute();
 		}
 		
 		// Get the media.
-		$media = mysql_fetch_array($get_media_query);
+		$media = $get_media_query->fetch(PDO::FETCH_ASSOC);
 
 		// Get the already added tagmembers.
 		$get_tagmembers_query = $dbh->prepare("SELECT * FROM tagmember WHERE type = 'media' AND content_id = :media_id");
