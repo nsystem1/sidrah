@@ -55,7 +55,7 @@ $dbh->execute();
 		}
 		
 		// Get the prepared relation information.
-		$prepared_relation = mysql_fetch_array($get_prepared_relation_query);
+		$prepared_relation = $get_prepared_relation_query->fetch(PDO::FETCH_ASSOC);
 		$query = base64_decode($prepared_relation["relation"]);
 
 		if ($method == "count")
@@ -72,7 +72,7 @@ $dbh->bindParam(":query", $query);
 $dbh->bindParam(":offset", $offset);
 $dbh->execute();
 
-			$member = mysql_fetch_array($mysql_query);
+			$member = $mysql_query->fetch(PDO::FETCH_ASSOC);
 
 			$message = preg_replace('/\{(.*)\}/e', '$member["$1"]', $message);
 
@@ -105,7 +105,7 @@ $dbh->execute();
 		}
 		else
 		{
-			$fetch_request = mysql_fetch_array($get_request_query);
+			$fetch_request = $get_request_query->fetch(PDO::FETCH_ASSOC);
 			
 			echo "<!DOCTYPE><html><head><meta charset='utf8' /></head><body><pre>";
 			echo $fetch_request["phpscript"];
@@ -327,7 +327,7 @@ $dbh->execute();
 		}
 		else
 		{
-			$member = mysql_fetch_array($get_member_query);
+			$member = $get_member_query->fetch(PDO::FETCH_ASSOC);
 
 			// Get parent information.
 			$parent = array(
@@ -344,7 +344,7 @@ $dbh->execute();
 				
 				if (mysql_num_rows($get_parent_query) > 0)
 				{
-					$parent_fetch = mysql_fetch_array($get_parent_query);
+					$parent_fetch = $get_parent_query->fetch(PDO::FETCH_ASSOC);
 					
 					$parent = array(
 						"id" => $member["father_id"],
@@ -539,7 +539,7 @@ $dbh->execute();
 					return;
 				}	
 				
-				$media = mysql_fetch_array($get_media_query);
+				$media = $get_media_query->fetch(PDO::FETCH_ASSOC);
 				
 				$large_file = "views/medias/photos/large/$media[name]";
 				$thumb_file = "views/medias/photos/thumb/$media[name]";
