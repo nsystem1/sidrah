@@ -12,7 +12,9 @@ if ($user["group"] != "admin")
 }
 
 // Get all feedbacks that are bugs.
-$get_bugs_query = mysql_query("SELECT * FROM feedback WHERE type = 'bug'");
+$get_bugs_query = $dbh->prepare("SELECT * FROM feedback WHERE type = 'bug'");
+$dbh->execute();
+
 $bugs_count = mysql_num_rows($get_bugs_query);
 $bugs_html = "";
 
@@ -30,7 +32,9 @@ else
 }
 
 // Get all feedbacks that are ideas.
-$get_ideas_query = mysql_query("SELECT * FROM feedback WHERE type = 'idea'");
+$get_ideas_query = $dbh->prepare("SELECT * FROM feedback WHERE type = 'idea'");
+$dbh->execute();
+
 $ideas_count = mysql_num_rows($get_ideas_query);
 $ideas_html = "";
 
@@ -48,7 +52,9 @@ else
 }
 
 // Get all feedbacks that are praises.
-$get_praises_query = mysql_query("SELECT * FROM feedback WHERE type = 'praise'");
+$get_praises_query = $dbh->prepare("SELECT * FROM feedback WHERE type = 'praise'");
+$dbh->execute();
+
 $praises_count = mysql_num_rows($get_praises_query);
 $praises_html = "";
 
