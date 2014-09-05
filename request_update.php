@@ -36,7 +36,7 @@ $dbh->bindParam(":key", $key);
 $dbh->bindParam(":assigned_to_query", $assigned_to_query);
 $dbh->execute();
 
-		$pending_request_count = mysql_num_rows($get_pending_request);
+		$pending_request_count = $get_pending_request->rowCount();
 	
 		if ($pending_request_count == 0)
 		{
@@ -74,7 +74,7 @@ $dbh->bindParam(":key", $key);
 $dbh->bindParam(":assigned_to_query", $assigned_to_query);
 $dbh->execute();
 
-		$pending_request_count = mysql_num_rows($get_pending_request);
+		$pending_request_count = $get_pending_request->rowCount();
 	
 		if ($pending_request_count == 0 || empty($reason))
 		{
@@ -334,7 +334,7 @@ $dbh->execute();
 		}
 		
 		// Get the number of the pending updates.
-		$pending_updates_count = mysql_num_rows($get_pending_request);
+		$pending_updates_count = $get_pending_request->rowCount();
 		$pending_updates_title = ($pending_updates_count == 0) ? "" : "($pending_updates_count)";
 
 		// Get the header
