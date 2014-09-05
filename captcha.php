@@ -5,7 +5,7 @@ session_start();
 
 require_once("inc/functions.inc.php");
 
-$page = mysql_real_escape_string(@$_GET["page"]);
+$page = @$_GET["page"];
 
 switch ($page)
 
