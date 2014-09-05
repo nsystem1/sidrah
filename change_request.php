@@ -8,7 +8,7 @@ $user = user_information();
 $get_random_request_query = $dbh->prepare("SELECT * FROM request ORDER BY RAND()");
 $dbh->execute();
 
-$one_request = mysql_fetch_array($get_random_request_query);
+$one_request = $get_random_request_query->fetch(PDO::FETCH_ASSOC);
 
 // Get the description
 $description = $one_request["description"];
