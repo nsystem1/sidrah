@@ -79,7 +79,10 @@ if ($member["fullname"] == "")
 	update_fullname($member["id"]);
 	
 	// Get the member information again.
-	$get_member_query = mysql_query("SELECT * FROM member WHERE id = '$member[id]'");
+	$get_member_query = $dbh->prepare("SELECT * FROM member WHERE id = :member_id");
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 	$member = mysql_fetch_array($get_member_query);
 }
 
@@ -449,7 +452,11 @@ if (!empty($submit))
 	// --------------------------------------------------
 	
 	// Check if the key does exist.
-	$get_request_query = mysql_query("SELECT * FROM request WHERE affected_id = '$id' AND random_key = '$qkey'");
+	$get_request_query = $dbh->prepare("SELECT * FROM request WHERE affected_id = :id AND random_key = :qkey");
+$dbh->bindParam(":id", $id);
+$dbh->bindParam(":qkey", $qkey);
+$dbh->execute();
+
 
 	// Set the assigned_to value.
 	$assign_request = assign_request($member["fullname"]);
@@ -466,13 +473,30 @@ if (!empty($submit))
 
 	if (mysql_num_rows($get_request_query) == 0)
 	{
-		$insert_request = mysql_query("INSERT INTO request (random_key, title, description, phpscript, affected_id, created_by, assigned_to, created) VALUES ('$random_key', '$title', '$description', '$php', '$affected_id', '$created_by', '$assigned_to', '$now')");
+		$insert_request = $dbh->prepare("INSERT INTO request (random_key, title, description, phpscript, affected_id, created_by, assigned_to, created) VALUES (:random_key, :title, :description, :php, :affected_id, :created_by, :assigned_to, :now)");
+$dbh->bindParam(":random_key", $random_key);
+$dbh->bindParam(":title", $title);
+$dbh->bindParam(":description", $description);
+$dbh->bindParam(":php", $php);
+$dbh->bindParam(":affected_id", $affected_id);
+$dbh->bindParam(":created_by", $created_by);
+$dbh->bindParam(":assigned_to", $assigned_to);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 	}
 	else
 	{
 		$request_info = mysql_fetch_array($get_request_query);
 		$random_key = $request_info["random_key"];
-		$update_request = mysql_query("UPDATE request SET title = '$title', description = '$description', phpscript = '$php', created = '$now' WHERE random_key = '$random_key'");
+		$update_request = $dbh->prepare("UPDATE request SET title = :title, description = :description, phpscript = :php, created = :now WHERE random_key = :random_key");
+$dbh->bindParam(":title", $title);
+$dbh->bindParam(":description", $description);
+$dbh->bindParam(":php", $php);
+$dbh->bindParam(":now", $now);
+$dbh->bindParam(":random_key", $random_key);
+$dbh->execute();
+
 	}
 
 	// Check if the user is admin
@@ -490,7 +514,10 @@ if (!empty($submit))
 	// Update first time value.
 	if ($member["id"] == $user["member_id"] && $user["first_login"] == 1)
 	{
-		$update_first_login_query = mysql_query("UPDATE user SET first_login = '0' WHERE id = '$user[id]'");
+		$update_first_login_query = $dbh->prepare("UPDATE user SET first_login = '0' WHERE id = :user_id");
+$dbh->bindParam(":user_id", $user["id"]);
+$dbh->execute();
+
 		$redirect = "update_optional.php?id=$affected_id";
 	}
 	else
