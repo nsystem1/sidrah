@@ -38,14 +38,21 @@ if (!empty($submit))
 	}
 
 	// Start to change the name of the member.
-	$update_name_query = mysql_query("UPDATE member SET name = '$name' WHERE id = '$member[id]'");
+	$update_name_query = $dbh->prepare("UPDATE member SET name = :name WHERE id = :member_id");
+$dbh->bindParam(":name", $name);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 	
 	// Update the fullname after that.
 	update_fullname($member["id"]);
 	
 	// Update the user if any.
 	// Check if the user does exist.
-	$get_user_query = mysql_query("SELECT id FROM user WHERE member_id = '$member[id]'");
+	$get_user_query = $dbh->prepare("SELECT id FROM user WHERE member_id = :member_id");
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 	
 	// Found?
 	if (mysql_num_rows($get_user_query) > 0)
@@ -54,7 +61,12 @@ if (!empty($submit))
 		$user_info = mysql_fetch_array($get_user_query);
 	
 		// Update the username too.
-		$update_username_query = mysql_query("UPDATE user SET username = '$name$member[id]' WHERE id = '$user_info[id]'");
+		$update_username_query = $dbh->prepare("UPDATE user SET username = ':name:member_id' WHERE id = :user_info_id");
+$dbh->bindParam(":name", $name);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->bindParam(":user_info_id", $user_info["id"]);
+$dbh->execute();
+
 	}
 	
 	echo success_message(
