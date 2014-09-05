@@ -28,7 +28,7 @@ switch ($do)
 {
 	case "accept":
 	
-		$key = mysql_real_escape_string(@$_GET["key"]);
+		$key = @$_GET["key"];
 
 		// Get the request information.		
 		$get_pending_request = mysql_query("SELECT * FROM request WHERE random_key = '$key' AND status = 'pending' $assigned_to_query");
@@ -61,8 +61,8 @@ switch ($do)
 	
 	case "reject":
 
-		$key = mysql_real_escape_string(@$_GET["key"]);
-		$reason = trim(mysql_real_escape_string(@$_GET["reason"]));
+		$key = @$_GET["key"];
+		$reason = trim(@$_GET["reason"]);
 
 		// Get the request information.
 		$get_pending_request = mysql_query("SELECT * FROM request WHERE random_key = '$key' AND status = 'pending' $assigned_to_query");
@@ -97,8 +97,8 @@ switch ($do)
 	
 	case "assign":
 	
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
-		$assign_to = mysql_real_escape_string(@$_POST["assign_to"]);
+		$submit = @$_POST["submit"];
+		$assign_to = @$_POST["assign_to"];
 		$check = @$_POST["check"];
 		
 		if (empty($submit))
