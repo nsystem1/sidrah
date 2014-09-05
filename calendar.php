@@ -692,7 +692,7 @@ $dbh->bindParam(":member_id", $member["id"]);
 $dbh->bindParam(":now", $now);
 $dbh->execute();
 
-			$inserted_event_id = mysql_insert_id();
+			$inserted_event_id = $dbh->lastInsertId();
 			
 			$event_link = "calendar.php?action=view_event&id=$inserted_event_id";
 			$event_desc = "تم إضافة مناسبة جديدة: $title.";
@@ -1005,7 +1005,7 @@ $dbh->bindParam(":member_id", $member["id"]);
 $dbh->bindParam(":now", $now);
 $dbh->execute();
 
-			$inserted_comment_id = mysql_insert_id();
+			$inserted_comment_id = $dbh->lastInsertId();
 			
 			// Set a variable to hold notify/not-notify user ids.
 			$notify_user_ids = array();
