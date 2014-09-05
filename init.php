@@ -19,7 +19,10 @@ $tables = array(
 // Start dropping tables.
 foreach ($tables as $table)
 {
-	$drop_table = mysql_query("DROP TABLE $table");
+	$drop_table = $dbh->prepare("DROP TABLE :table");
+$dbh->bindParam(":table", $table);
+$dbh->execute();
+
 }
 
 // Create tables.
