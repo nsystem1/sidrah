@@ -9,11 +9,17 @@ $id = @$_GET["id"];
 switch ($action)
 {
 	case "fixbymobile":
-		$reset_mobile_by_mobile_query = mysql_query("UPDATE member SET mobile = '0' WHERE mobile = '$mobile'");
+		$reset_mobile_by_mobile_query = $dbh->prepare("UPDATE member SET mobile = '0' WHERE mobile = :mobile");
+$dbh->bindParam(":mobile", $mobile);
+$dbh->execute();
+
 	break;
 	
 	case "fixbyid":
-		$reset_mobile_by_id_query = mysql_query("UPDATE member SET mobile = '0' WHERE id = '$id'");
+		$reset_mobile_by_id_query = $dbh->prepare("UPDATE member SET mobile = '0' WHERE id = :id");
+$dbh->bindParam(":id", $id);
+$dbh->execute();
+
 	break;
 
 	default:
