@@ -12,8 +12,8 @@ if ($user["group"] == "visitor")
 }
 
 // Global variables
-$id = mysql_real_escape_string(@$_GET["id"]);
-$submit = mysql_real_escape_string(@$_POST["submit"]);
+$id = @$_GET["id"];
+$submit = @$_POST["submit"];
 
 if (empty($id))
 {
