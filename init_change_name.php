@@ -4,9 +4,9 @@ require_once("inc/functions.inc.php");
 
 $user = user_information();
 
-$id = mysql_real_escape_string(@$_GET["id"]);
-$submit = mysql_real_escape_string(@$_POST["submit"]);
-$name = mysql_real_escape_string(normalize_name(@$_POST["name"]));
+$id = @$_GET["id"];
+$submit = @$_POST["submit"];
+$name = normalize_name(@$_POST["name"]);
 
 // Check if the member does exist.
 $member = get_member_id($id);
