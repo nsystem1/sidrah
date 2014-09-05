@@ -10,7 +10,10 @@ $id = @$_GET["id"];
 $view = @$_GET["view"];
 
 // Check if the tribe does exist.
-$get_tribe_query = mysql_query("SELECT id, name FROM tribe WHERE id = '$tribe_id'");
+$get_tribe_query = $dbh->prepare("SELECT id, name FROM tribe WHERE id = :tribe_id");
+$dbh->bindParam(":tribe_id", $tribe_id);
+$dbh->execute();
+
 
 if (mysql_num_rows($get_tribe_query) > 0)
 {
@@ -59,7 +62,10 @@ if ($member == false)
 	else
 	{
 		// Get the root of this tribe.
-		$get_tribe_root_query = mysql_query("SELECT id FROM member WHERE tribe_id = '$tribe_id' AND father_id = '-1' AND gender = '1'");
+		$get_tribe_root_query = $dbh->prepare("SELECT id FROM member WHERE tribe_id = :tribe_id AND father_id = '-1' AND gender = '1'");
+$dbh->bindParam(":tribe_id", $tribe_id);
+$dbh->execute();
+
 		$root_info = mysql_fetch_array($get_tribe_root_query);
 		$id = $root_info["id"];
 	}
