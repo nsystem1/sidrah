@@ -45,7 +45,10 @@ switch ($action)
 		}
 		
 		// Check if there is a user mapped to the member.
-		$get_user_member_query = mysql_query("SELECT * FROM user WHERE member_id = '$moderator_info[id]'");
+		$get_user_member_query = $dbh->prepare("SELECT * FROM user WHERE member_id = :moderator_info_id");
+$dbh->bindParam(":moderator_info_id", $moderator_info["id"]);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_user_member_query) == 0)
 		{
@@ -56,7 +59,11 @@ switch ($action)
 		$user_member = mysql_fetch_array($get_user_member_query);
 		
 		// Now, Update information of the user to be a moderator.
-		$update_query = mysql_query("UPDATE user SET usergroup = 'moderator', assigned_root_id = '$moderator_root_info[id]' WHERE id = '$user_member[id]'");
+		$update_query = $dbh->prepare("UPDATE user SET usergroup = 'moderator', assigned_root_id = :moderator_root_info_id WHERE id = :user_member_id");
+$dbh->bindParam(":moderator_root_info_id", $moderator_root_info["id"]);
+$dbh->bindParam(":user_member_id", $user_member["id"]);
+$dbh->execute();
+
 		
 		echo success_message(
 			"تم إضافة المشرف بنجاح.",
@@ -125,7 +132,11 @@ switch ($action)
 		{			
 			foreach ($new_moderators as $new_moderator)
 			{
-				$update_query = mysql_query("UPDATE user SET usergroup = 'moderator', assigned_root_id = '$new_moderator[assigned_root_id]' WHERE id = '$new_moderator[moderator_id]'");
+				$update_query = $dbh->prepare("UPDATE user SET usergroup = 'moderator', assigned_root_id = :new_moderator_assigned_root_id WHERE id = :new_moderator_moderator_id");
+$dbh->bindParam(":new_moderator_assigned_root_id", $new_moderator["assigned_root_id"]);
+$dbh->bindParam(":new_moderator_moderator_id", $new_moderator["moderator_id"]);
+$dbh->execute();
+
 			}
 		}
 		else if ($do == "delete")
@@ -133,7 +144,10 @@ switch ($action)
 			foreach ($new_moderators as $new_moderator)
 			{
 				// Make the moderator to be a user.
-				$update_query = mysql_query("UPDATE user SET usergroup = 'user', assigned_root_id = '0' WHERE id = '$new_moderator[moderator_id]'");
+				$update_query = $dbh->prepare("UPDATE user SET usergroup = 'user', assigned_root_id = '0' WHERE id = :new_moderator_moderator_id");
+$dbh->bindParam(":new_moderator_moderator_id", $new_moderator["moderator_id"]);
+$dbh->execute();
+
 
 				// Set all related requests to someone close.
 				auto_reassign_requests($new_moderator["moderator_id"]);
@@ -152,7 +166,9 @@ switch ($action)
 	default: case "view_moderators":
 	
 		$moderators_html = "";
-		$get_moderators_query = mysql_query("SELECT * FROM user WHERE usergroup = 'moderator'");
+		$get_moderators_query = $dbh->prepare("SELECT * FROM user WHERE usergroup = 'moderator'");
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_moderators_query) == 0)
 		{
@@ -175,7 +191,10 @@ switch ($action)
 				$root_members_count = @$root_members_fetch["members_count"];
 				
 				// Get number of pending requests for this moderator.
-				$get_pending_requests_query = mysql_query("SELECT COUNT(id) as requests_count FROM request WHERE status = 'pending' AND assigned_to = '$moderator[id]'");
+				$get_pending_requests_query = $dbh->prepare("SELECT COUNT(id) as requests_count FROM request WHERE status = 'pending' AND assigned_to = :moderator_id");
+$dbh->bindParam(":moderator_id", $moderator["id"]);
+$dbh->execute();
+
 				$pendong_requests_fetch = @mysql_fetch_array($get_pending_requests_query);
 				$pending_requests_count = @$pendong_requests_fetch["requests_count"];
 				$pending_requests = ($pending_requests_count == 0) ? "" : "<i class='icon-warning-sign'></i> $pending_requests_count";
