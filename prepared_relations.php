@@ -54,7 +54,7 @@ $dbh->execute();
 			return;
 		}
 		
-		$user_member = mysql_fetch_array($get_user_member_query);
+		$user_member = $get_user_member_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Now, Update information of the user to be a moderator.
 		$update_query = $dbh->prepare("UPDATE user SET usergroup = 'moderator', assigned_root_id = :moderator_root_info_id WHERE id = :user_member_id");
