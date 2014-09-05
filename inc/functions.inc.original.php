@@ -3339,7 +3339,7 @@ function arabic_date($date_string)
 function notify($type, $user_id, $content, $link)
 {
 	$now = time();
-	$content = $content;
+	$content = mysql_real_escape_string($content);
 
 	// Add a new notification.
 	$insert_notification = mysql_query("INSERT INTO notification (type, user_id, content, link, created) VALUES ('$type', '$user_id', '$content', '$link', '$now')");
@@ -3360,7 +3360,7 @@ function notify_many($type, $content, $link, $user_ids = array())
 	if (count($user_ids) > 0)
 	{
 		$values = array(); $now = time();
-		$content = $content;
+		$content = mysql_real_escape_string($content);
 		
 		// Initialize the SQL.
 		$sql_insert =  "INSERT INTO notification (type, user_id, content, link, created) VALUES ";
