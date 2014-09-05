@@ -12,7 +12,7 @@ if ($user["group"] == "visitor")
 }
 
 $member = get_member_id($user["member_id"]);
-$action = mysql_real_escape_string(@$_GET["action"]);
+$action = @$_GET["action"];
 
 // Get the current day.
 $time = time();
@@ -50,8 +50,8 @@ switch ($action)
 			"رجب", "شعبان", "رمضان", "شوّال", "ذو القعدة", "ذو الحجّة"
 		);
 		
-		$hijri_month = mysql_real_escape_string(@$_GET["hijri_month"]);
-		$hijri_year = mysql_real_escape_string(@$_GET["hijri_year"]);
+		$hijri_month = @$_GET["hijri_month"];
+		$hijri_year = @$_GET["hijri_year"];
 		
 		// Get the current month and year.
 		if (empty($hijri_month) || empty($hijri_year))
@@ -282,9 +282,9 @@ switch ($action)
 	
 	case "view_one_day":
 	
-		$hijri_day = mysql_real_escape_string(@$_GET["hijri_day"]);
-		$hijri_month = mysql_real_escape_string(@$_GET["hijri_month"]);
-		$hijri_year = mysql_real_escape_string(@$_GET["hijri_year"]);
+		$hijri_day = @$_GET["hijri_day"];
+		$hijri_month = @$_GET["hijri_month"];
+		$hijri_year = @$_GET["hijri_year"];
 		
 		// Check if the day does exist.
  		$get_this_day_events_query = mysql_query("SELECT event.id AS id, event.title AS title, event.author_id AS author_id, event.day AS day, event.month AS month, event.year AS year, user.username AS author_username, member.fullname AS author_fullname FROM event, member, user WHERE event.author_id = member.id AND member.id = user.member_id AND event.day = '$hijri_day' AND event.month = '$hijri_month' AND event.year = '$hijri_year'");
@@ -319,7 +319,7 @@ switch ($action)
 	
 	case "view_event":
 	
-		$id = mysql_real_escape_string(@$_GET["id"]);
+		$id = @$_GET["id"];
 		
 		// Check if the event does exist.
 		$get_event_query = mysql_query("SELECT event.id AS id, event.type AS type, event.title AS title, event.content AS content, event.location AS location, event.latitude AS latitude, event.longitude AS longitude, event.created AS created, event.time AS time, event.author_id AS author_id, event.day AS day, event.month AS month, event.year AS year, user.username AS author_username, member.fullname AS author_fullname, member.photo AS author_photo, member.gender AS author_gender FROM event, member, user WHERE event.author_id = member.id AND member.id = user.member_id AND event.id = '$id'");
@@ -545,9 +545,9 @@ switch ($action)
 		// TODO: Check if the user can add an event.
 		
 		// Get.
-		$hijri_day = mysql_real_escape_string(@$_GET["hijri_day"]);
-		$hijri_month = mysql_real_escape_string(@$_GET["hijri_month"]);
-		$hijri_year = mysql_real_escape_string(@$_GET["hijri_year"]);
+		$hijri_day = @$_GET["hijri_day"];
+		$hijri_month = @$_GET["hijri_month"];
+		$hijri_year = @$_GET["hijri_year"];
 		
 		// Check if the values of the hijri are incorrect.
 		$min_hijri_year = $current_hijri_year - 100;
@@ -585,26 +585,26 @@ switch ($action)
 		}
 		
 		// Post.
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
+		$submit = @$_POST["submit"];
 		
 		if (!empty($submit))
 		{
 			// Do some actions.
-			$type = mysql_real_escape_string(@$_POST["type"]);
-			$title = trim(mysql_real_escape_string(@$_POST["title"]));
+			$type = @$_POST["type"];
+			$title = trim(@$_POST["title"]);
 			
-			$location = trim(mysql_real_escape_string(@$_POST["location"]));
-			$latitude = mysql_real_escape_string(@$_POST["latitude"]);
-			$longitude = mysql_real_escape_string(@$_POST["longitude"]);
+			$location = trim(@$_POST["location"]);
+			$latitude = @$_POST["latitude"];
+			$longitude = @$_POST["longitude"];
 			
-			$hour = trim(arabic_number(mysql_real_escape_string(@$_POST["hour"])));
-			$minute = trim(arabic_number(mysql_real_escape_string(@$_POST["minute"])));
-			$am_pm = trim(mysql_real_escape_string(@$_POST["am_pm"]));
+			$hour = trim(arabic_number(@$_POST["hour"]));
+			$minute = trim(arabic_number(@$_POST["minute"]));
+			$am_pm = trim(@$_POST["am_pm"]);
 			$time = "";
 			
-			$content = trim(mysql_real_escape_string(@$_POST["content"]));
+			$content = trim(@$_POST["content"]);
 			
-			$notify_all = mysql_real_escape_string(@$_POST["notify_all"]);
+			$notify_all = @$_POST["notify_all"];
 			
 			// Check mandatory fields.
 			if (empty($title) || empty($content))
@@ -687,7 +687,7 @@ switch ($action)
 	
 	case "edit_event":
 
-		$id = mysql_real_escape_string(@$_GET["id"]);
+		$id = @$_GET["id"];
 		
 		// Check if the event is correct.
 		$get_event_query = mysql_query("SELECT * FROM event WHERE id = '$id'");
@@ -702,13 +702,13 @@ switch ($action)
 		$event = mysql_fetch_array($get_event_query);
 		
 		// Post.
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
+		$submit = @$_POST["submit"];
 
 		if (!empty($submit))
 		{
-			$hijri_day = trim(arabic_number(mysql_real_escape_string(@$_POST["day"])));
-			$hijri_month = trim(arabic_number(mysql_real_escape_string(@$_POST["month"])));
-			$hijri_year = trim(arabic_number(mysql_real_escape_string(@$_POST["year"])));
+			$hijri_day = trim(arabic_number(@$_POST["day"]));
+			$hijri_month = trim(arabic_number(@$_POST["month"]));
+			$hijri_year = trim(arabic_number(@$_POST["year"]));
 
 			// Check if the values of the hijri are incorrect.
 			$min_hijri_year = $current_hijri_year - 100;
@@ -746,19 +746,19 @@ switch ($action)
 			}
 
 			// Do some actions.
-			$type = mysql_real_escape_string(@$_POST["type"]);
-			$title = trim(mysql_real_escape_string(@$_POST["title"]));
+			$type = @$_POST["type"];
+			$title = trim(@$_POST["title"]);
 			
-			$location = trim(mysql_real_escape_string(@$_POST["location"]));
-			$latitude = mysql_real_escape_string(@$_POST["latitude"]);
-			$longitude = mysql_real_escape_string(@$_POST["longitude"]);
+			$location = trim(@$_POST["location"]);
+			$latitude = @$_POST["latitude"];
+			$longitude = @$_POST["longitude"];
 			
-			$hour = trim(arabic_number(mysql_real_escape_string(@$_POST["hour"])));
-			$minute = trim(arabic_number(mysql_real_escape_string(@$_POST["minute"])));
-			$am_pm = trim(mysql_real_escape_string(@$_POST["am_pm"]));
+			$hour = trim(arabic_number(@$_POST["hour"]));
+			$minute = trim(arabic_number(@$_POST["minute"]));
+			$am_pm = trim(@$_POST["am_pm"]);
 			$time = "";
 			
-			$content = trim(mysql_real_escape_string(@$_POST["content"]));
+			$content = trim(@$_POST["content"]);
 			
 			// Check mandatory fields.
 			if (empty($title) || empty($content))
@@ -848,7 +848,7 @@ switch ($action)
 	
 	case "delete_event":
 	
-		$id = mysql_real_escape_string(@$_GET["id"]);
+		$id = @$_GET["id"];
 		
 		// Check if the user is an admin.
 		if ($user["group"] != "admin")
@@ -890,7 +890,7 @@ switch ($action)
 	
 	case "add_comment":
 	
-		$event_id = mysql_real_escape_string(@$_GET["event_id"]);
+		$event_id = @$_GET["event_id"];
 		
 		// Check if the event does exist.
 		$get_event_query = mysql_query("SELECT * FROM event WHERE id = '$event_id'");
@@ -907,12 +907,12 @@ switch ($action)
 		// TODO: Check if the commenting on the event is available.
 		
 		// Post.
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
+		$submit = @$_POST["submit"];
 		
 		if (!empty($submit))
 		{
 			// Do some cleaning for the comment (XSS stuff).
-			$content = trim(mysql_real_escape_string(@strip_tags($_POST["content"])));
+			$content = trim(@strip_tags($_POST["content"]));
 
 			// Insert the comment.
 			$now = time();
@@ -985,7 +985,7 @@ switch ($action)
 	
 	case "like_comment":
 	
-		$comment_id = mysql_real_escape_string(@$_GET["comment_id"]);
+		$comment_id = @$_GET["comment_id"];
 		
 		// Check if the comment does exist.
 		$get_comment_query = mysql_query("SELECT comment.*, event.title AS event_title FROM comment, event WHERE event.id = comment.event_id AND comment.id = '$comment_id'");
@@ -1041,8 +1041,8 @@ switch ($action)
 	
 		$hijri_date_int = $current_hijri_day + ($current_hijri_month*29) + ($current_hijri_year*355);
 	
-		$id = mysql_real_escape_string(@$_GET["id"]);
-		$reaction = mysql_real_escape_string(@$_GET["reaction"]);
+		$id = @$_GET["id"];
+		$reaction = @$_GET["reaction"];
 		
 		// Check if the event does exist.
 		$get_event_query = mysql_query("SELECT * FROM event WHERE id = '$id' AND (day+month*29+year*355) >  $hijri_date_int");
