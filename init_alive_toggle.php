@@ -21,7 +21,11 @@ if ($member == false)
 }
 
 $is_alive_toggle = ($member["is_alive"] == 1) ? 0 : 1;
-$update_is_alive_query = mysql_query("UPDATE member SET is_alive = '$is_alive_toggle' WHERE id = '$member[id]'");
+$update_is_alive_query = $dbh->prepare("UPDATE member SET is_alive = :is_alive_toggle WHERE id = :member_id");
+$dbh->bindParam(":is_alive_toggle", $is_alive_toggle);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 	
 echo success_message(
 		"تم تحديث النبض بنجاح.",
