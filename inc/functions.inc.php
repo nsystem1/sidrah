@@ -1482,7 +1482,7 @@ $dbh->execute();
 		$now = time();
 	
 		// Execute the PHP code.
-		$request = mysql_fetch_array($get_request_query);
+		$request = $get_request_query->fetch(PDO::FETCH_ASSOC);
 		eval($request["phpscript"]);
 		
 		// Accept the request, after executing it.
@@ -1498,7 +1498,7 @@ $dbh->execute();
 $dbh->bindParam(":request_affected_id", $request["affected_id"]);
 $dbh->execute();
 
-		$get_user_id_fetch = mysql_fetch_array($get_user_id_query);
+		$get_user_id_fetch = $get_user_id_query->fetch(PDO::FETCH_ASSOC);
 		$user_id = $get_user_id_fetch["id"];
 		
 		// Update the first login of the user to be not.
@@ -1537,7 +1537,7 @@ function get_company_name($company_id)
 $dbh->bindParam(":company_id", $company_id);
 $dbh->execute();
 
-		$company = mysql_fetch_array($get_company_query);
+		$company = $get_company_query->fetch(PDO::FETCH_ASSOC);
 		return $company["name"];
 	}
 }
@@ -1567,7 +1567,7 @@ $dbh->execute();
 	else
 	{
 		// Get the company then.
-		$company = mysql_fetch_array($get_company_query);
+		$company = $get_company_query->fetch(PDO::FETCH_ASSOC);
 		return $company["id"];
 	}
 }
@@ -1721,7 +1721,7 @@ $dbh->execute();
 	else
 	{
 		// Get the hobby.
-		$hobby = mysql_fetch_array($get_hobby_query);
+		$hobby = $get_hobby_query->fetch(PDO::FETCH_ASSOC);
 		$hobby_id = $hobby["id"];
 	}
 	
@@ -1818,7 +1818,7 @@ function shorten_name($fullname)
 function get_num_stats($query, $key)
 {
 	$mysql_query = mysql_query($query);
-	$mysql_fetch = mysql_fetch_array($mysql_query);
+	$mysql_fetch = $mysql_query->fetch(PDO::FETCH_ASSOC);
 	return $mysql_fetch[$key];
 }
 
@@ -2173,7 +2173,7 @@ $dbh->execute();
 
 	if (mysql_num_rows($get_member_fullname_query) > 0)
 	{
-		$one_member = mysql_fetch_array($get_member_fullname_query);
+		$one_member = $get_member_fullname_query->fetch(PDO::FETCH_ASSOC);
 		return $one_member;
 	}
 	
@@ -2192,7 +2192,7 @@ $dbh->execute();
  
  	if (mysql_num_rows($get_member_fullname_query) > 0)
  	{
- 		$member_info = mysql_fetch_array($get_member_fullname_query);
+ 		$member_info = $get_member_fullname_query->fetch(PDO::FETCH_ASSOC);
  		return $member_info["id"];
  	}
  	else
@@ -2212,7 +2212,7 @@ $dbh->execute();
  		
  		if (mysql_num_rows($get_father_fullname_query) > 0)
  		{
- 			$father_info = mysql_fetch_array($get_father_fullname_query);
+ 			$father_info = $get_father_fullname_query->fetch(PDO::FETCH_ASSOC);
  			return add_child_to_member($firstname, $father_info["id"], $gender);
  		}
  		else
@@ -2255,7 +2255,7 @@ $dbh->execute();
 		
 		if (mysql_num_rows($get_member_query) > 0)
 		{
-			$member_info = mysql_fetch_array($get_member_query);
+			$member_info = $get_member_query->fetch(PDO::FETCH_ASSOC);
 			return $member_info["id"];
 		}
 		else
@@ -2291,7 +2291,7 @@ $dbh->execute();
 		
 		if (mysql_num_rows($get_new_father_query) > 0)
 		{
-			$new_father_info = mysql_fetch_array($get_new_father_query);
+			$new_father_info = $get_new_father_query->fetch(PDO::FETCH_ASSOC);
 			$new_father_id = $new_father_info["id"];
 		}
 		else
@@ -2376,7 +2376,7 @@ $dbh->execute();
 	
 	if (mysql_num_rows($get_rand_admin_query) > 0)
 	{
-		$admin = mysql_fetch_array($get_rand_admin_query);
+		$admin = $get_rand_admin_query->fetch(PDO::FETCH_ASSOC);
 		return $admin["id"];
 	}
 	else
@@ -2728,7 +2728,7 @@ $dbh->execute();
 		else
 		{
 			// There is a user that is already inserted.
-			$user_info = mysql_fetch_array($get_user_info_query);
+			$user_info = $get_user_info_query->fetch(PDO::FETCH_ASSOC);
 			$user_id = $user_info["id"];
 			
 			// If the user has never received a message.
@@ -3136,14 +3136,14 @@ $dbh->execute();
 	}
 	else
 	{
-		$head_committee = mysql_fetch_array($get_head_query);
+		$head_committee = $get_head_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Get the pending members to be joined the committee.
 		$get_committee_pending_member_query = $dbh->prepare("SELECT COUNT(id) AS pending_members FROM member_committee WHERE committee_id = :head_committee_committee_id AND status = 'pending'");
 $dbh->bindParam(":head_committee_committee_id", $head_committee["committee_id"]);
 $dbh->execute();
 
-		$committee_fetch = mysql_fetch_array($get_committee_pending_member_query);
+		$committee_fetch = $get_committee_pending_member_query->fetch(PDO::FETCH_ASSOC);
 		
 		return $committee_fetch["pending_members"];
 	}
@@ -3493,7 +3493,7 @@ $dbh->execute();
 	
 	if (mysql_num_rows($get_member_query) > 0)
 	{
-		$member = mysql_fetch_array($get_member_query);
+		$member = $get_member_query->fetch(PDO::FETCH_ASSOC);
 		notify_email(array($member["email"]), $type, $content, $link);
 	}
 }
@@ -3770,7 +3770,7 @@ function privacy_display($member_id, $privacy_name, $usergroup, $is_me, $is_rela
 $dbh->bindParam(":member_id", $member_id);
 $dbh->execute();
 
-	$fetch_privacy_name = mysql_fetch_array($get_privacy_name_query);
+	$fetch_privacy_name = $get_privacy_name_query->fetch(PDO::FETCH_ASSOC);
 	$privacy = $fetch_privacy_name["privacy_{$privacy_name}"];
 	
 	// Check if the member is admin, or the same member is viewing his/her page, or the privacy specified to be viewed by all.
@@ -3905,7 +3905,7 @@ $dbh->execute();
 	}
 
 	// Set a variable to hold dean information.
-	$fetch_dean_information = mysql_fetch_array($get_dean_information_query);
+	$fetch_dean_information = $get_dean_information_query->fetch(PDO::FETCH_ASSOC);
 
 	// Check if the dean is already selected.
 	if ($fetch_dean_information["selected"] == 1)
@@ -3924,7 +3924,7 @@ $dbh->execute();
 		return "VOTE_ERROR";
 	}
 	
-	$fetch_deanship_information = mysql_fetch_array($get_deanship_information_query);
+	$fetch_deanship_information = $get_deanship_information_query->fetch(PDO::FETCH_ASSOC);
 	
 	// Check if the status is not voting.
 	if ($fetch_deanship_information["status"] != "voting")
@@ -3957,7 +3957,7 @@ $dbh->execute();
 		return "VOTE_ERROR";
 	}
 	
-	$user_info = mysql_fetch_array($get_user_information_query);
+	$user_info = $get_user_information_query->fetch(PDO::FETCH_ASSOC);
 
 	// Check if the member has already voted.
 	$get_member_dean_query = $dbh->prepare("SELECT * FROM member_dean WHERE member_id = :member_info_id AND dean_id IN (SELECT id FROM dean WHERE period_id = :fetch_dean_information_period_id)");
@@ -4316,7 +4316,7 @@ $dbh->execute();
 	}
 	
 	// Fetch event information.
-	$event = mysql_fetch_array($get_event_query);
+	$event = $get_event_query->fetch(PDO::FETCH_ASSOC);
 	
 	// Check if the member said something.
 	$get_member_reaction_query = $dbh->prepare("SELECT * FROM event_reaction WHERE event_id = :event_id AND member_id = :member_id");
@@ -4331,7 +4331,7 @@ $dbh->execute();
 	}
 	else
 	{
-		$member_reaction = mysql_fetch_array($get_member_reaction_query);
+		$member_reaction = $get_member_reaction_query->fetch(PDO::FETCH_ASSOC);
 		$html = "<td>قرارك</td><td><strong>";
 		
 		switch ($member_reaction["reaction"])
@@ -4497,7 +4497,7 @@ $dbh->execute();
 	}
 	
 	// Fetch the media.
-	$media = mysql_fetch_array($get_media_query);
+	$media = $get_media_query->fetch(PDO::FETCH_ASSOC);
 	
 	if ($media["author_id"] == $member_id)
 	{
@@ -4919,7 +4919,7 @@ $dbh->execute();
 	}
 	
 	// Get the user information.
-	$user = mysql_fetch_array($get_user_query);
+	$user = $get_user_query->fetch(PDO::FETCH_ASSOC);
 
 	// Parse hash string.
 	$hash = sha1($user["username"]);
@@ -5038,7 +5038,7 @@ $dbh->execute();
 	}
 	
 	// Get the user information.
-	$user = mysql_fetch_array($get_user_query);
+	$user = $get_user_query->fetch(PDO::FETCH_ASSOC);
 
 	require_once("classes/ArGlyphs.php");
 	
@@ -5145,7 +5145,7 @@ $dbh->execute();
 		
 		if (mysql_num_rows($get_event_query) > 0)
 		{
-			$event = mysql_fetch_array($get_event_query);
+			$event = $get_event_query->fetch(PDO::FETCH_ASSOC);
 			$event_title = $event["title"];
 		}
 	}
