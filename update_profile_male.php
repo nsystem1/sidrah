@@ -88,53 +88,53 @@ if (!empty($submit))
 	// --------------------------------------------------
 	// Get is alive information.
 	// --------------------------------------------------
-	$is_alive = mysql_real_escape_string(trim(@$_POST["is_alive"]));
+	$is_alive = trim(@$_POST["is_alive"]);
 
 	// --------------------------------------------------
 	// Get mother information.
 	// --------------------------------------------------
-	$mother_name = mysql_real_escape_string(trim(@$_POST["mother_name"]));
-	$mom_marital_status = mysql_real_escape_string(trim(@$_POST["mom_marital_status"]));
-	$mom_is_alive = mysql_real_escape_string(trim(@$_POST["mom_is_alive"]));
+	$mother_name = trim(@$_POST["mother_name"]);
+	$mom_marital_status = trim(@$_POST["mom_marital_status"]);
+	$mom_is_alive = trim(@$_POST["mom_is_alive"]);
 
 	// --------------------------------------------------
 	// Get contact information.
 	// --------------------------------------------------
-	$mobile = mysql_real_escape_string(trim(arabic_number(@$_POST["mobile"])));
-	$location = mysql_real_escape_string(trim(@$_POST["location"]));
+	$mobile = trim(arabic_number(@$_POST["mobile"]));
+	$location = trim(@$_POST["location"]);
 
 	// --------------------------------------------------
 	// Get historical information.
 	// --------------------------------------------------
-	$dob_d = lz(mysql_real_escape_string(trim(@$_POST["dob_d"])));
-	$dob_m = lz(mysql_real_escape_string(trim(@$_POST["dob_m"])));
-	$dob_y = lz(mysql_real_escape_string(trim(arabic_number(@$_POST["dob_y"]))), 4);
+	$dob_d = lz(trim(@$_POST["dob_d"]));
+	$dob_m = lz(trim(@$_POST["dob_m"]));
+	$dob_y = lz(trim(arabic_number(@$_POST["dob_y"]))), 4;
 	
-	$dod_d = lz(mysql_real_escape_string(trim(@$_POST["dod_d"])));
-	$dod_m = lz(mysql_real_escape_string(trim(@$_POST["dod_m"])));
-	$dod_y = lz(mysql_real_escape_string(trim(arabic_number(@$_POST["dod_y"]))), 4);
+	$dod_d = lz(trim(@$_POST["dod_d"]));
+	$dod_m = lz(trim(@$_POST["dod_m"]));
+	$dod_y = lz(trim(arabic_number(@$_POST["dod_y"]))), 4;
 
 	$dob = "$dob_y-$dob_m-$dob_d";
 	$dod = "$dod_y-$dod_m-$dod_d";
 
-	$pob = mysql_real_escape_string(trim(@$_POST["pob"]));
+	$pob = trim(@$_POST["pob"]);
 
 	// --------------------------------------------------
 	// Get educational information.
 	// --------------------------------------------------
-	$education = mysql_real_escape_string(trim(@$_POST["education"]));
-	$major = mysql_real_escape_string(trim(@$_POST["major"]));
+	$education = trim(@$_POST["education"]);
+	$major = trim(@$_POST["major"]);
 	
 	// --------------------------------------------------
 	// Get career information
 	// --------------------------------------------------
-	$company = mysql_real_escape_string(trim(@$_POST["company"]));
-	$job_title = mysql_real_escape_string(trim(@$_POST["job_title"]));
+	$company = trim(@$_POST["company"]);
+	$job_title = trim(@$_POST["job_title"]);
 	
 	// --------------------------------------------------
 	// Get marital status information.
 	// --------------------------------------------------
-	$marital_status = mysql_real_escape_string(trim(@$_POST["marital_status"]));
+	$marital_status = trim(@$_POST["marital_status"]);
 
 	// --------------------------------------------------
 	// Get wives information.
@@ -212,7 +212,7 @@ if (!empty($submit))
 	// Start walking for sons.
 	foreach ($son as $key => $value)
 	{
-		$son[$key] = mysql_real_escape_string(trim($son[$key]));
+		$son[$key] = trim($son[$key]);
 		$son[$key] = normalize_name($son[$key]);
 		
 		if (!empty($son[$key]))
@@ -224,12 +224,12 @@ if (!empty($submit))
 	// Start walking for daughters.
 	foreach ($daughter as $key => $value)
 	{
-		$daughter[$key] = mysql_real_escape_string(trim($daughter[$key]));
+		$daughter[$key] = trim($daughter[$key]);
 		$daughter[$key] = normalize_name($daughter[$key]);
 		
 		if ($daughter_marital_status[$key] != 1)
 		{
-			$daughter_husband_name[$key] =  mysql_real_escape_string(trim($daughter_husband_name[$key]));
+			$daughter_husband_name[$key] =  trim($daughter_husband_name[$key]);
 			
 			if (empty($daughter_husband_name[$key]))
 			{
@@ -247,7 +247,7 @@ if (!empty($submit))
 	// Start walking up-on the wives.
 	foreach ($wife as $key => $value)
 	{
-		$wife[$key] = mysql_real_escape_string(trim($wife[$key]));
+		$wife[$key] = trim($wife[$key]);
 		
 		if (!empty($wife[$key]))
 		{
