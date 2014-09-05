@@ -25,7 +25,11 @@ if ($member == false)
 
 if (!empty($submit))
 {
-	$update_mobile_query = mysql_query("UPDATE member SET mobile = '$mobile' WHERE id = '$member[id]'");
+	$update_mobile_query = $dbh->prepare("UPDATE member SET mobile = :mobile WHERE id = :member_id");
+$dbh->bindParam(":mobile", $mobile);
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 	
 	echo success_message(
 			"تم تحديث الجوّال بنجاح.",
