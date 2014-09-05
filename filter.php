@@ -14,8 +14,8 @@ if ($user["group"] == "visitor")
 $member = get_member_id($user["member_id"]);
 $main_tribe_id = main_tribe_id;
 
-$action = mysql_real_escape_string(@$_GET["action"]);
-$submit = mysql_real_escape_string(@$_POST["submit"]);
+$action = @$_GET["action"];
+$submit = @$_POST["submit"];
 
 $parameters = array(
 		"رقم العائلة (1=زغيبي)" => "tribe_id",
@@ -301,7 +301,7 @@ switch ($action)
 	
 	case "export_to_excel":
 		
-		$query = mysql_real_escape_string(@$_POST["query"]);
+		$query = @$_POST["query"];
 		$query = base64_decode($query);
 		
 		// Get the results.
@@ -393,8 +393,8 @@ switch ($action)
 	
 	case "save_prepared_relation":
 		
-		$prepared_relation = trim(mysql_real_escape_string(@$_POST["prepared_relation"]));
-		$query = mysql_real_escape_string(@$_POST["query"]);
+		$prepared_relation = trim(@$_POST["prepared_relation"]);
+		$query = @$_POST["query"];
 		
 		// Check if the name is empty.
 		if (empty($prepared_relation))
