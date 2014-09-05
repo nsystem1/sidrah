@@ -83,7 +83,7 @@ if ($member["fullname"] == "")
 $dbh->bindParam(":member_id", $member["id"]);
 $dbh->execute();
 
-	$member = mysql_fetch_array($get_member_query);
+	$member = $get_member_query->fetch(PDO::FETCH_ASSOC);
 }
 
 if (!empty($submit))
@@ -487,7 +487,7 @@ $dbh->execute();
 	}
 	else
 	{
-		$request_info = mysql_fetch_array($get_request_query);
+		$request_info = $get_request_query->fetch(PDO::FETCH_ASSOC);
 		$random_key = $request_info["random_key"];
 		$update_request = $dbh->prepare("UPDATE request SET title = :title, description = :description, phpscript = :php, created = :now WHERE random_key = :random_key");
 $dbh->bindParam(":title", $title);
