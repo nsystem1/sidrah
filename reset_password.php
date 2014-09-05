@@ -36,7 +36,10 @@ switch ($action)
 			}
 			
 			// Check if a user with the giving information does exist.
-			$get_user_query = mysql_query("SELECT member.mobile as mobile, user.username as username, user.id as user_id FROM member, user WHERE user.member_id = member.id AND member.mobile = '$mobile'");
+			$get_user_query = $dbh->prepare("SELECT member.mobile as mobile, user.username as username, user.id as user_id FROM member, user WHERE user.member_id = member.id AND member.mobile = :mobile");
+$dbh->bindParam(":mobile", $mobile);
+$dbh->execute();
+
 	
 			if (mysql_num_rows($get_user_query) > 0)
 			{
@@ -117,7 +120,10 @@ switch ($action)
 			}
 
 			// Check if a user with the giving information does exist.
-			$get_user_query = mysql_query("SELECT member.mobile as mobile, user.username as username, user.id as user_id FROM member, user WHERE user.member_id = member.id AND member.mobile = '$session_mobile'");
+			$get_user_query = $dbh->prepare("SELECT member.mobile as mobile, user.username as username, user.id as user_id FROM member, user WHERE user.member_id = member.id AND member.mobile = :session_mobile");
+$dbh->bindParam(":session_mobile", $session_mobile);
+$dbh->execute();
+
 	
 			if (mysql_num_rows($get_user_query) > 0)
 			{
@@ -129,14 +135,22 @@ switch ($action)
 				$hashed_password = sha1_salt($password);
 		
 				// Update a password.
-				$update_password_query = mysql_query("UPDATE user SET password = '$hashed_password' WHERE username = '$user_info[username]'");
+				$update_password_query = $dbh->prepare("UPDATE user SET password = :hashed_password WHERE username = :user_info_username");
+$dbh->bindParam(":hashed_password", $hashed_password);
+$dbh->bindParam(":user_info_username", $user_info["username"]);
+$dbh->execute();
+
 		
 				// Send an sms.
 				$content = "اسم المستخدم\n$user_info[username]\n\nكلمة المرور الجديدة\n$password";
 				$sms_received = send_sms(array("966" . $user_info["mobile"]), $content);
 	
 				// Update the value of sms received.
-				$update_sms_received_query = mysql_query("UPDATE user SET sms_received = '$sms_received' WHERE id = '$user_info[user_id]'");
+				$update_sms_received_query = $dbh->prepare("UPDATE user SET sms_received = :sms_received WHERE id = :user_info_user_id");
+$dbh->bindParam(":sms_received", $sms_received);
+$dbh->bindParam(":user_info_user_id", $user_info["user_id"]);
+$dbh->execute();
+
 		
 				unset($_SESSION["sidrah_verification_code"]);
 				unset($_SESSION["sidrah_mobile"]);
@@ -191,7 +205,11 @@ if (!empty($submit))
 	}
 
 	// Check if a user with the giving information does exist.
-	$get_user_query = mysql_query("SELECT member.mobile as mobile, user.username as username, user.id as user_id FROM member, user WHERE user.member_id = member.id AND member.mobile = '$mobile' AND user.username = '$username'");
+	$get_user_query = $dbh->prepare("SELECT member.mobile as mobile, user.username as username, user.id as user_id FROM member, user WHERE user.member_id = member.id AND member.mobile = :mobile AND user.username = :username");
+$dbh->bindParam(":mobile", $mobile);
+$dbh->bindParam(":username", $username);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_user_query) > 0)
 	{
@@ -203,14 +221,22 @@ if (!empty($submit))
 		$hashed_password = sha1_salt($password);
 		
 		// Update a password.
-		$update_password_query = mysql_query("UPDATE user SET password = '$hashed_password' WHERE username = '$user_info[username]'");
+		$update_password_query = $dbh->prepare("UPDATE user SET password = :hashed_password WHERE username = :user_info_username");
+$dbh->bindParam(":hashed_password", $hashed_password);
+$dbh->bindParam(":user_info_username", $user_info["username"]);
+$dbh->execute();
+
 		
 		// Send an sms.
 		$content = "كلمة المرور الجديدة\n$password";
 		$sms_received = send_sms(array("966" . $user_info["mobile"]), $content);
 	
 		// Update the value of sms received.
-		$update_sms_received_query = mysql_query("UPDATE user SET sms_received = '$sms_received' WHERE id = '$user_info[user_id]'");
+		$update_sms_received_query = $dbh->prepare("UPDATE user SET sms_received = :sms_received WHERE id = :user_info_user_id");
+$dbh->bindParam(":sms_received", $sms_received);
+$dbh->bindParam(":user_info_user_id", $user_info["user_id"]);
+$dbh->execute();
+
 		
 		echo success_message(
 			"تم توليد كلمة مرور جديدة.",
