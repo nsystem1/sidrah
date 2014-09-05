@@ -9,7 +9,9 @@ $hijri_today = greg_to_hijri(date("d"), date("m"), date("Y"));
 $hijri_today_int = hijri_to_int($hijri_today["d"], $hijri_today["m"], $hijri_today["y"]);
 
 // Get dead members not aged yet.
-$get_dead_members = mysql_query("SELECT id, dob, dod FROM member WHERE dod != '0000-00-00' AND is_alive = '0' AND age = '0'");
+$get_dead_members = $dbh->prepare("SELECT id, dob, dod FROM member WHERE dod != '0000-00-00' AND is_alive = '0' AND age = '0'");
+$dbh->execute();
+
 
 if (mysql_num_rows($get_dead_members) > 0)
 {	
@@ -41,7 +43,9 @@ if (mysql_num_rows($get_dead_members) > 0)
 }
 
 // Get alive members to update their ages (everyday they are growing).
-$get_alive_members = mysql_query("SELECT id, dob, dod FROM member WHERE dob != '0000-00-00' AND is_alive = '1'");
+$get_alive_members = $dbh->prepare("SELECT id, dob, dod FROM member WHERE dob != '0000-00-00' AND is_alive = '1'");
+$dbh->execute();
+
 
 if (mysql_num_rows($get_alive_members) > 0)
 {
