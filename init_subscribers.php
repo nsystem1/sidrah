@@ -15,7 +15,7 @@ $dbh->bindParam(":suggested_id", $suggested["id"]);
 $dbh->bindParam(":now", $now);
 $dbh->execute();
 
-	$subscriber_id = mysql_insert_id();
+	$subscriber_id = $dbh->lastInsertId();
 	$insert_account_query = $dbh->prepare("INSERT INTO box_account (subscriber_id, iban, created) VALUES (:subscriber_id, :iban, :now)");
 $dbh->bindParam(":subscriber_id", $subscriber_id);
 $dbh->bindParam(":iban", $iban);
