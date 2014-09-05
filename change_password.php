@@ -51,7 +51,11 @@ if (!empty($submit))
 	
 	// OK, update the password of the user.
 	$password = sha1_salt($new_password1);
-	$update_password_query = mysql_query("UPDATE user SET password = '$password' WHERE member_id = '$member_id'");
+	$update_password_query = $dbh->prepare("UPDATE user SET password = :password WHERE member_id = :member_id");
+$dbh->bindParam(":password", $password);
+$dbh->bindParam(":member_id", $member_id);
+$dbh->execute();
+
 	
 	// Logout after all,
 	echo success_message(
