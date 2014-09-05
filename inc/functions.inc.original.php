@@ -1472,7 +1472,10 @@ function execute_request($key, $executed_by)
 	ob_start();
 
 	// Get the request by searching for the key.
-	$get_request_query = mysql_query("SELECT * FROM request WHERE random_key = '$key'");
+	$get_request_query = $dbh->prepare("SELECT * FROM request WHERE random_key = :key");
+$dbh->bindParam(":key", $key);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_request_query) > 0)
 	{
@@ -1483,15 +1486,26 @@ function execute_request($key, $executed_by)
 		eval($request["phpscript"]);
 		
 		// Accept the request, after executing it.
-		$accept_request = mysql_query("UPDATE request SET status = 'accepted', executed = '$now', executed_by = '$executed_by' WHERE random_key = '$key'");
+		$accept_request = $dbh->prepare("UPDATE request SET status = 'accepted', executed = :now, executed_by = :executed_by WHERE random_key = :key");
+$dbh->bindParam(":now", $now);
+$dbh->bindParam(":executed_by", $executed_by);
+$dbh->bindParam(":key", $key);
+$dbh->execute();
+
 		
 		// Get the user id of the affected member.
-		$get_user_id_query = mysql_query("SELECT id FROM user WHERE member_id = '$request[affected_id]'");
+		$get_user_id_query = $dbh->prepare("SELECT id FROM user WHERE member_id = :request_affected_id");
+$dbh->bindParam(":request_affected_id", $request["affected_id"]);
+$dbh->execute();
+
 		$get_user_id_fetch = mysql_fetch_array($get_user_id_query);
 		$user_id = $get_user_id_fetch["id"];
 		
 		// Update the first login of the user to be not.
-		$update_first_login = mysql_query("UPDATE user SET first_login = '0' WHERE id = '$user_id'");
+		$update_first_login = $dbh->prepare("UPDATE user SET first_login = '0' WHERE id = :user_id");
+$dbh->bindParam(":user_id", $user_id);
+$dbh->execute();
+
 	}
 	
 	// Get the output from buffer.
@@ -1519,7 +1533,10 @@ function get_company_name($company_id)
 	}
 	else
 	{
-		$get_company_query = mysql_query("SELECT name FROM company WHERE id = '$company_id'");
+		$get_company_query = $dbh->prepare("SELECT name FROM company WHERE id = :company_id");
+$dbh->bindParam(":company_id", $company_id);
+$dbh->execute();
+
 		$company = mysql_fetch_array($get_company_query);
 		return $company["name"];
 	}
@@ -1533,12 +1550,18 @@ function get_company_id($company_name)
 		return -1;
 	}
 
-	$get_company_query = mysql_query("SELECT id FROM company WHERE name = '$company_name'");
+	$get_company_query = $dbh->prepare("SELECT id FROM company WHERE name = :company_name");
+$dbh->bindParam(":company_name", $company_name);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_company_query) == 0)
 	{
 		// Insert the company.
-		$insert_company = mysql_query("INSERT INTO company (name) VALUES ('$company_name')");
+		$insert_company = $dbh->prepare("INSERT INTO company (name) VALUES (:company_name)");
+$dbh->bindParam(":company_name", $company_name);
+$dbh->execute();
+
 		return mysql_insert_id();
 	}
 	else
@@ -1607,7 +1630,10 @@ function get_enum_married($husband_is_alive, $wife_is_alive, $husband_marital_st
 // public
 function get_recommended_hobbies($member_id)
 {
-	$get_hobbies_query = mysql_query("SELECT hobby.id AS id, hobby.name AS name FROM hobby WHERE hobby.id NOT IN (SELECT member_hobby.hobby_id FROM member_hobby WHERE member_hobby.member_id = '$member_id') ORDER BY hobby.rank DESC LIMIT 10");
+	$get_hobbies_query = $dbh->prepare("SELECT hobby.id AS id, hobby.name AS name FROM hobby WHERE hobby.id NOT IN (SELECT member_hobby.hobby_id FROM member_hobby WHERE member_hobby.member_id = :member_id) ORDER BY hobby.rank DESC LIMIT 10");
+$dbh->bindParam(":member_id", $member_id);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_hobbies_query) == 0)
 	{
@@ -1629,7 +1655,10 @@ function get_recommended_hobbies($member_id)
 // public
 function get_member_hobbies($member_id)
 {
-	$get_hobbies_query = mysql_query("SELECT hobby.id AS id, hobby.name AS name FROM hobby, member_hobby WHERE member_hobby.hobby_id = hobby.id AND member_hobby.member_id = '$member_id'");
+	$get_hobbies_query = $dbh->prepare("SELECT hobby.id AS id, hobby.name AS name FROM hobby, member_hobby WHERE member_hobby.hobby_id = hobby.id AND member_hobby.member_id = :member_id");
+$dbh->bindParam(":member_id", $member_id);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_hobbies_query) == 0)
 	{
@@ -1675,12 +1704,18 @@ function remove_member_hobbies($member_id)
 function add_hobby_to_member($hobby, $member_id)
 {
 	// Check if the hoppy already exists.
-	$get_hobby_query = mysql_query("SELECT * FROM hobby WHERE name = '$hobby'");
+	$get_hobby_query = $dbh->prepare("SELECT * FROM hobby WHERE name = :hobby");
+$dbh->bindParam(":hobby", $hobby);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_hobby_query) == 0)
 	{
 		// Insert the hobby.
-		$insert_hobby_query = mysql_query("INSERT INTO hobby (name) VALUES ('$hobby')");
+		$insert_hobby_query = $dbh->prepare("INSERT INTO hobby (name) VALUES (:hobby)");
+$dbh->bindParam(":hobby", $hobby);
+$dbh->execute();
+
 		$hobby_id = mysql_insert_id();
 	}
 	else
@@ -1691,16 +1726,27 @@ function add_hobby_to_member($hobby, $member_id)
 	}
 	
 	// Add the hobby for the member if it doesn't already exists.
-	$get_member_hobby_query = mysql_query("SELECT * FROM member_hobby WHERE member_id = '$member_id' AND hobby_id = '$hobby_id'");
+	$get_member_hobby_query = $dbh->prepare("SELECT * FROM member_hobby WHERE member_id = :member_id AND hobby_id = :hobby_id");
+$dbh->bindParam(":member_id", $member_id);
+$dbh->bindParam(":hobby_id", $hobby_id);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_member_hobby_query) == 0)
 	{
 		// Insert the hobby for the member.
-		$insert_member_hobby = mysql_query("INSERT INTO member_hobby (member_id, hobby_id) VALUES ('$member_id', '$hobby_id')");
+		$insert_member_hobby = $dbh->prepare("INSERT INTO member_hobby (member_id, hobby_id) VALUES (:member_id, :hobby_id)");
+$dbh->bindParam(":member_id", $member_id);
+$dbh->bindParam(":hobby_id", $hobby_id);
+$dbh->execute();
+
 	}
 	
 	// Update the rank of the hobby one+.
-	$update_hobby_rank = mysql_query("UPDATE hobby SET rank = rank + 1 WHERE id = '$hobby_id'");
+	$update_hobby_rank = $dbh->prepare("UPDATE hobby SET rank = rank + 1 WHERE id = :hobby_id");
+$dbh->bindParam(":hobby_id", $hobby_id);
+$dbh->execute();
+
 	return mysql_affected_rows();
 }
 
@@ -1785,7 +1831,13 @@ function get_range_stats($from, $cases, $condition = "", $order = "")
 	
 	$results = array();
 
-	$get_ranges_stats = mysql_query("SELECT COUNT(id) AS counts, (CASE $cases_query END) AS ranges FROM $from $where GROUP BY ranges $order_by");
+	$get_ranges_stats = $dbh->prepare("SELECT COUNT(id) AS counts, (CASE :cases_query END) AS ranges FROM :from :where GROUP BY ranges :order_by");
+$dbh->bindParam(":cases_query", $cases_query);
+$dbh->bindParam(":from", $from);
+$dbh->bindParam(":where", $where);
+$dbh->bindParam(":order_by", $order_by);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_ranges_stats) > 0)
 	{
@@ -1905,7 +1957,11 @@ function date_to_hijri($date)
 // public
 function update_member_age($member_id, $age)
 {
-	return mysql_query("UPDATE member SET age = '$age' WHERE id = '$member_id'");
+	return $dbh->prepare("UPDATE member SET age = :age WHERE id = :member_id");
+$dbh->bindParam(":age", $age);
+$dbh->bindParam(":member_id", $member_id);
+$dbh->execute();
+
 }
 
 // public [array|hash]
@@ -1950,7 +2006,10 @@ function get_husbands($member_id, $output = "array")
 	$husbands_array = array();
 	$husbands_hash = array();
 	
-	$get_husbands_query = mysql_query("SELECT married.husband_id as husband_id, married.wife_id as wife_id, married.marital_status as ms FROM member, married WHERE (married.wife_id = member.id) AND married.wife_id = '$member_id' ORDER BY married.id DESC");
+	$get_husbands_query = $dbh->prepare("SELECT married.husband_id as husband_id, married.wife_id as wife_id, married.marital_status as ms FROM member, married WHERE (married.wife_id = member.id) AND married.wife_id = :member_id ORDER BY married.id DESC");
+$dbh->bindParam(":member_id", $member_id);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_husbands_query) > 0)
 	{
@@ -2106,7 +2165,11 @@ function get_user_id($user_id, $condition = "")
 function get_member_fullname($member_fullname, $condition = "")
 {
 	$condition_query = (!empty($condition)) ? "AND $condition" : "";
-	$get_member_fullname_query = mysql_query("SELECT * FROM member WHERE fullname = '$member_fullname' $condition_query");
+	$get_member_fullname_query = $dbh->prepare("SELECT * FROM member WHERE fullname = :member_fullname :condition_query");
+$dbh->bindParam(":member_fullname", $member_fullname);
+$dbh->bindParam(":condition_query", $condition_query);
+$dbh->execute();
+
 
 	if (mysql_num_rows($get_member_fullname_query) > 0)
 	{
@@ -2121,7 +2184,11 @@ function get_member_fullname($member_fullname, $condition = "")
 function add_member($fullname, $gender = 1)
 {
 	// First, check if the member already exists.
- 	$get_member_fullname_query = mysql_query("SELECT id FROM member WHERE fullname = '$fullname' AND gender = '$gender'");
+ 	$get_member_fullname_query = $dbh->prepare("SELECT id FROM member WHERE fullname = :fullname AND gender = :gender");
+$dbh->bindParam(":fullname", $fullname);
+$dbh->bindParam(":gender", $gender);
+$dbh->execute();
+
  
  	if (mysql_num_rows($get_member_fullname_query) > 0)
  	{
@@ -2138,7 +2205,10 @@ function add_member($fullname, $gender = 1)
  		$fathername = implode(" ", $names);
  		
  		// Check if the father exists.
- 		$get_father_fullname_query = mysql_query("SELECT id FROM member WHERE fullname = '$fathername' AND gender = '1'");
+ 		$get_father_fullname_query = $dbh->prepare("SELECT id FROM member WHERE fullname = :fathername AND gender = '1'");
+$dbh->bindParam(":fathername", $fathername);
+$dbh->execute();
+
  		
  		if (mysql_num_rows($get_father_fullname_query) > 0)
  		{
@@ -2175,7 +2245,13 @@ function add_member_walk($tribe_id, $walk_name, $father_id, $gender = 1)
 		$firstname = $names[0];
 		
 		// Check if the member already exists.
-		$get_member_query = mysql_query("SELECT id FROM member WHERE tribe_id = '$tribe_id' AND father_id = '$father_id' AND name = '$firstname' AND gender = '$gender'");
+		$get_member_query = $dbh->prepare("SELECT id FROM member WHERE tribe_id = :tribe_id AND father_id = :father_id AND name = :firstname AND gender = :gender");
+$dbh->bindParam(":tribe_id", $tribe_id);
+$dbh->bindParam(":father_id", $father_id);
+$dbh->bindParam(":firstname", $firstname);
+$dbh->bindParam(":gender", $gender);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_member_query) > 0)
 		{
@@ -2188,7 +2264,15 @@ function add_member_walk($tribe_id, $walk_name, $father_id, $gender = 1)
 			$fullname = "$firstname $father_info[fullname]";
 			$now = time();
 			
-			$insert_member_query = mysql_query("INSERT INTO member (tribe_id, father_id, name, fullname, gender, created) VALUES ('$tribe_id', '$father_id', '$firstname', '$fullname', '$gender', '$now')");
+			$insert_member_query = $dbh->prepare("INSERT INTO member (tribe_id, father_id, name, fullname, gender, created) VALUES (:tribe_id, :father_id, :firstname, :fullname, :gender, :now)");
+$dbh->bindParam(":tribe_id", $tribe_id);
+$dbh->bindParam(":father_id", $father_id);
+$dbh->bindParam(":firstname", $firstname);
+$dbh->bindParam(":fullname", $fullname);
+$dbh->bindParam(":gender", $gender);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 			return mysql_insert_id();
 		}
 	}
@@ -2198,7 +2282,12 @@ function add_member_walk($tribe_id, $walk_name, $father_id, $gender = 1)
 		unset($names[count($names)-1]);
 		
 		// Check if the member already exists.
-		$get_new_father_query = mysql_query("SELECT id FROM member WHERE tribe_id = '$tribe_id' AND father_id = '$father_id' AND name = '$lastname' AND gender = '1'");
+		$get_new_father_query = $dbh->prepare("SELECT id FROM member WHERE tribe_id = :tribe_id AND father_id = :father_id AND name = :lastname AND gender = '1'");
+$dbh->bindParam(":tribe_id", $tribe_id);
+$dbh->bindParam(":father_id", $father_id);
+$dbh->bindParam(":lastname", $lastname);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_new_father_query) > 0)
 		{
@@ -2218,7 +2307,14 @@ function add_member_walk($tribe_id, $walk_name, $father_id, $gender = 1)
 			}
 
 			$now = time();
-			$insert_new_father_query = mysql_query("INSERT INTO member (tribe_id, father_id, name, fullname, gender, created) VALUES ('$tribe_id', '$father_id', '$lastname', '$fullname', '1', '$now')");
+			$insert_new_father_query = $dbh->prepare("INSERT INTO member (tribe_id, father_id, name, fullname, gender, created) VALUES (:tribe_id, :father_id, :lastname, :fullname, '1', :now)");
+$dbh->bindParam(":tribe_id", $tribe_id);
+$dbh->bindParam(":father_id", $father_id);
+$dbh->bindParam(":lastname", $lastname);
+$dbh->bindParam(":fullname", $fullname);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 			$new_father_id = mysql_insert_id();
 		}
 		
@@ -2274,7 +2370,9 @@ function assign_request($fullname)
 	}
 	
 	// If there is no an appropriate moderator.
-	$get_rand_admin_query = mysql_query("SELECT id FROM user WHERE usergroup = 'admin' ORDER BY RAND() LIMIT 1");
+	$get_rand_admin_query = $dbh->prepare("SELECT id FROM user WHERE usergroup = 'admin' ORDER BY RAND() LIMIT 1");
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_rand_admin_query) > 0)
 	{
@@ -2590,7 +2688,10 @@ function create_user($id, $name)
 	if ($member)
 	{
 		// Check if there is a user id set to it.
-		$get_user_info_query = mysql_query("SELECT * FROM user WHERE member_id = '$member[id]'");
+		$get_user_info_query = $dbh->prepare("SELECT * FROM user WHERE member_id = :member_id");
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 		
 		$username = "$name$id";
 		$password = generate_key();
@@ -2602,7 +2703,12 @@ function create_user($id, $name)
 		if (mysql_num_rows($get_user_info_query) == 0)
 		{
 			// Insert a new user
-			$insert_query = mysql_query("INSERT INTO user (username, password, usergroup, member_id) VALUES ('$username', '$hashed_password', 'user', '$id')");
+			$insert_query = $dbh->prepare("INSERT INTO user (username, password, usergroup, member_id) VALUES (:username, :hashed_password, 'user', :id)");
+$dbh->bindParam(":username", $username);
+$dbh->bindParam(":hashed_password", $hashed_password);
+$dbh->bindParam(":id", $id);
+$dbh->execute();
+
 			$user_id = mysql_insert_id();
 			
 			// Send SMS.
@@ -2612,7 +2718,11 @@ function create_user($id, $name)
 				$sms_received = send_sms(array("966" . $member["mobile"]), $content);
 				
 				// Update the value of sms received.
-				$update_sms_received_query = mysql_query("UPDATE user SET sms_received = '$sms_received' WHERE id = '$user_id'");
+				$update_sms_received_query = $dbh->prepare("UPDATE user SET sms_received = :sms_received WHERE id = :user_id");
+$dbh->bindParam(":sms_received", $sms_received);
+$dbh->bindParam(":user_id", $user_id);
+$dbh->execute();
+
 			}
 		}
 		else
@@ -2625,13 +2735,21 @@ function create_user($id, $name)
 			if ($user_info["sms_received"] == 0 && $member["mobile"] != 0)
 			{
 				// Update the password (and only the password).
-				$update_query = mysql_query("UPDATE user SET password = '$hashed_password' WHERE id = '$user_id'");
+				$update_query = $dbh->prepare("UPDATE user SET password = :hashed_password WHERE id = :user_id");
+$dbh->bindParam(":hashed_password", $hashed_password);
+$dbh->bindParam(":user_id", $user_id);
+$dbh->execute();
+
 			
 				$content = "عضويتك في موقع الزغيبي\nاسم المستخدم: $user_info[username]\nكلمة المرور: $password";
 				$sms_received = send_sms(array("966" . $member["mobile"]), $content);
 
 				// Update the value of sms received.
-				$update_sms_received_query = mysql_query("UPDATE user SET sms_received = '$sms_received' WHERE id = '$user_id'");
+				$update_sms_received_query = $dbh->prepare("UPDATE user SET sms_received = :sms_received WHERE id = :user_id");
+$dbh->bindParam(":sms_received", $sms_received);
+$dbh->bindParam(":user_id", $user_id);
+$dbh->execute();
+
 			}
 		}
 		
@@ -2655,14 +2773,21 @@ function auto_reassign_requests($user_id)
 	}
 
 	// Get all assigned requests.
-	$get_assigned_requests_query = mysql_query("SELECT request.id as request_id, member.fullname as member_fullname FROM member, request WHERE request.affected_id = member.id AND request.assigned_to = '$user_id' AND request.status = 'pending'");
+	$get_assigned_requests_query = $dbh->prepare("SELECT request.id as request_id, member.fullname as member_fullname FROM member, request WHERE request.affected_id = member.id AND request.assigned_to = :user_id AND request.status = 'pending'");
+$dbh->bindParam(":user_id", $user_id);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_assigned_requests_query) > 0)
 	{
 		while ($request = mysql_fetch_array($get_assigned_requests_query))
 		{
 			$new_assigned_id = assign_request($request["member_fullname"]);
-			$update_request_query = mysql_query("UPDATE request SET assigned_to = '$new_assigned_id' WHERE id = '$request[request_id]'");
+			$update_request_query = $dbh->prepare("UPDATE request SET assigned_to = :new_assigned_id WHERE id = :request_request_id");
+$dbh->bindParam(":new_assigned_id", $new_assigned_id);
+$dbh->bindParam(":request_request_id", $request["request_id"]);
+$dbh->execute();
+
 		}
 		
 		return true;
@@ -3000,7 +3125,10 @@ function get_committee_notifications()
 	$user = user_information();
 	
 	// Check if the member is a head of a committee.
-	$get_head_query = mysql_query("SELECT committee_id FROM member_committee WHERE member_id = '$user[member_id]' AND member_title = 'head'");
+	$get_head_query = $dbh->prepare("SELECT committee_id FROM member_committee WHERE member_id = :user_member_id AND member_title = 'head'");
+$dbh->bindParam(":user_member_id", $user["member_id"]);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_head_query) == 0)
 	{
@@ -3011,7 +3139,10 @@ function get_committee_notifications()
 		$head_committee = mysql_fetch_array($get_head_query);
 		
 		// Get the pending members to be joined the committee.
-		$get_committee_pending_member_query = mysql_query("SELECT COUNT(id) AS pending_members FROM member_committee WHERE committee_id = '$head_committee[committee_id]' AND status = 'pending'");
+		$get_committee_pending_member_query = $dbh->prepare("SELECT COUNT(id) AS pending_members FROM member_committee WHERE committee_id = :head_committee_committee_id AND status = 'pending'");
+$dbh->bindParam(":head_committee_committee_id", $head_committee["committee_id"]);
+$dbh->execute();
+
 		$committee_fetch = mysql_fetch_array($get_committee_pending_member_query);
 		
 		return $committee_fetch["pending_members"];
@@ -3063,7 +3194,10 @@ function get_committees_nominee_congratulations()
 	$member_info = get_member_id($user["member_id"]);
 
 	// Check if the member is nominee for any committee.
-	$get_member_nominee_query = mysql_query("SELECT committee.id AS id, committee.name AS name FROM committee, member_committee WHERE committee.id = member_committee.committee_id AND member_committee.member_id = '$user[member_id]' AND member_committee.status = 'nominee'");
+	$get_member_nominee_query = $dbh->prepare("SELECT committee.id AS id, committee.name AS name FROM committee, member_committee WHERE committee.id = member_committee.committee_id AND member_committee.member_id = :user_member_id AND member_committee.status = 'nominee'");
+$dbh->bindParam(":user_member_id", $user["member_id"]);
+$dbh->execute();
+
 	$congratulations = "";
 
 	if (mysql_num_rows($get_member_nominee_query) > 0)
@@ -3342,10 +3476,20 @@ function notify($type, $user_id, $content, $link)
 	$content = $content;
 
 	// Add a new notification.
-	$insert_notification = mysql_query("INSERT INTO notification (type, user_id, content, link, created) VALUES ('$type', '$user_id', '$content', '$link', '$now')");
+	$insert_notification = $dbh->prepare("INSERT INTO notification (type, user_id, content, link, created) VALUES (:type, :user_id, :content, :link, :now)");
+$dbh->bindParam(":type", $type);
+$dbh->bindParam(":user_id", $user_id);
+$dbh->bindParam(":content", $content);
+$dbh->bindParam(":link", $link);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 	
 	// Get member information.
-	$get_member_query = mysql_query("SELECT member.email FROM member, user WHERE member.id = user.member_id AND user.id = '$user_id' AND member.email != ''");
+	$get_member_query = $dbh->prepare("SELECT member.email FROM member, user WHERE member.id = user.member_id AND user.id = :user_id AND member.email != ''");
+$dbh->bindParam(":user_id", $user_id);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_member_query) > 0)
 	{
@@ -3379,7 +3523,10 @@ function notify_many($type, $content, $link, $user_ids = array())
 		$user_ids_string = implode(", ", $user_ids);
 		
 		// Get member information.
-		$get_member_query = mysql_query("SELECT member.email FROM member, user WHERE member.id = user.member_id AND user.id IN ($user_ids_string) AND member.email != ''");
+		$get_member_query = $dbh->prepare("SELECT member.email FROM member, user WHERE member.id = user.member_id AND user.id IN (:user_ids_string) AND member.email != ''");
+$dbh->bindParam(":user_ids_string", $user_ids_string);
+$dbh->execute();
+
 	
 		if (mysql_num_rows($get_member_query) > 0)
 		{
@@ -3399,7 +3546,9 @@ function notify_many($type, $content, $link, $user_ids = array())
 function notify_all($type, $content, $link)
 {
 	// Get the alive users only.
-	$get_users_query = mysql_query("SELECT user.id AS id FROM user, member WHERE user.member_id = member.id AND member.is_alive = 1");
+	$get_users_query = $dbh->prepare("SELECT user.id AS id FROM user, member WHERE user.member_id = member.id AND member.is_alive = 1");
+$dbh->execute();
+
 	$user_ids = array();
 	
 	if (mysql_num_rows($get_users_query) > 0)
@@ -3448,7 +3597,9 @@ function get_all_mods_admins()
 	$mods_admins = array();
 
 	// Get all moderators and admins.
-	$get_mods_admins_query = mysql_query("SELECT member.fullname as member_fullname, user.id as user_id, user.username as username FROM member, user WHERE user.member_id = member.id AND user.usergroup != 'user'");
+	$get_mods_admins_query = $dbh->prepare("SELECT member.fullname as member_fullname, user.id as user_id, user.username as username FROM member, user WHERE user.member_id = member.id AND user.usergroup != 'user'");
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_mods_admins_query) > 0)
 	{
@@ -3615,7 +3766,10 @@ function privacy_select($select_name, $selected_value)
 function privacy_display($member_id, $privacy_name, $usergroup, $is_me, $is_relative_user, $is_accepted_moderator)
 {
 	// Get the privacy name for the entered member.
-	$get_privacy_name_query = mysql_query("SELECT privacy_{$privacy_name} FROM member WHERE id = '$member_id'");
+	$get_privacy_name_query = $dbh->prepare("SELECT privacy_{$privacy_name} FROM member WHERE id = :member_id");
+$dbh->bindParam(":member_id", $member_id);
+$dbh->execute();
+
 	$fetch_privacy_name = mysql_fetch_array($get_privacy_name_query);
 	$privacy = $fetch_privacy_name["privacy_{$privacy_name}"];
 	
@@ -3683,7 +3837,10 @@ function check_user_availability($username, $new_username, $name)
 	}
 	
 	// Check if the username equals another username.
-	$check_exact_username_query = mysql_query("SELECT username FROM user WHERE username = '$new_username'");
+	$check_exact_username_query = $dbh->prepare("SELECT username FROM user WHERE username = :new_username");
+$dbh->bindParam(":new_username", $new_username);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($check_exact_username_query) > 0)
 	{
@@ -3722,7 +3879,11 @@ function is_accepted_dean($member_id)
 	$conditions_string = implode(" AND ", $conditions);
 
 	// Check if the member is applicable.
-	$check_member_dean_query = mysql_query("SELECT member.id FROM member, user WHERE user.member_id = member.id AND member.id = '$member[id]' AND $conditions_string");
+	$check_member_dean_query = $dbh->prepare("SELECT member.id FROM member, user WHERE user.member_id = member.id AND member.id = :member_id AND :conditions_string");
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->bindParam(":conditions_string", $conditions_string);
+$dbh->execute();
+
 	
 	// True, or False.
 	return (mysql_num_rows($check_member_dean_query) > 0);
@@ -3733,7 +3894,10 @@ function is_accepted_dean($member_id)
 function can_vote_to_dean($member_id, $dean_id)
 {
 	// Get dean information.
-	$get_dean_information_query = mysql_query("SELECT * FROM dean WHERE id = '$dean_id'");
+	$get_dean_information_query = $dbh->prepare("SELECT * FROM dean WHERE id = :dean_id");
+$dbh->bindParam(":dean_id", $dean_id);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_dean_information_query) == 0)
 	{
@@ -3750,7 +3914,10 @@ function can_vote_to_dean($member_id, $dean_id)
 	}
 	
 	// Get the deanship information.
-	$get_deanship_information_query = mysql_query("SELECT * FROM deanship_period WHERE id = '$fetch_dean_information[period_id]'");
+	$get_deanship_information_query = $dbh->prepare("SELECT * FROM deanship_period WHERE id = :fetch_dean_information_period_id");
+$dbh->bindParam(":fetch_dean_information_period_id", $fetch_dean_information["period_id"]);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_deanship_information_query) == 0)
 	{
@@ -3780,7 +3947,10 @@ function can_vote_to_dean($member_id, $dean_id)
 	}
 	
 	// Get the user information.
-	$get_user_information_query = mysql_query("SELECT * FROM user WHERE member_id = '$member_info[id]'");
+	$get_user_information_query = $dbh->prepare("SELECT * FROM user WHERE member_id = :member_info_id");
+$dbh->bindParam(":member_info_id", $member_info["id"]);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_user_information_query) == 0)
 	{
@@ -3790,7 +3960,11 @@ function can_vote_to_dean($member_id, $dean_id)
 	$user_info = mysql_fetch_array($get_user_information_query);
 
 	// Check if the member has already voted.
-	$get_member_dean_query = mysql_query("SELECT * FROM member_dean WHERE member_id = '$member_info[id]' AND dean_id IN (SELECT id FROM dean WHERE period_id = '$fetch_dean_information[period_id]')");
+	$get_member_dean_query = $dbh->prepare("SELECT * FROM member_dean WHERE member_id = :member_info_id AND dean_id IN (SELECT id FROM dean WHERE period_id = :fetch_dean_information_period_id)");
+$dbh->bindParam(":member_info_id", $member_info["id"]);
+$dbh->bindParam(":fetch_dean_information_period_id", $fetch_dean_information["period_id"]);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_member_dean_query) > 0)
 	{
@@ -4130,7 +4304,11 @@ function get_event_reaction($event_id, $member_id, $hijri_date)
 	$hijri_date_int = $hijri_date["hijri_day"] + ($hijri_date["hijri_month"]*29) + ($hijri_date["hijri_year"]*355);
 	
 	// Get event information.
-	$get_event_query = mysql_query("SELECT * FROM event WHERE id = '$event_id' AND type IN ('meeting', 'wedding') AND (day+month*29+year*355) > $hijri_date_int");
+	$get_event_query = $dbh->prepare("SELECT * FROM event WHERE id = :event_id AND type IN ('meeting', 'wedding') AND (day+month*29+year*355) > :hijri_date_int");
+$dbh->bindParam(":event_id", $event_id);
+$dbh->bindParam(":hijri_date_int", $hijri_date_int);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_event_query) == 0)
 	{
@@ -4141,7 +4319,11 @@ function get_event_reaction($event_id, $member_id, $hijri_date)
 	$event = mysql_fetch_array($get_event_query);
 	
 	// Check if the member said something.
-	$get_member_reaction_query = mysql_query("SELECT * FROM event_reaction WHERE event_id = '$event[id]' AND member_id = '$member_id'");
+	$get_member_reaction_query = $dbh->prepare("SELECT * FROM event_reaction WHERE event_id = :event_id AND member_id = :member_id");
+$dbh->bindParam(":event_id", $event["id"]);
+$dbh->bindParam(":member_id", $member_id);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_member_reaction_query) == 0)
 	{
@@ -4173,7 +4355,10 @@ function get_event_reaction($event_id, $member_id, $hijri_date)
 // public
 function get_event_comments($event_id, &$comments_count, $member_id)
 {
-	$get_event_query = mysql_query("SELECT comment.id AS id, comment.content AS content, comment.author_id AS author_id, comment.created AS created, user.username AS author_username, member.fullname AS author_fullname, member.photo AS author_photo, member.gender AS author_gender, (SELECT count(id) FROM comment_like WHERE comment_id = comment.id) AS likes FROM comment, user, member WHERE comment.author_id = member.id AND member.id = user.member_id AND comment.event_id = '$event_id' ORDER BY created ASC");
+	$get_event_query = $dbh->prepare("SELECT comment.id AS id, comment.content AS content, comment.author_id AS author_id, comment.created AS created, user.username AS author_username, member.fullname AS author_fullname, member.photo AS author_photo, member.gender AS author_gender, (SELECT count(id) FROM comment_like WHERE comment_id = comment.id) AS likes FROM comment, user, member WHERE comment.author_id = member.id AND member.id = user.member_id AND comment.event_id = :event_id ORDER BY created ASC");
+$dbh->bindParam(":event_id", $event_id);
+$dbh->execute();
+
 	$comments_count = mysql_num_rows($get_event_query);
 	
 	if ($comments_count == 0)
@@ -4189,7 +4374,11 @@ function get_event_comments($event_id, &$comments_count, $member_id)
 			$can_like = true;
 			
 			// Check if the member has liked this comment before.
-			$get_member_likes_query = mysql_query("SELECT * FROM comment_like WHERE comment_id = '$comment[id]' AND member_id = '$member_id'");
+			$get_member_likes_query = $dbh->prepare("SELECT * FROM comment_like WHERE comment_id = :comment_id AND member_id = :member_id");
+$dbh->bindParam(":comment_id", $comment["id"]);
+$dbh->bindParam(":member_id", $member_id);
+$dbh->execute();
+
 		
 			if (mysql_num_rows($get_member_likes_query) > 0)
 			{
@@ -4223,7 +4412,10 @@ function get_event_comments($event_id, &$comments_count, $member_id)
 // public
 function get_media_comments($media_id, &$comments_count, $member_id)
 {
-	$get_media_query = mysql_query("SELECT media_comment.id AS id, media_comment.content AS content, media_comment.author_id AS author_id, media_comment.created AS created, user.username AS author_username, member.fullname AS author_fullname, member.photo AS author_photo, member.gender AS author_gender, (SELECT count(id) FROM media_comment_like WHERE media_comment_id = media_comment.id) AS likes FROM media_comment, user, member WHERE media_comment.author_id = member.id AND member.id = user.member_id AND media_comment.media_id = '$media_id' ORDER BY created ASC");
+	$get_media_query = $dbh->prepare("SELECT media_comment.id AS id, media_comment.content AS content, media_comment.author_id AS author_id, media_comment.created AS created, user.username AS author_username, member.fullname AS author_fullname, member.photo AS author_photo, member.gender AS author_gender, (SELECT count(id) FROM media_comment_like WHERE media_comment_id = media_comment.id) AS likes FROM media_comment, user, member WHERE media_comment.author_id = member.id AND member.id = user.member_id AND media_comment.media_id = :media_id ORDER BY created ASC");
+$dbh->bindParam(":media_id", $media_id);
+$dbh->execute();
+
 	$comments_count = mysql_num_rows($get_media_query);
 	
 	// Get the user information.
@@ -4243,7 +4435,11 @@ function get_media_comments($media_id, &$comments_count, $member_id)
 			$can_delete = false;
 			
 			// Check if the member has liked this comment before.
-			$get_member_likes_query = mysql_query("SELECT * FROM media_comment_like WHERE media_comment_id = '$comment[id]' AND member_id = '$member_id'");
+			$get_member_likes_query = $dbh->prepare("SELECT * FROM media_comment_like WHERE media_comment_id = :comment_id AND member_id = :member_id");
+$dbh->bindParam(":comment_id", $comment["id"]);
+$dbh->bindParam(":member_id", $member_id);
+$dbh->execute();
+
 		
 			if (mysql_num_rows($get_member_likes_query) > 0)
 			{
@@ -4290,7 +4486,10 @@ function get_media_comments($media_id, &$comments_count, $member_id)
 function media_member_can_like($media_id, $member_id)
 {	
 	// Get the media.
-	$get_media_query = mysql_query("SELECT * FROM media WHERE id = '$media_id'");
+	$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :media_id");
+$dbh->bindParam(":media_id", $media_id);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_media_query) == 0)
 	{
@@ -4306,7 +4505,11 @@ function media_member_can_like($media_id, $member_id)
 	}
 	
 	// Check if the member has already liked the media.
-	$get_member_media_like_query = mysql_query("SELECT * FROM media_reaction WHERE reaction = 'like' AND media_id = '$media[id]' AND member_id = '$member_id'");
+	$get_member_media_like_query = $dbh->prepare("SELECT * FROM media_reaction WHERE reaction = 'like' AND media_id = :media_id AND member_id = :member_id");
+$dbh->bindParam(":media_id", $media["id"]);
+$dbh->bindParam(":member_id", $member_id);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_member_media_like_query) > 0)
 	{
@@ -4705,7 +4908,10 @@ function getcenter($shape, $_fr, $_fg, $_fb, $_br, $_bg, $_bb, $usebg, $sprite_s
 function identicon($member_id, $size = 64, $sprite_size = 128)
 {
 	// Get the user information.
-	$get_user_query = mysql_query("SELECT * FROM user WHERE member_id = '$member_id'");
+	$get_user_query = $dbh->prepare("SELECT * FROM user WHERE member_id = :member_id");
+$dbh->bindParam(":member_id", $member_id);
+$dbh->execute();
+
 	
 	if (mysql_num_rows($get_user_query) == 0)
 	{
@@ -4802,7 +5008,11 @@ function identicon($member_id, $size = 64, $sprite_size = 128)
 	imagepng($resized, "views/pics/$member_id.png");
 	
 	// Update the photo of member.
-	$update_member_photo_query = mysql_query("UPDATE member SET photo = '$member_id.png' WHERE id = '$member_id'");
+	$update_member_photo_query = $dbh->prepare("UPDATE member SET photo = ':member_id.png' WHERE id = :member_id");
+$dbh->bindParam(":member_id", $member_id);
+$dbh->bindParam(":member_id", $member_id);
+$dbh->execute();
+
 }
 
 // public
@@ -4817,7 +5027,10 @@ function create_member_card($member_id, $colors = array(), $direction = "horizon
 	}
 	
 	// Get the user informarion.
-	$get_user_query = mysql_query("SELECT * FROM user WHERE member_id = '$member[id]'");
+	$get_user_query = $dbh->prepare("SELECT * FROM user WHERE member_id = :member_id");
+$dbh->bindParam(":member_id", $member["id"]);
+$dbh->execute();
+
 
 	if (mysql_num_rows($get_user_query) == 0)
 	{
@@ -4925,7 +5138,10 @@ function media($event_id = -1)
 		$media_is_event = 1;
 		
 		// Get the event.
-		$get_event_query = mysql_query("SELECT * FROM event WHERE id = '$event_id'");
+		$get_event_query = $dbh->prepare("SELECT * FROM event WHERE id = :event_id");
+$dbh->bindParam(":event_id", $event_id);
+$dbh->execute();
+
 		
 		if (mysql_num_rows($get_event_query) > 0)
 		{
@@ -5070,7 +5286,17 @@ function add_transaction($account_id, $amount, $type, $for_id, $details, $trigge
 	}
 
 	$now = time();
-	$insert_transaction_query = mysql_query("INSERT INTO box_transaction (account_id, amount, type, for_id, details, status, triggered_by, created_by, created) VALUES ('$account_id', '$amount', '$type', '$for_id', '$details', 'pending', '$triggered_by', '$created_by', '$now')");
+	$insert_transaction_query = $dbh->prepare("INSERT INTO box_transaction (account_id, amount, type, for_id, details, status, triggered_by, created_by, created) VALUES (:account_id, :amount, :type, :for_id, :details, 'pending', :triggered_by, :created_by, :now)");
+$dbh->bindParam(":account_id", $account_id);
+$dbh->bindParam(":amount", $amount);
+$dbh->bindParam(":type", $type);
+$dbh->bindParam(":for_id", $for_id);
+$dbh->bindParam(":details", $details);
+$dbh->bindParam(":triggered_by", $triggered_by);
+$dbh->bindParam(":created_by", $created_by);
+$dbh->bindParam(":now", $now);
+$dbh->execute();
+
 }
 
 // Connect to the database.
