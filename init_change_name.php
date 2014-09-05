@@ -58,7 +58,7 @@ $dbh->execute();
 	if (mysql_num_rows($get_user_query) > 0)
 	{
 		// Get the user information.
-		$user_info = mysql_fetch_array($get_user_query);
+		$user_info = $get_user_query->fetch(PDO::FETCH_ASSOC);
 	
 		// Update the username too.
 		$update_username_query = $dbh->prepare("UPDATE user SET username = ':name:member_id' WHERE id = :user_info_id");
