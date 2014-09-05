@@ -254,7 +254,7 @@ $dbh->bindParam(":user_member_id", $user["member_id"]);
 $dbh->bindParam(":now", $now);
 $dbh->execute();
 
-									$media_id = mysql_insert_id();
+									$media_id = $dbh->lastInsertId();
 						
 									$data = array(
 										"status" => 1,
