@@ -121,7 +121,7 @@ $dbh->bindParam(":hijri_month", $hijri_month);
 $dbh->bindParam(":hijri_year", $hijri_year);
 $dbh->execute();
 
-			$fetch_this_day_events = mysql_fetch_array($get_this_day_events_query);
+			$fetch_this_day_events = $get_this_day_events_query->fetch(PDO::FETCH_ASSOC);
 			$events_count = $fetch_this_day_events["events_count"];
 			
 			/*
@@ -361,7 +361,7 @@ $dbh->execute();
 		}
 		
 		// Get the event.
-		$event = mysql_fetch_array($get_event_query);
+		$event = $get_event_query->fetch(PDO::FETCH_ASSOC);
 		
 		if ($event["type"] == "meeting" || $event["type"] == "wedding")
 		{			
@@ -370,7 +370,7 @@ $dbh->execute();
 $dbh->bindParam(":event_id", $event["id"]);
 $dbh->execute();
 
-			$fetch_all_members_come = mysql_fetch_array($get_all_members_come_query);
+			$fetch_all_members_come = $get_all_members_come_query->fetch(PDO::FETCH_ASSOC);
 			$come_count = $fetch_all_members_come["come_count"];
 			
 			if ($come_count == 0)
@@ -412,7 +412,7 @@ $dbh->execute();
 $dbh->bindParam(":event_id", $event["id"]);
 $dbh->execute();
 
-			$fetch_all_members_not_come = mysql_fetch_array($get_all_members_not_come_query);
+			$fetch_all_members_not_come = $get_all_members_not_come_query->fetch(PDO::FETCH_ASSOC);
 			$not_come_count = $fetch_all_members_not_come["not_come_count"];
 			
 			if ($not_come_count > 0)
@@ -428,7 +428,7 @@ $dbh->execute();
 $dbh->bindParam(":no_react_condition", $no_react_condition);
 $dbh->execute();
 
-			$fetch_all_members_no_react = mysql_fetch_array($get_all_members_no_react_query);
+			$fetch_all_members_no_react = $get_all_members_no_react_query->fetch(PDO::FETCH_ASSOC);
 			$no_react_count = $fetch_all_members_no_react["no_react_count"];
 			
 			if ($no_react_count > 0)
@@ -763,7 +763,7 @@ $dbh->execute();
 		}
 		
 		// Get the event details.
-		$event = mysql_fetch_array($get_event_query);
+		$event = $get_event_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Post.
 		$submit = @$_POST["submit"];
@@ -934,7 +934,7 @@ $dbh->execute();
 		}
 		
 		// Get the event.
-		$event = mysql_fetch_array($get_event_query);
+		$event = $get_event_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Delete the event.
 		$delete_event_query = $dbh->prepare("DELETE FROM event WHERE id = :event_id");
@@ -984,7 +984,7 @@ $dbh->execute();
 		}
 		
 		// Get the event.
-		$event = mysql_fetch_array($get_event_query);
+		$event = $get_event_query->fetch(PDO::FETCH_ASSOC);
 		
 		// TODO: Check if the commenting on the event is available.
 		
@@ -1019,7 +1019,7 @@ $dbh->execute();
 $dbh->bindParam(":event_author_id", $event["author_id"]);
 $dbh->execute();
 
-			$fetch_event_author = mysql_fetch_array($get_event_author_query);
+			$fetch_event_author = $get_event_author_query->fetch(PDO::FETCH_ASSOC);
 			$event_author_user_id = $fetch_event_author["id"];
 			
 			// Check if the author of the event is not the same with the author of the comment.
@@ -1096,7 +1096,7 @@ $dbh->execute();
 		}
 		
 		// Get the event.
-		$comment = mysql_fetch_array($get_comment_query);
+		$comment = $get_comment_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Check if the member has liked this comment before.
 		$get_member_likes_query = $dbh->prepare("SELECT * FROM comment_like WHERE comment_id = :comment_id AND member_id = :member_id");
@@ -1135,7 +1135,7 @@ $dbh->execute();
 $dbh->bindParam(":comment_author_id", $comment["author_id"]);
 $dbh->execute();
 
-		$fetch_comment_user = mysql_fetch_array($get_comment_user_query);
+		$fetch_comment_user = $get_comment_user_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Notify the commenter.
 		notify("comment_like", $fetch_comment_user["id"], $desc, $link);
@@ -1169,7 +1169,7 @@ $dbh->execute();
 		}
 		
 		// Get the event.
-		$event = mysql_fetch_array($get_event_query);
+		$event = $get_event_query->fetch(PDO::FETCH_ASSOC);
 		
 		// Check if the member has already react.
 		$get_member_reaction_query = $dbh->prepare("SELECT * FROM event_reaction WHERE event_id = :event_id AND member_id = :member_id");
@@ -1191,7 +1191,7 @@ $dbh->execute();
 $dbh->bindParam(":event_author_id", $event["author_id"]);
 $dbh->execute();
 
-		$author_user = mysql_fetch_array($get_user_id_query);
+		$author_user = $get_user_id_query->fetch(PDO::FETCH_ASSOC);
 		
 		switch ($reaction)
 		{
