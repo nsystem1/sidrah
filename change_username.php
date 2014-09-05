@@ -40,7 +40,11 @@ if (!empty($submit))
 		identicon($member["id"]);
 
 		// Update the username.
-		$update_username_query = mysql_query("UPDATE user SET username = '$new_username' WHERE id = '$user[id]'");
+		$update_username_query = $dbh->prepare("UPDATE user SET username = :new_username WHERE id = :user_id");
+$dbh->bindParam(":new_username", $new_username);
+$dbh->bindParam(":user_id", $user["id"]);
+$dbh->execute();
+
 		
 		// Logout after all,
 		echo success_message(
