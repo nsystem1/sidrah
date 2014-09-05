@@ -10,16 +10,16 @@ if ($user["group"] != "admin")
 	return;
 }
 
-$action = mysql_real_escape_string(@$_GET["action"]);
+$action = @$_GET["action"];
 
 switch ($action)
 {	
 	case "add_prepared_relation":
 	
 		/*
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
-		$name = trim(mysql_real_escape_string(@$_POST["name"]));
-		$query = trim(mysql_real_escape_string(@$_POST["query"]));
+		$submit = @$_POST["submit"];
+		$name = trim(@$_POST["name"]);
+		$query = trim(@$_POST["query"]);
 
 		if (empty($submit))
 		{
@@ -65,8 +65,8 @@ switch ($action)
 	
 	case "update_prepared_relations":
 
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
-		$do = mysql_real_escape_string(@$_POST["do"]);
+		$submit = @$_POST["submit"];
+		$do = @$_POST["do"];
 		$check = @$_POST["check"];
 
 		// Array to hold prepared relations.
