@@ -17,7 +17,7 @@ $dbh->execute();
 
 if (mysql_num_rows($get_tribe_query) > 0)
 {
-	$tribe_info = mysql_fetch_array($get_tribe_query);
+	$tribe_info = $get_tribe_query->fetch(PDO::FETCH_ASSOC);
 	$tribe_id = $tribe_info["id"];
 }
 else
@@ -66,7 +66,7 @@ if ($member == false)
 $dbh->bindParam(":tribe_id", $tribe_id);
 $dbh->execute();
 
-		$root_info = mysql_fetch_array($get_tribe_root_query);
+		$root_info = $get_tribe_root_query->fetch(PDO::FETCH_ASSOC);
 		$id = $root_info["id"];
 	}
 }
