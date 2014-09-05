@@ -19,12 +19,12 @@ switch ($do)
 			return;
 		}
 
-		$submit = mysql_real_escape_string(@$_POST["submit"]);
+		$submit = @$_POST["submit"];
 		
 		// After submitting the form.
 		if (!empty($submit))
 		{
-			$id = trim(mysql_real_escape_string(@$_POST["id"]));
+			$id = trim(@$_POST["id"]);
 			$member = get_member_id($id);
 			
 			if ($member == false)
@@ -46,7 +46,7 @@ switch ($do)
 		// Before submitting the form.
 		else
 		{
-			$id = mysql_real_escape_string(@$_GET["id"]);
+			$id = @$_GET["id"];
 			$member = get_member_id($id);
 			
 			if ($member == false)
@@ -68,8 +68,8 @@ switch ($do)
 
 	default: case "view_member":
 
-		$tribe_id = mysql_real_escape_string(@$_GET["tribe_id"]);
-		$id = mysql_real_escape_string(@$_GET["id"]);
+		$tribe_id = @$_GET["tribe_id"];
+		$id = @$_GET["id"];
 		
 		if (empty($id))
 		{
