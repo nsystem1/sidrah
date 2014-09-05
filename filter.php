@@ -172,7 +172,7 @@ switch ($action)
 			";
 
 		$mysql_query = mysql_query($main_query);
-		$results_count = mysql_num_rows($mysql_query);
+		$results_count = $mysql_query->rowCount();
 
 		$content = "<table class='table' style='width: 2200px;'>";
 		$content .= "<thead><tr>";
