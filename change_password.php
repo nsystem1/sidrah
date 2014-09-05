@@ -13,7 +13,7 @@ if ($user["group"] == "visitor")
 
 $member_id = $user["member_id"];
 
-$submit = mysql_real_escape_string(@$_POST["submit"]);
+$submit = @$_POST["submit"];
 $member = get_member_id($member_id);
 
 if ($member == false)
@@ -24,9 +24,9 @@ if ($member == false)
 
 if (!empty($submit))
 {
-	$old_password = mysql_real_escape_string(@$_POST["old_password"]);
-	$new_password1 = mysql_real_escape_string(@$_POST["new_password1"]);
-	$new_password2 = mysql_real_escape_string(@$_POST["new_password2"]);
+	$old_password = @$_POST["old_password"];
+	$new_password1 = @$_POST["new_password1"];
+	$new_password2 = @$_POST["new_password2"];
 
 	// Check if there is some empty fields.
 	if (empty($old_password) || empty($new_password1) || empty($new_password2))
