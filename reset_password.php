@@ -37,9 +37,8 @@ switch ($action)
 			
 			// Check if a user with the giving information does exist.
 			$get_user_query = $dbh->prepare("SELECT member.mobile as mobile, user.username as username, user.id as user_id FROM member, user WHERE user.member_id = member.id AND member.mobile = :mobile");
-$dbh->bindParam(":mobile", $mobile);
-$dbh->execute();
-
+            $get_user_query->bindParam(":mobile", $mobile);
+            $get_user_query->execute();
 	
 			if (mysql_num_rows($get_user_query) > 0)
 			{
@@ -121,11 +120,10 @@ $dbh->execute();
 
 			// Check if a user with the giving information does exist.
 			$get_user_query = $dbh->prepare("SELECT member.mobile as mobile, user.username as username, user.id as user_id FROM member, user WHERE user.member_id = member.id AND member.mobile = :session_mobile");
-$dbh->bindParam(":session_mobile", $session_mobile);
-$dbh->execute();
-
+            $get_user_query->bindParam(":session_mobile", $session_mobile);
+            $get_user_query->execute();
 	
-			if (mysql_num_rows($get_user_query) > 0)
+			if ($get_user_query->rowCount() > 0)
 			{
 				// Get user information.
 				$user_info = $get_user_query->fetch(PDO::FETCH_ASSOC);
@@ -136,10 +134,9 @@ $dbh->execute();
 		
 				// Update a password.
 				$update_password_query = $dbh->prepare("UPDATE user SET password = :hashed_password WHERE username = :user_info_username");
-$dbh->bindParam(":hashed_password", $hashed_password);
-$dbh->bindParam(":user_info_username", $user_info["username"]);
-$dbh->execute();
-
+                $update_password_query->bindParam(":hashed_password", $hashed_password);
+                $update_password_query->bindParam(":user_info_username", $user_info["username"]);
+                $update_password_query->execute();
 		
 				// Send an sms.
 				$content = "اسم المستخدم\n$user_info[username]\n\nكلمة المرور الجديدة\n$password";
@@ -147,10 +144,9 @@ $dbh->execute();
 	
 				// Update the value of sms received.
 				$update_sms_received_query = $dbh->prepare("UPDATE user SET sms_received = :sms_received WHERE id = :user_info_user_id");
-$dbh->bindParam(":sms_received", $sms_received);
-$dbh->bindParam(":user_info_user_id", $user_info["user_id"]);
-$dbh->execute();
-
+                $update_sms_received_query->bindParam(":sms_received", $sms_received);
+                $update_sms_received_query->bindParam(":user_info_user_id", $user_info["user_id"]);
+                $update_sms_received_query->execute();
 		
 				unset($_SESSION["sidrah_verification_code"]);
 				unset($_SESSION["sidrah_mobile"]);
