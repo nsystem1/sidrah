@@ -48,7 +48,7 @@ switch ($action)
         $get_prepared_relation_query->bindParam(":to", $to);
         $get_prepared_relation_query->execute();
 
-		if (mysql_num_rows($get_prepared_relation_query) == 0)
+		if ($get_prepared_relation_query->rowCount() == 0)
 		{
 			return;
 		}
@@ -316,7 +316,7 @@ switch ($action)
 
 		// TODO: Do some extra checking.
 
-		if (mysql_num_rows($get_member_query) == 0)
+		if ($get_member_query->rowCount() == 0)
 		{
 			$data = array(
 				"status" => "failure"
@@ -416,7 +416,7 @@ switch ($action)
 
 			$children = array();
 
-			if (mysql_num_rows($get_children_query) > 0)
+			if ($get_children_query->rowCount() > 0)
 			{
 				while ($child = mysql_fetch_array($get_children_query))
 				{
