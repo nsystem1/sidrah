@@ -60,7 +60,7 @@ else
 		{
 			echo "<ul class='ul_result'>";
 			
-			while ($result = mysql_fetch_array($get_related_names_query))
+			while ($result = $get_related_names_query->fetch(PDO::FETCH_ASSOC))
 			{	
 				$photo = rep_photo($result["photo"], 1, "avatar");
 				$detailed_info = "$result[age] سنة - $result[location] - $result[job_title]";
@@ -89,7 +89,7 @@ else
 		{
 			echo "<ul class='ul_result'>";
 			
-			while ($result = mysql_fetch_array($get_related_names_query))
+			while ($result = $get_related_names_query->fetch(PDO::FETCH_ASSOC))
 			{	
 				$detailed_info = "$result[iban]";
 				
@@ -128,7 +128,7 @@ else
 		{
 			echo "<ul class='ul_result'>";
 			
-			while ($result = mysql_fetch_array($get_related_names_query))
+			while ($result = $get_related_names_query->fetch(PDO::FETCH_ASSOC))
 			{
 				echo "<li class='li_result'><a title='$result[fullname]' href='$href' data-id='$result[id]' class='result'>$result[fullname]</a></li>";
 			}
@@ -172,7 +172,7 @@ else
 		
 		if ($get_exact_query->rowCount() > 0)
 		{
-			while ($ex = mysql_fetch_array($get_exact_query))
+			while ($ex = $get_exact_query->fetch(PDO::FETCH_ASSOC))
 			{
 				$exact_array []= $ex["fullname"];
 			}
@@ -190,7 +190,7 @@ else
 
 		if ($get_almost_exact_query->rowCount() > 0)
 		{
-			while ($almost_ex = mysql_fetch_array($get_almost_exact_query))
+			while ($almost_ex = $get_almost_exact_query->fetch(PDO::FETCH_ASSOC))
 			{
 				if (!in_array($almost_ex["fullname"], $exact_array))
 				{
@@ -209,7 +209,7 @@ else
 		
 		if ($get_childof_query->rowCount() > 0)
 		{
-			while ($childof = mysql_fetch_array($get_childof_query))
+			while ($childof = $get_childof_query->fetch(PDO::FETCH_ASSOC))
 			{
 				$iname = "$firstname $childof[fullname]";
 				
