@@ -26,11 +26,10 @@ if ($member == false)
 if (!empty($submit))
 {
 	$update_mobile_query = $dbh->prepare("UPDATE member SET mobile = :mobile WHERE id = :member_id");
-$dbh->bindParam(":mobile", $mobile);
-$dbh->bindParam(":member_id", $member["id"]);
-$dbh->execute();
-
-	
+    $update_mobile_query->bindParam(":mobile", $mobile);
+    $update_mobile_query->bindParam(":member_id", $member["id"]);
+    $update_mobile_query->execute();
+    
 	echo success_message(
 			"تم تحديث الجوّال بنجاح.",
 			"familytree.php?id=$member[id]"
