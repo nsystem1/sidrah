@@ -100,9 +100,8 @@ $dbh->execute();
 				{
 					// Delete the prepared relation.
 					$delete_query = $dbh->prepare("DELETE FROM prepared_relation WHERE id = :k");
-$dbh->bindParam(":k", $k);
-$dbh->execute();
-
+                    $delete_query->bindParam(":k", $k);
+                    $delete_query->execute();
 				}
 			}
 		}
