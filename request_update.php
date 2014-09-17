@@ -32,9 +32,9 @@ switch ($do)
 
 		// Get the request information.		
 		$get_pending_request = $dbh->prepare("SELECT * FROM request WHERE random_key = :key AND status = 'pending' :assigned_to_query");
-$dbh->bindParam(":key", $key);
-$dbh->bindParam(":assigned_to_query", $assigned_to_query);
-$dbh->execute();
+        $get_pending_request->bindParam(":key", $key);
+        $get_pending_request->bindParam(":assigned_to_query", $assigned_to_query);
+        $get_pending_request->execute();
 
 		$pending_request_count = $get_pending_request->rowCount();
 	
@@ -70,9 +70,9 @@ $dbh->execute();
 
 		// Get the request information.
 		$get_pending_request = $dbh->prepare("SELECT * FROM request WHERE random_key = :key AND status = 'pending' :assigned_to_query");
-$dbh->bindParam(":key", $key);
-$dbh->bindParam(":assigned_to_query", $assigned_to_query);
-$dbh->execute();
+        $get_pending_request->bindParam(":key", $key);
+        $get_pending_request->bindParam(":assigned_to_query", $assigned_to_query);
+        $get_pending_request->execute();
 
 		$pending_request_count = $get_pending_request->rowCount();
 	
@@ -89,12 +89,11 @@ $dbh->execute();
 			$now = time();
 			
 			$reject_request_query = $dbh->prepare("UPDATE request SET status = 'rejected', reason = :reason, executed = :now, executed_by = :user_id WHERE random_key = :key");
-$dbh->bindParam(":reason", $reason);
-$dbh->bindParam(":now", $now);
-$dbh->bindParam(":user_id", $user["id"]);
-$dbh->bindParam(":key", $key);
-$dbh->execute();
-
+            $reject_request_query->bindParam(":reason", $reason);
+            $reject_request_query->bindParam(":now", $now);
+            $reject_request_query->bindParam(":user_id", $user["id"]);
+            $reject_request_query->bindParam(":key", $key);
+            $reject_request_query->execute();
 			
 			// Notify.
 			notify("request_reject", $request["created_by"], "تم رفض تحديثاتك على ($affected_info[fullname]), $reason", "familytree.php?id=$affected_info[id]");
@@ -146,10 +145,9 @@ $dbh->execute();
 			
 			$keys_query = implode(" OR ", $keys);
 			$update_request_query = $dbh->prepare("UPDATE request SET assigned_to = :assign_to WHERE (:keys_query)");
-$dbh->bindParam(":assign_to", $assign_to);
-$dbh->bindParam(":keys_query", $keys_query);
-$dbh->execute();
-
+            $update_request_query->bindParam(":assign_to", $assign_to);
+            $update_request_query->bindParam(":keys_query", $keys_query);
+            $update_request_query->execute();
 			
 			echo success_message(
 				"تم إسناد التحديثات المعلّقة إلى المشرف المحدّد بنجاح.",
@@ -163,9 +161,8 @@ $dbh->execute();
 	default:
 		// Get pendings first
 		$get_pending_request = $dbh->prepare("SELECT * FROM request WHERE status = 'pending' :assigned_to_query ORDER BY created ASC");
-$dbh->bindParam(":assigned_to_query", $assigned_to_query);
-$dbh->execute();
-
+        $get_pending_request->bindParam(":assigned_to_query", $assigned_to_query);
+        $get_pending_request->execute();
 
 		if (mysql_num_rows($get_pending_request) > 0)
 		{
@@ -286,9 +283,8 @@ $dbh->execute();
 		// Get not pending second.
 		$updates_count = 100;
 		$get_not_pending_query = $dbh->prepare("SELECT * FROM request WHERE status != 'pending' ORDER BY executed DESC, created DESC LIMIT :updates_count");
-$dbh->bindParam(":updates_count", $updates_count);
-$dbh->execute();
-
+        $get_not_pending_query->bindParam(":updates_count", $updates_count);
+        $get_not_pending_query->execute();
 
 		if (mysql_num_rows($get_not_pending_query) == 0)
 		{
