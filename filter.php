@@ -188,7 +188,7 @@ switch ($action)
 	
 		if ($results_count > 0)
 		{
-			while ($result = mysql_fetch_array($mysql_query))
+			while ($result = $mysql_query->fetch(PDO::FETCH_ASSOC))
 			{
 				$content .= "<tr>";
 			
@@ -350,7 +350,7 @@ switch ($action)
 		// Add all results.
 		$j = 2;
 		
-		while ($result = mysql_fetch_array($execute_query))
+		while ($result = $execute_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$i = 0; $prefix = "";
 		
