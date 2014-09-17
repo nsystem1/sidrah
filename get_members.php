@@ -6,7 +6,7 @@ $get_male_members = $dbh->prepare("SELECT id, father_id, name, nickname, mobile,
 $dbh->execute();
 
 
-while ($male_member = mysql_fetch_array($get_male_members))
+while ($male_member = $get_male_members->fetch(PDO::FETCH_ASSOC))
 {
 	echo "array(\n\t'id' => '$male_member[id]',\n\t'father_id' => '$male_member[father_id]',\n\t'name' => '$male_member[name]',\n\t'nickname' => '$male_member[nickname]',\n\t'mobile' => '$male_member[mobile]',\n\t'is_alive' => '$male_member[is_alive]'\n),\n";
 }
@@ -16,7 +16,7 @@ $get_fullnames = $dbh->prepare("SELECT COUNT(id) as c, fullname FROM member GROU
 $dbh->execute();
 
 
-while ($member = mysql_fetch_array($get_fullnames))
+while ($member = $get_fullnames->fetch(PDO::FETCH_ASSOC))
 {
 	echo $member["fullname"];
 	echo " ";
