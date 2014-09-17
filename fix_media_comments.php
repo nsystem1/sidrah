@@ -8,7 +8,7 @@ $get_medias_query = $dbh->prepare("SELECT * FROM media");
 $dbh->execute();
 
 
-while ($media = mysql_fetch_array($get_medias_query))
+while ($media = $get_medias_query->fetch(PDO::FETCH_ASSOC))
 {
 	// Get the count of media comments.
 	$get_media_comments_query = $dbh->prepare("SELECT COUNT(id) AS comments_count FROM media_comment WHERE media_id = :media_id");
