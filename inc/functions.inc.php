@@ -1638,7 +1638,7 @@ function get_recommended_hobbies($member_id)
 	{
 		$hobbies = array();
 		
-		while ($hobby = mysql_fetch_array($get_hobbies_query))
+		while ($hobby = $get_hobbies_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$hobbies[$hobby["id"]]= $hobby["name"];
 		}
@@ -1662,7 +1662,7 @@ function get_member_hobbies($member_id)
 	{
 		$hobbies = array();
 		
-		while ($hobby = mysql_fetch_array($get_hobbies_query))
+		while ($hobby = $get_hobbies_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$hobbies [$hobby["id"]]= $hobby["name"];
 		}
@@ -1831,7 +1831,7 @@ function get_range_stats($from, $cases, $condition = "", $order = "")
 	
 	if ($get_ranges_stats->rowCount() > 0)
 	{
-		while ($range = mysql_fetch_array($get_ranges_stats))
+		while ($range = $get_ranges_stats->fetch(PDO::FETCH_ASSOC))
 		{
 			$results[] = array(
 				"range" => $range["ranges"],
@@ -1851,7 +1851,7 @@ function get_rows_stats($query)
 	
 	if ($rows_query->rowCount() > 0)
 	{
-		while ($row = mysql_fetch_array($rows_query))
+		while ($row = $rows_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$results[] = $row;
 		}
@@ -2001,7 +2001,7 @@ function get_husbands($member_id, $output = "array")
 	
 	if ($get_husbands_query->rowCount() > 0)
 	{
-		while ($husband = mysql_fetch_array($get_husbands_query))
+		while ($husband = $get_husbands_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$one_husband = get_husband_id($husband["husband_id"]);
 			
@@ -2344,7 +2344,7 @@ function assign_request($fullname)
 	
 	if ($get_moderators_query->rowCount() > 0)
 	{
-		while ($moderator = mysql_fetch_array($get_moderators_query))
+		while ($moderator = $get_moderators_query->fetch(PDO::FETCH_ASSOC))
 		{
 			if (preg_match("/$moderator[assigned_fullname]$/isU", $fullname) == true)
 			{
@@ -2759,7 +2759,7 @@ function auto_reassign_requests($user_id)
 	
 	if ($get_assigned_requests_query->rowCount() > 0)
 	{
-		while ($request = mysql_fetch_array($get_assigned_requests_query))
+		while ($request = $get_assigned_requests_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$new_assigned_id = assign_request($request["member_fullname"]);
 			$update_request_query = $dbh->prepare("UPDATE request SET assigned_to = :new_assigned_id WHERE id = :request_request_id");
@@ -3181,7 +3181,7 @@ function get_committees_nominee_congratulations()
 	{
 		$nominee_committees_array = array();
 		
-		while ($nominee_committee = mysql_fetch_array($get_member_nominee_query))
+		while ($nominee_committee = $get_member_nominee_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$nominee_committees_array []= "<a href='committees.php?do=view_committee&id=$nominee_committee[id]'>$nominee_committee[name]</a>";
 		}
@@ -3506,7 +3506,7 @@ function notify_many($type, $content, $link, $user_ids = array())
 		{
 			$emails = array();
 		
-			while ($member = mysql_fetch_array($get_member_query))
+			while ($member = $get_member_query->fetch(PDO::FETCH_ASSOC))
 			{
 				$emails []= $member["email"];
 			}
@@ -3527,7 +3527,7 @@ $dbh->execute();
 	
 	if ($get_users_query->rowCount() > 0)
 	{
-		while ($user = mysql_fetch_array($get_users_query))
+		while ($user = $get_users_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$user_ids []= $user["id"];
 		}
@@ -3577,7 +3577,7 @@ $dbh->execute();
 	
 	if ($get_mods_admins_query->rowCount() > 0)
 	{
-		while ($mod_admin = mysql_fetch_array($get_mods_admins_query))
+		while ($mod_admin = $get_mods_admins_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$mods_admins []= $mod_admin;
 		}
@@ -4337,7 +4337,7 @@ function get_event_comments($event_id, &$comments_count, $member_id)
 	{
 		$comments = "";
 		
-		while ($comment = mysql_fetch_array($get_event_query))
+		while ($comment = $get_event_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$can_like = true;
 			
@@ -4396,7 +4396,7 @@ function get_media_comments($media_id, &$comments_count, $member_id)
 	{
 		$comments = "";
 		
-		while ($comment = mysql_fetch_array($get_media_query))
+		while ($comment = $get_media_query->fetch(PDO::FETCH_ASSOC))
 		{
 			$can_like = true;
 			$can_delete = false;
