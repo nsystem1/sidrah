@@ -19,11 +19,10 @@ if ($notifications_count > 0)
 {
 	// Get the updates notifications.
 	$get_updates_notifications_query = $dbh->prepare("SELECT * FROM notification WHERE user_id = :user_id AND is_read = '0' ORDER BY created ASC LIMIT 10");
-$dbh->bindParam(":user_id", $user["id"]);
-$dbh->execute();
-
+    $get_updates_notifications_query->bindParam(":user_id", $user["id"]);
+    $get_updates_notifications_query->execute();
 	
-	if (mysql_num_rows($get_updates_notifications_query) > 0)
+	if ($get_updates_notifications_query->rowCount() > 0)
 	{
 		while ($update_notification = mysql_fetch_array($get_updates_notifications_query))
 		{			
@@ -31,9 +30,8 @@ $dbh->execute();
 			
 			// Set this row to be read.
 			$update_is_read = $dbh->prepare("UPDATE notification SET is_read = '1' WHERE id = :update_notification_id");
-$dbh->bindParam(":update_notification_id", $update_notification["id"]);
-$dbh->execute();
-
+            $update_is_read->bindParam(":update_notification_id", $update_notification["id"]);
+            $update_is_read->execute();
 		}
 	}
 }
