@@ -8,7 +8,7 @@ $dbh->execute();
 
 
 // Start updating fullnames of them.
-while ($member = mysql_fetch_array($get_members_query))
+while ($member = $get_members_query->fetch(PDO::FETCH_ASSOC))
 {
 	$id = $member["id"];
 	update_fullname($id);
