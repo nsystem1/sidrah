@@ -33,7 +33,7 @@ $dbh->execute();
 
 if ($get_prepared_relations_query->rowCount() > 0)
 {
-	while ($prepared_relation = mysql_fetch_array($get_prepared_relations_query))
+	while ($prepared_relation = $get_prepared_relations_query->fetch(PDO::FETCH_ASSOC))
 	{
 		$query = base64_decode($prepared_relation["relation"]);
 		$query = str_replace("relation_table.*", "COUNT(member_id) AS counts", $query);
