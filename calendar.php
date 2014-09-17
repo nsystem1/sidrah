@@ -354,7 +354,7 @@ switch ($action)
         $get_event_query->execute();
 
 		
-		if (mysql_num_rows($get_event_query) == 0)
+		if ($get_event_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن الوصول إلى هذه الصفحة.");
 			return;
@@ -756,7 +756,7 @@ switch ($action)
         $get_event_query->execute();
 
 		
-		if (mysql_num_rows($get_event_query) == 0)
+		if ($get_event_query->rowCount() == 0)
 		{
 			echo error_message("لم يتم العثور على المناسبة.");
 			return;
@@ -927,7 +927,7 @@ switch ($action)
         $get_event_query->execute();
 
 		
-		if (mysql_num_rows($get_event_query) == 0)
+		if ($get_event_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن الوصول إلى هذه الصفحة.");
 			return;
@@ -975,7 +975,7 @@ switch ($action)
         $get_event_query->bindParam(":event_id", $event_id);
         $get_event_query->execute();
 		
-		if (mysql_num_rows($get_event_query) == 0)
+		if ($get_event_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن الوصول إلى هذه الصفحة.");
 			return;
@@ -1087,7 +1087,7 @@ switch ($action)
         $get_comment_query->execute();
 
 		
-		if (mysql_num_rows($get_comment_query) == 0)
+		if ($get_comment_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن الوصول إلى هذه الصفحة.");
 			return;
@@ -1103,7 +1103,7 @@ switch ($action)
         $get_member_likes_query->execute();
 
 		
-		if (mysql_num_rows($get_member_likes_query) > 0)
+		if ($get_member_likes_query->rowCount() > 0)
 		{
 			echo error_message("لا يمكنك أن تسجل إعجابك على التعليق مرّة أخرى.");
 			return;
@@ -1159,7 +1159,7 @@ switch ($action)
         $get_event_query->bindParam(":hijri_date_int", $hijri_date_int);
         $get_event_query->execute();
 		
-		if (mysql_num_rows($get_event_query) == 0)
+		if ($get_event_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن الوصول إلى هذه الصفحة.");
 			return;
@@ -1174,7 +1174,7 @@ switch ($action)
         $get_member_reaction_query->bindParam(":member_id", $member["id"]);
         $get_member_reaction_query->execute();
 		
-		if (mysql_num_rows($get_member_reaction_query) > 0)
+		if ($get_member_reaction_query->rowCount() > 0)
 		{
 			echo error_message("لقد اتخذت القرار مسبقاً.");
 			return;
