@@ -41,10 +41,9 @@ if (!empty($submit))
 
 		// Update the username.
 		$update_username_query = $dbh->prepare("UPDATE user SET username = :new_username WHERE id = :user_id");
-$dbh->bindParam(":new_username", $new_username);
-$dbh->bindParam(":user_id", $user["id"]);
-$dbh->execute();
-
+        $update_username_query->bindParam(":new_username", $new_username);
+        $update_username_query->bindParam(":user_id", $user["id"]);
+        $update_username_query->execute();
 		
 		// Logout after all,
 		echo success_message(
