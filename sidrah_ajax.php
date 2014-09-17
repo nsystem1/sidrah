@@ -45,9 +45,8 @@ switch ($action)
 
 		// Get the prepared relation depending on the id (to).
 		$get_prepared_relation_query = $dbh->prepare("SELECT * FROM prepared_relation WHERE id = :to");
-$dbh->bindParam(":to", $to);
-$dbh->execute();
-
+        $get_prepared_relation_query->bindParam(":to", $to);
+        $get_prepared_relation_query->execute();
 
 		if (mysql_num_rows($get_prepared_relation_query) == 0)
 		{
@@ -68,9 +67,9 @@ $dbh->execute();
 		{
 			// Send an SMS message.
 			$mysql_query = $dbh->prepare(":query LIMIT 1 OFFSET :offset");
-$dbh->bindParam(":query", $query);
-$dbh->bindParam(":offset", $offset);
-$dbh->execute();
+            $mysql_query->bindParam(":query", $query);
+            $mysql_query->bindParam(":offset", $offset);
+            $mysql_query->execute();
 
 			$member = $mysql_query->fetch(PDO::FETCH_ASSOC);
 
@@ -94,11 +93,10 @@ $dbh->execute();
 		
 		// Check if the request update does exist.
 		$get_request_query = $dbh->prepare("SELECT phpscript FROM request WHERE random_key = :key");
-$dbh->bindParam(":key", $key);
-$dbh->execute();
-
+        $get_request_query->bindParam(":key", $key);
+        $get_request_query->execute();
 		
-		if (mysql_num_rows($get_request_query) == 0)
+		if ($get_request_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن الوصول إلى هذه الصفحة.");
 			return;
@@ -130,10 +128,10 @@ $dbh->execute();
 			$event_id = @$_GET["event_id"];
 			$media = @$_FILES["media_file"];
 
-			// TODO: Check if the event does exists.
+			// Check if the event does exists.
 			$get_event_query = $dbh->prepare("SELECT * FROM event WHERE id = :event_id");
-$dbh->bindParam(":event_id", $event_id);
-$dbh->execute();
+            $get_event_query->bindParam(":event_id", $event_id);
+            $get_event_query->execute();
 
 			$event_exist = $get_event_query->rowCount();
 
@@ -243,16 +241,16 @@ $dbh->execute();
 									
 									// Insert media into media table.
 									$insert_media_query = $dbh->prepare("INSERT INTO media (event_id, type, name, size, width, height, hash, title, author_id, created) VALUES (:event_id, 'photo', :uniqename, :filesize, :new_width, :new_height, :hash_file, :media_title, :user_member_id, :now)");
-$dbh->bindParam(":event_id", $event_id);
-$dbh->bindParam(":uniqename", $uniqename);
-$dbh->bindParam(":filesize", $filesize);
-$dbh->bindParam(":new_width", $new_width);
-$dbh->bindParam(":new_height", $new_height);
-$dbh->bindParam(":hash_file", $hash_file);
-$dbh->bindParam(":media_title", $media_title);
-$dbh->bindParam(":user_member_id", $user["member_id"]);
-$dbh->bindParam(":now", $now);
-$dbh->execute();
+                                    $insert_media_query->bindParam(":event_id", $event_id);
+                                    $insert_media_query->bindParam(":uniqename", $uniqename);
+                                    $insert_media_query->bindParam(":filesize", $filesize);
+                                    $insert_media_query->bindParam(":new_width", $new_width);
+                                    $insert_media_query->bindParam(":new_height", $new_height);
+                                    $insert_media_query->bindParam(":hash_file", $hash_file);
+                                    $insert_media_query->bindParam(":media_title", $media_title);
+                                    $insert_media_query->bindParam(":user_member_id", $user["member_id"]);
+                                    $insert_media_query->bindParam(":now", $now);
+                                    $insert_media_query->execute();
 
 									$media_id = $dbh->lastInsertId();
 						
@@ -312,10 +310,9 @@ $dbh->execute();
 
 		// Get the member information from database.
 		$get_member_query = $dbh->prepare("SELECT * FROM member WHERE tribe_id = :tribe_id AND id = :id");
-$dbh->bindParam(":tribe_id", $tribe_id);
-$dbh->bindParam(":id", $id);
-$dbh->execute();
-
+        $get_member_query->bindParam(":tribe_id", $tribe_id);
+        $get_member_query->bindParam(":id", $id);
+        $get_member_query->execute();
 
 		// TODO: Do some extra checking.
 
@@ -338,11 +335,10 @@ $dbh->execute();
 			if ($member["father_id"] != -1)
 			{
 				$get_parent_query = $dbh->prepare("SELECT * FROM member WHERE id = :member_father_id");
-$dbh->bindParam(":member_father_id", $member["father_id"]);
-$dbh->execute();
-
+                $get_parent_query->bindParam(":member_father_id", $member["father_id"]);
+                $get_parent_query->execute();
 				
-				if (mysql_num_rows($get_parent_query) > 0)
+				if ($get_parent_query->rowCount() > 0)
 				{
 					$parent_fetch = $get_parent_query->fetch(PDO::FETCH_ASSOC);
 					
@@ -415,8 +411,8 @@ $dbh->execute();
 
 			// Get the children of the member.
 			$get_children_query = $dbh->prepare("SELECT * FROM member WHERE :condition");
-$dbh->bindParam(":condition", $condition);
-$dbh->execute();
+            $get_children_query->bindParam(":condition", $condition);
+            $get_children_query->execute();
 
 			$children = array();
 
@@ -426,14 +422,13 @@ $dbh->execute();
 				{
 					// Get the number of children for this child.
 					$get_child_children_query = $dbh->prepare("SELECT id, name FROM member WHERE father_id = :child_id");
-$dbh->bindParam(":child_id", $child["id"]);
-$dbh->execute();
-
+                    $get_child_children_query->bindParam(":child_id", $child["id"]);
+                    $get_child_children_query->execute();
 				
 					$children[$child["id"]] = array(
 						"id" => $child["id"],
 						"name" => $child["name"],
-						"children_number" => mysql_num_rows($get_child_children_query),
+						"children_number" => $get_child_children_query->rowCount(),
 						"photo" => $child["photo"],
 						"nickname" => $child["nickname"],
 					);
@@ -468,11 +463,10 @@ $dbh->execute();
 			
 			// Check if the question id does exist.
 			$check_question_query = $dbh->prepare("SELECT id FROM ramadan_question WHERE id = :question_id");
-$dbh->bindParam(":question_id", $question_id);
-$dbh->execute();
-
+            $check_question_query->bindParam(":question_id", $question_id);
+            $check_question_query->execute();
 			
-			if (mysql_num_rows($check_question_query) == 0)
+			if ($check_question_query->rowCount() == 0)
 			{
 				echo error_message("لا يمكن الوصول إلى هذه الصفحة.");
 				return;
@@ -487,12 +481,11 @@ $dbh->execute();
 			
 			// Check if the user already answered this question.
 			$check_answered_query = $dbh->prepare("SELECT id FROM member_question WHERE member_id = :user_member_id AND question_id = :question_id");
-$dbh->bindParam(":user_member_id", $user["member_id"]);
-$dbh->bindParam(":question_id", $question_id);
-$dbh->execute();
-
+            $check_answered_query->bindParam(":user_member_id", $user["member_id"]);
+            $check_answered_query->bindParam(":question_id", $question_id);
+            $check_answered_query->execute();
 			
-			if (mysql_num_rows($check_answered_query) > 0)
+			if ($check_answered_query->rowCount() > 0)
 			{
 				echo error_message("لقد قمت بالإجابة على هذا السؤال مسبقاً.");
 				return;
@@ -501,12 +494,11 @@ $dbh->execute();
 			// Everything is alright.
 			$now = time();
 			$insert_answer_query = $dbh->prepare("INSERT INTO member_question (member_id, question_id, answer, created) VALUES (:user_member_id, :question_id, :answer, :now)");
-$dbh->bindParam(":user_member_id", $user["member_id"]);
-$dbh->bindParam(":question_id", $question_id);
-$dbh->bindParam(":answer", $answer);
-$dbh->bindParam(":now", $now);
-$dbh->execute();
-
+            $insert_answer_query->bindParam(":user_member_id", $user["member_id"]);
+            $insert_answer_query->bindParam(":question_id", $question_id);
+            $insert_answer_query->bindParam(":answer", $answer);
+            $insert_answer_query->bindParam(":now", $now);
+            $insert_answer_query->execute();
 			
 			// Awesome.
 			echo success_message(
@@ -529,15 +521,14 @@ $dbh->execute();
 				
 				// Check if the media exists.
 				$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :id");
-$dbh->bindParam(":id", $id);
-$dbh->execute();
-
+                $get_media_query->bindParam(":id", $id);
+                $get_media_query->execute();
 				
-				if (mysql_num_rows($get_media_query) == 0)
+				if ($get_media_query->rowCount() == 0)
 				{
 					echo error_message("لم يتم العثور على الصورة.");
 					return;
-				}	
+				}
 				
 				$media = $get_media_query->fetch(PDO::FETCH_ASSOC);
 				
