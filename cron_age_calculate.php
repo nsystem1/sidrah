@@ -15,7 +15,7 @@ $dbh->execute();
 
 if ($get_dead_members->rowCount() > 0)
 {	
-	while ($dead_member = mysql_fetch_array($get_dead_members))
+	while ($dead_member = $get_dead_members->fetch(PDO::FETCH_ASSOC))
 	{
 		$dob_array = explode("-", $dead_member["dob"]);
 		$dod_array = explode("-", $dead_member["dod"]);
@@ -49,7 +49,7 @@ $dbh->execute();
 
 if ($get_alive_members->rowCount() > 0)
 {
-	while ($alive_member = mysql_fetch_array($get_alive_members))
+	while ($alive_member = $get_alive_members->fetch(PDO::FETCH_ASSOC))
 	{
 		$dob_array = explode("-", $alive_member["dob"]);
 		
