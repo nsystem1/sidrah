@@ -17,7 +17,7 @@ $main_tribe_id = main_tribe_id;
 // Get the locations of the members.
 $get_locations_query = mysql_query("SELECT * FROM (SELECT location, COUNT(id) AS members_count FROM member WHERE (privacy_mobile != 'related_circle' AND is_alive = 1 AND gender = 1 AND mobile LIKE '5%' AND tribe_id = '$main_tribe_id') GROUP BY location) AS locations WHERE locations.members_count > 0 ORDER BY locations.members_count DESC");
 
-if (mysql_num_rows($get_locations_query) == 0)
+if ($get_locations_query->rowCount() == 0)
 {
 	echo error_message("لم يتم العثور على أرقام هاتف لعرضها.");
 	return;
