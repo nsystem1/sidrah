@@ -164,7 +164,7 @@ switch ($do)
         $get_pending_request->bindParam(":assigned_to_query", $assigned_to_query);
         $get_pending_request->execute();
 
-		if (mysql_num_rows($get_pending_request) > 0)
+		if ($get_pending_request->rowCount() > 0)
 		{
 			$pendings = "";
 				
@@ -286,7 +286,7 @@ switch ($do)
         $get_not_pending_query->bindParam(":updates_count", $updates_count);
         $get_not_pending_query->execute();
 
-		if (mysql_num_rows($get_not_pending_query) == 0)
+		if ($get_not_pending_query->rowCount() == 0)
 		{
 			$not_pendings = "<tr><td colspan='4'>لا يوجد طلبات جديدة مقبولة أو مرفوضة.</td>\n";
 		}
