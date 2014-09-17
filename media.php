@@ -75,7 +75,7 @@ switch ($action)
 
 		if ($get_tagmember_query->rowCount() > 0)
 		{
-			while ($tagmember = mysql_fetch_array($get_tagmember_query))
+			while ($tagmember = $get_tagmember_query->fetch(PDO::FETCH_ASSOC))
 			{
 				$tagmembers_string .= "tagmembers[$tagmember[member_id]] = {name: '$tagmember[fullname]'};\n";
 			}
@@ -347,7 +347,7 @@ switch ($action)
 			
 			if ($users_before_count > 0)
 			{
-				while ($users_before = mysql_fetch_array($get_users_before_query))
+				while ($users_before = $get_users_before_query->fetch(PDO::FETCH_ASSOC))
 				{
 					$notify_user_ids []= $users_before["id"];
 				}
@@ -583,7 +583,7 @@ switch ($action)
 
 		if ($get_tagmembers_query->rowCount() > 0)
 		{
-			while ($tm = mysql_fetch_array($get_tagmembers_query))
+			while ($tm = $get_tagmembers_query->fetch(PDO::FETCH_ASSOC))
 			{
 				$already_tagmembers[]= $tm["member_id"];
 			}
