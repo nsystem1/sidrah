@@ -46,9 +46,8 @@ switch ($action)
 		
 		// Check if there is a user mapped to the member.
 		$get_user_member_query = $dbh->prepare("SELECT * FROM user WHERE member_id = :moderator_info_id");
-$dbh->bindParam(":moderator_info_id", $moderator_info["id"]);
-$dbh->execute();
-
+        $get_user_member_query->bindParam(":moderator_info_id", $moderator_info["id"]);
+        $get_user_member_query->execute();
 		
 		if (mysql_num_rows($get_user_member_query) == 0)
 		{
@@ -60,10 +59,9 @@ $dbh->execute();
 		
 		// Now, Update information of the user to be a moderator.
 		$update_query = $dbh->prepare("UPDATE user SET usergroup = 'moderator', assigned_root_id = :moderator_root_info_id WHERE id = :user_member_id");
-$dbh->bindParam(":moderator_root_info_id", $moderator_root_info["id"]);
-$dbh->bindParam(":user_member_id", $user_member["id"]);
-$dbh->execute();
-
+        $update_query->bindParam(":moderator_root_info_id", $moderator_root_info["id"]);
+        $update_query->bindParam(":user_member_id", $user_member["id"]);
+        $update_query->execute();
 		
 		echo success_message(
 			"تم إضافة المشرف بنجاح.",
@@ -133,10 +131,9 @@ $dbh->execute();
 			foreach ($new_moderators as $new_moderator)
 			{
 				$update_query = $dbh->prepare("UPDATE user SET usergroup = 'moderator', assigned_root_id = :new_moderator_assigned_root_id WHERE id = :new_moderator_moderator_id");
-$dbh->bindParam(":new_moderator_assigned_root_id", $new_moderator["assigned_root_id"]);
-$dbh->bindParam(":new_moderator_moderator_id", $new_moderator["moderator_id"]);
-$dbh->execute();
-
+                $update_query->bindParam(":new_moderator_assigned_root_id", $new_moderator["assigned_root_id"]);
+                $update_query->bindParam(":new_moderator_moderator_id", $new_moderator["moderator_id"]);
+                $update_query->execute();
 			}
 		}
 		else if ($do == "delete")
@@ -145,9 +142,8 @@ $dbh->execute();
 			{
 				// Make the moderator to be a user.
 				$update_query = $dbh->prepare("UPDATE user SET usergroup = 'user', assigned_root_id = '0' WHERE id = :new_moderator_moderator_id");
-$dbh->bindParam(":new_moderator_moderator_id", $new_moderator["moderator_id"]);
-$dbh->execute();
-
+                $update_query->bindParam(":new_moderator_moderator_id", $new_moderator["moderator_id"]);
+                $update_query->execute();
 
 				// Set all related requests to someone close.
 				auto_reassign_requests($new_moderator["moderator_id"]);
