@@ -151,7 +151,7 @@ switch ($action)
                 $get_this_day_events_query->execute();
 
 				
-				while ($event = mysql_fetch_array($get_this_day_events_query))
+				while ($event = $get_this_day_events_query->fetch(PDO::FETCH_ASSOC))
 				{
 					$events_html .= "<li><a href='calendar.php?action=view_event&id=$event[id]'>$event[title]</a></li>";
 				}
@@ -218,7 +218,7 @@ switch ($action)
 		{	
 			$current_events = "";
 		
-			while ($current_event = mysql_fetch_array($get_current_events_query))
+			while ($current_event = $get_current_events_query->fetch(PDO::FETCH_ASSOC))
 			{
 				$current_events .= "<li><i class='icon-calendar'></i> <a href='calendar.php?action=view_event&id=$current_event[id]'>$current_event[title]</a> <small>(في $current_event[day]/$current_event[month]/$current_event[year])</small></li>";
 			}
@@ -241,7 +241,7 @@ switch ($action)
 		{	
 			$future_events = "";
 			
-			while ($future_event = mysql_fetch_array($get_future_events_query))
+			while ($future_event = $get_future_events_query->fetch(PDO::FETCH_ASSOC))
 			{
 				$future_events .= "<li><i class='icon-calendar'></i> <a href='calendar.php?action=view_event&id=$future_event[id]'>$future_event[title]</a> <small>(في $future_event[day]/$future_event[month]/$future_event[year])</small></li>";
 			}
@@ -263,7 +263,7 @@ switch ($action)
 		{	
 			$past_events = "";
 		
-			while ($past_event = mysql_fetch_array($get_past_events_query))
+			while ($past_event = $get_past_events_query->fetch(PDO::FETCH_ASSOC))
 			{
 				$past_events .= "<li><a href='calendar.php?action=view_event&id=$past_event[id]'>$past_event[title]</a> <small>(في $past_event[day]/$past_event[month]/$past_event[year])</small></li>";
 			}
@@ -325,7 +325,7 @@ switch ($action)
  		
  		$this_day_events = "";
  		
- 		while ($event = mysql_fetch_array($get_this_day_events_query))
+ 		while ($event = $get_this_day_events_query->fetch(PDO::FETCH_ASSOC))
  		{
  			$author_shorten_name = shorten_name($event["author_fullname"]);
 	 		$this_day_events .= "<li><i class='icon-calendar'></i> <a href='calendar.php?action=view_event&id=$event[id]'>$event[title]</a> <span class='datetime'>(بواسطة <a href='familytree.php?id=$event[author_id]' title='$author_shorten_name'>$event[author_username]</a>)</span></li>";
@@ -390,7 +390,7 @@ switch ($action)
 				// To hold members.
 				$come_members_array = array();
 				
-				while ($come_member = mysql_fetch_array($get_bunch_members_come_query))
+				while ($come_member = $get_bunch_members_come_query->fetch(PDO::FETCH_ASSOC))
 				{
 					$come_members_array []= "<a href='familytree.php?id=$come_member[id]' title='$come_member[fullname]'>$come_member[username]</a>، ";
 				}
@@ -444,7 +444,7 @@ switch ($action)
 				// To hold members.
 				$no_react_members_array = array();
 				
-				while ($no_react_member = mysql_fetch_array($get_bunch_members_no_react_query))
+				while ($no_react_member = $get_bunch_members_no_react_query->fetch(PDO::FETCH_ASSOC))
 				{
 					$no_react_members_array []= "<a href='familytree.php?id=$no_react_member[id]' title='$no_react_member[fullname]'>$no_react_member[username]</a>، ";
 				}
@@ -1050,7 +1050,7 @@ switch ($action)
 			
 			if ($users_before_count > 0)
 			{
-				while ($users_before = mysql_fetch_array($get_users_before_query))
+				while ($users_before = $get_users_before_query->fetch(PDO::FETCH_ASSOC))
 				{
 					$notify_user_ids []= $users_before["id"];
 				}
