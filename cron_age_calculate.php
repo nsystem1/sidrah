@@ -13,7 +13,7 @@ $get_dead_members = $dbh->prepare("SELECT id, dob, dod FROM member WHERE dod != 
 $dbh->execute();
 
 
-if (mysql_num_rows($get_dead_members) > 0)
+if ($get_dead_members->rowCount() > 0)
 {	
 	while ($dead_member = mysql_fetch_array($get_dead_members))
 	{
@@ -47,7 +47,7 @@ $get_alive_members = $dbh->prepare("SELECT id, dob, dod FROM member WHERE dob !=
 $dbh->execute();
 
 
-if (mysql_num_rows($get_alive_members) > 0)
+if ($get_alive_members->rowCount() > 0)
 {
 	while ($alive_member = mysql_fetch_array($get_alive_members))
 	{
