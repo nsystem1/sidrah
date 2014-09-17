@@ -24,7 +24,7 @@ if ($notifications_count > 0)
 	
 	if ($get_updates_notifications_query->rowCount() > 0)
 	{
-		while ($update_notification = mysql_fetch_array($get_updates_notifications_query))
+		while ($update_notification = $get_updates_notifications_query->fetch(PDO::FETCH_ASSOC))
 		{			
 			echo "<div data-alert class='alert-box secondary'><a href='$update_notification[link]'>$update_notification[content]</a><a href='#' class='close'>&times;</a></div>";
 			
