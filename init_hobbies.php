@@ -26,16 +26,14 @@ foreach ($hobbies as $hobby)
 
 	// Check if the hobby already exists.
 	$get_hobby_query = $dbh->prepare("SELECT id FROM hobby WHERE name = :name");
-$dbh->bindParam(":name", $name);
-$dbh->execute();
-
+    $get_hobby_query->bindParam(":name", $name);
+    $get_hobby_query->execute();
 	
 	if (mysql_num_rows($get_hobby_query) == 0)
 	{
 		$insert_hobby = $dbh->prepare("INSERT INTO hobby (name, rank) VALUES (:name, :rank)");
-$dbh->bindParam(":name", $name);
-$dbh->bindParam(":rank", $rank);
-$dbh->execute();
-
+        $insert_hobby->bindParam(":name", $name);
+        $insert_hobby->bindParam(":rank", $rank);
+        $insert_hobby->execute();
 	}
 }
