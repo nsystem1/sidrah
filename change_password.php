@@ -55,7 +55,7 @@ if (!empty($submit))
     $update_password_query->bindParam(":password", $password);
     $update_password_query->bindParam(":member_id", $member_id);
     $update_password_query->execute();
-    
+
 	// Logout after all,
 	echo success_message(
 		"تم تغيير كلمة المرور بنجاح، قم بتسجيل الدخول مرة أخرى.",

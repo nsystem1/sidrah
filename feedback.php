@@ -44,14 +44,13 @@ if (!empty($submit))
 	
 	// Insert a new feedback.
 	$insert_feedback_query = $dbh->prepare("INSERT INTO feedback (type, page, content, user_agent, http_referer, created) VALUES (:type, :page, :content, :user_agent, :http_referer, :now)");
-$dbh->bindParam(":type", $type);
-$dbh->bindParam(":page", $page);
-$dbh->bindParam(":content", $content);
-$dbh->bindParam(":user_agent", $user_agent);
-$dbh->bindParam(":http_referer", $http_referer);
-$dbh->bindParam(":now", $now);
-$dbh->execute();
-
+    $insert_feedback_query->bindParam(":type", $type);
+    $insert_feedback_query->bindParam(":page", $page);
+    $insert_feedback_query->bindParam(":content", $content);
+    $insert_feedback_query->bindParam(":user_agent", $user_agent);
+    $insert_feedback_query->bindParam(":http_referer", $http_referer);
+    $insert_feedback_query->bindParam(":now", $now);
+    $insert_feedback_query->execute();
 	
 	echo success_message(
 		"شكراً لك على إخبارنا برأيك حول الموقع.",
