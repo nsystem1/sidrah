@@ -11,9 +11,8 @@ $view = @$_GET["view"];
 
 // Check if the tribe does exist.
 $get_tribe_query = $dbh->prepare("SELECT id, name FROM tribe WHERE id = :tribe_id");
-$dbh->bindParam(":tribe_id", $tribe_id);
-$dbh->execute();
-
+$get_tribe_query->bindParam(":tribe_id", $tribe_id);
+$get_tribe_query->execute();
 
 if (mysql_num_rows($get_tribe_query) > 0)
 {
