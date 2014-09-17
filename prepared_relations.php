@@ -48,7 +48,7 @@ $dbh->bindParam(":moderator_info_id", $moderator_info["id"]);
 $dbh->execute();
 
 		
-		if (mysql_num_rows($get_user_member_query) == 0)
+		if ($get_user_member_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن العثور على مستخدم مرتبط باسم المشرف.");
 			return;
@@ -122,7 +122,7 @@ $dbh->execute();
 $dbh->execute();
 
 		
-		if (mysql_num_rows($get_prepared_relations_query) == 0)
+		if ($get_prepared_relations_query->rowCount() == 0)
 		{
 			$prepared_relations_html = "<tr><td colspan='3' class='error'><i class='icon-exclamation-sign'></i> لم يتم إضافة علاقات معدّة بعد.</td></tr>";
 		}
