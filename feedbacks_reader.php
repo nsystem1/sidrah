@@ -24,7 +24,7 @@ if ($bugs_count == 0){
 }
 else
 {
-	while ($bug = mysql_fetch_array($get_bugs_query))
+	while ($bug = $get_bugs_query->fetch(PDO::FETCH_ASSOC))
 	{
 		$created = arabic_date(date("d M Y, H:i:s", $bug["created"]));
 		$bugs_html .= "<tr><td>$bug[content]<p><ul class='button-group left'><li><a href='#' class='secondary small button'>$created</a></li><li><a href='#' class='small button' title='$bug[user_agent]'>UA</a></li></ul></p></td></tr>";
@@ -44,7 +44,7 @@ if ($ideas_count == 0){
 }
 else
 {
-	while ($idea = mysql_fetch_array($get_ideas_query))
+	while ($idea = $get_ideas_query->fetch(PDO::FETCH_ASSOC))
 	{
 		$created = arabic_date(date("d M Y, H:i:s", $idea["created"]));
 		$ideas_html .= "<tr><td>$idea[content]<p><ul class='button-group left'><li><a href='#' class='secondary small button'>$created</a></li><li><a href='#' class='small button' title='$idea[user_agent]'>UA</a></li></ul></p></td></tr>";
@@ -64,7 +64,7 @@ if ($praises_count == 0){
 }
 else
 {
-	while ($praise = mysql_fetch_array($get_praises_query))
+	while ($praise = $get_praises_query->fetch(PDO::FETCH_ASSOC))
 	{
 		$created = arabic_date(date("d M Y, H:i:s", $praise["created"]));
 		$praises_html .= "<tr><td>$praise[content]<p><ul class='button-group left'><li><a href='#' class='secondary small button'>$created</a></li><li><a href='#' class='small button' title='$praise[user_agent]'>UA</a></li></ul></p></td></tr>";
