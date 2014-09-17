@@ -188,13 +188,13 @@ $dbh->execute();
 				
 				// Get number of pending requests for this moderator.
 				$get_pending_requests_query = $dbh->prepare("SELECT COUNT(id) as requests_count FROM request WHERE status = 'pending' AND assigned_to = :moderator_id");
-$dbh->bindParam(":moderator_id", $moderator["id"]);
-$dbh->execute();
+                $get_pending_requests_query->bindParam(":moderator_id", $moderator["id"]);
+                $get_pending_requests_query->execute();
 
 				$pendong_requests_fetch = @$get_pending_requests_query->fetch(PDO::FETCH_ASSOC);
 				$pending_requests_count = @$pendong_requests_fetch["requests_count"];
 				$pending_requests = ($pending_requests_count == 0) ? "" : "<i class='icon-warning-sign'></i> $pending_requests_count";
-				
+                
 				// Get the inactive members.
 				$get_inactive_users_query = mysql_query("SELECT count(user.id) as users_count FROM user, member WHERE user.member_id = member.id AND user.first_login = '1' AND member.mobile != '0' AND member.fullname LIKE '%$root_fullname'");
 				$inative_users_fetch = $get_inactive_users_query->fetch(PDO::FETCH_ASSOC);
