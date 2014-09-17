@@ -128,7 +128,7 @@ $dbh->execute();
 		}
 		else
 		{
-			while ($prepared_relation = mysql_fetch_array($get_prepared_relations_query))
+			while ($prepared_relation = $get_prepared_relations_query->fetch(PDO::FETCH_ASSOC))
 			{	
 				$prepared_relations_html .= "<tr><td><input type='checkbox' name='check[$prepared_relation[id]]' /></td><td><b>$prepared_relation[name]</b></td><td>[Edit]</td></tr>";
 			}
