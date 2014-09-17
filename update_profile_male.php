@@ -470,7 +470,7 @@ if (!empty($submit))
 	$title = implode(", ", $title_array);
 	$description = implode("\n", $description_array);
 
-	if (mysql_num_rows($get_request_query) == 0)
+	if ($get_request_query->rowCount() == 0)
 	{
 		$insert_request = $dbh->prepare("INSERT INTO request (random_key, title, description, phpscript, affected_id, created_by, assigned_to, created) VALUES (:random_key, :title, :description, :php, :affected_id, :created_by, :assigned_to, :now)");
         $insert_request->bindParam(":random_key", $random_key);
