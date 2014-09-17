@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cc896fb-cd16-437c-8c2d-d02a526b281b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inc/functions.inc.php" afterPath="$PROJECT_DIR$/inc/functions.inc.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/inc/config.inc.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/views/familytree.rgraph.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/views/home.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/views/init.rgraph.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/views/init.spacetree.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="sidrah.iws" />
@@ -28,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="functions.inc.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="functions.inc.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/inc/functions.inc.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.538206" vertical-offset="39" max-vertical-offset="79140">
-              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+            <state vertical-scroll-proportion="-8.125" vertical-offset="0" max-vertical-offset="79140">
+              <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
               <folding>
                 <marker date="1410978691000" expanded="true" signature="2139:2234" placeholder="SELECT id, f..member..." />
                 <marker date="1410978691000" expanded="true" signature="3544:3600" placeholder="SELECT * FRO..member..." />
@@ -146,6 +150,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="error_message.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/error_message.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.25510204" vertical-offset="0" max-vertical-offset="690">
+              <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindManager">
@@ -238,20 +252,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="sidrah" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sidrah" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sidrah" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="inc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -502,7 +502,13 @@
       <option name="project" value="LOCAL" />
       <updated>1410976576819</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Fixing a syntax error occured when auto replacing.">
+      <created>1410978784212</created>
+      <option name="number" value="00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1410978784212</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -512,7 +518,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32984293" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
@@ -547,7 +553,6 @@
       <TodoPanelSettings />
     </option>
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Fixing some wrong declaring of $dbh in fix_media_comments.php, and replace with correct query handler." />
     <MESSAGE value="Delete unnecessary files: fix_companies.php, fix_locations.php, and fix_mobiles." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in familytree.php, and replace with correct query handler." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in init.php, and replace with correct query handler." />
@@ -572,7 +577,8 @@
     <MESSAGE value="Fixing some wrong declaring of $dbh in update_profile_female.php, and replace with correct query handler." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in update_profile_male.php, and replace with correct query handler." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in inc/functions.inc.php, and replace with correct query handler." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing some wrong declaring of $dbh in inc/functions.inc.php, and replace with correct query handler." />
+    <MESSAGE value="Fixing a syntax error occured when auto replacing." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing a syntax error occured when auto replacing." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1024,8 +1030,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/inc/functions.inc.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.538206" vertical-offset="39" max-vertical-offset="79140">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+        <state vertical-scroll-proportion="-8.125" vertical-offset="0" max-vertical-offset="79140">
+          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
           <folding>
             <marker date="1410978691000" expanded="true" signature="2139:2234" placeholder="SELECT id, f..member..." />
             <marker date="1410978691000" expanded="true" signature="3544:3600" placeholder="SELECT * FRO..member..." />
@@ -1135,6 +1141,22 @@
             <marker date="1410978691000" expanded="true" signature="139824:139882" placeholder="SELECT * FRO..media..." />
             <marker date="1410978691000" expanded="true" signature="142922:143137" placeholder="INSERT INTO ..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inc/config.inc.default.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30612245" vertical-offset="0" max-vertical-offset="705">
+          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/error_message.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.25510204" vertical-offset="0" max-vertical-offset="690">
+          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
