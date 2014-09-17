@@ -1,5 +1,7 @@
 <?php
 
+// TODO: Replace fetching in here.
+
 require_once("inc/functions.inc.php");
 
 // Get the user information.
@@ -24,11 +26,10 @@ switch ($action)
 
 		// Get the media.
 		$get_media_query = $dbh->prepare("SELECT media.*, member.fullname AS member_fullname, member.photo AS member_photo, member.gender AS member_gender, user.username FROM media, member, user WHERE media.author_id = member.id AND member.id = user.member_id AND media.id = :id");
-$dbh->bindParam(":id", $id);
-$dbh->execute();
+        $get_media_query->bindParam(":id", $id);
+        $get_media_query->execute();
 
-
-		if (mysql_num_rows($get_media_query) == 0)
+		if ($get_media_query->rowCount() == 0)
 		{
 			echo error_message("لم يتم العثور على الصورة.");
 			return;
@@ -39,17 +40,15 @@ $dbh->execute();
 
 		// Update the views of the media.
 		$update_media_views_query = $dbh->prepare("UPDATE media SET views = views+1 WHERE id = :media_id");
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->execute();
-
+        $update_media_views_query->bindParam(":media_id", $media["id"]);
+        $update_media_views_query->execute();
 
 		// Get the event.
 		$get_event_query = $dbh->prepare("SELECT * FROM event WHERE id = :media_event_id");
-$dbh->bindParam(":media_event_id", $media["event_id"]);
-$dbh->execute();
+        $get_event_query->bindParam(":media_event_id", $media["event_id"]);
+        $get_event_query->execute();
 
-
-		if (mysql_num_rows($get_event_query) == 0)
+		if ($get_event_query->rowCount() == 0)
 		{
 			$event["id"] = -1;
 			$event["title"] = "";
@@ -61,20 +60,20 @@ $dbh->execute();
 		
 		// Get the media likes.
 		$get_media_likes_query = $dbh->prepare("SELECT COUNT(id) as media_likes FROM media_reaction WHERE media_id = :media_id AND reaction = 'like'");
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->execute();
+        $get_media_likes_query->bindParam(":media_id", $media["id"]);
+        $get_media_likes_query->execute();
 
 		$fetch_media_likes = $get_media_likes_query->fetch(PDO::FETCH_ASSOC);
 
 		
 		// Get the tagmembers in media.
 		$get_tagmember_query = $dbh->prepare("SELECT member.id AS member_id, member.fullname, tagmember.* FROM member, tagmember WHERE tagmember.member_id = member.id AND tagmember.type = 'media' AND tagmember.content_id = :media_id");
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->execute();
+        $get_tagmember_query->bindParam(":media_id", $media["id"]);
+        $get_tagmember_query->execute();
 
 		$tagmembers_string = "";
 
-		if (mysql_num_rows($get_tagmember_query) > 0)
+		if ($get_tagmember_query->rowCount() > 0)
 		{
 			while ($tagmember = mysql_fetch_array($get_tagmember_query))
 			{
@@ -92,12 +91,12 @@ $dbh->execute();
 		
 		// Check if the media has an event.
 		$get_media_event_query = $dbh->prepare("SELECT id, title FROM event WHERE id = :media_event_id");
-$dbh->bindParam(":media_event_id", $media["event_id"]);
-$dbh->execute();
+        $get_media_event_query->bindParam(":media_event_id", $media["event_id"]);
+        $get_media_event_query->execute();
 
 		$media_event = "";
 		
-		if (mysql_num_rows($get_media_event_query) > 0)
+		if ($get_media_event_query->rowCount() > 0)
 		{
 			$fetch_media_event = $get_media_event_query->fetch(PDO::FETCH_ASSOC);
 			$media_event = "<a href='calendar.php?action=view_event&id=$event[id]'>$event[title]</a> ";
@@ -105,13 +104,13 @@ $dbh->execute();
 		
 		// Get the previous media.
 		$get_previous_media_query = $dbh->prepare("SELECT id, title FROM media WHERE event_id = :media_event_id AND id < :media_id ORDER BY id DESC");
-$dbh->bindParam(":media_event_id", $media["event_id"]);
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->execute();
+        $get_previous_media_query->bindParam(":media_event_id", $media["event_id"]);
+        $get_previous_media_query->bindParam(":media_id", $media["id"]);
+        $get_previous_media_query->execute();
 
 		$previous_media = "";
 		
-		if (mysql_num_rows($get_previous_media_query) > 0)
+		if ($get_previous_media_query->rowCount() > 0)
 		{
 			$fetch_previous_media = $get_previous_media_query->fetch(PDO::FETCH_ASSOC);
 			$previous_media = "<a class='small button secondary' href='media.php?id=$fetch_previous_media[id]' title='$fetch_previous_media[title]'>السابق</a>";
@@ -119,13 +118,13 @@ $dbh->execute();
 		
 		// Get the next media.
 		$get_next_media_query = $dbh->prepare("SELECT id, title FROM media WHERE event_id = :media_event_id AND id > :media_id");
-$dbh->bindParam(":media_event_id", $media["event_id"]);
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->execute();
+        $get_next_media_query->bindParam(":media_event_id", $media["event_id"]);
+        $get_next_media_query->bindParam(":media_id", $media["id"]);
+        $get_next_media_query->execute();
 
 		$next_media = "";
 		
-		if (mysql_num_rows($get_next_media_query) > 0)
+		if ($get_next_media_query->rowCount() > 0)
 		{
 			$fetch_next_media = $get_next_media_query->fetch(PDO::FETCH_ASSOC);
 			$next_media = "<a class='small button secondary' href='media.php?id=$fetch_next_media[id]' title='$fetch_next_media[title]'>التالي</a>";
@@ -201,11 +200,11 @@ $dbh->execute();
 		
 		// Get the media.
 		$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :id");
-$dbh->bindParam(":id", $id);
-$dbh->execute();
+        $get_media_query->bindParam(":id", $id);
+        $get_media_query->execute();
 
 		
-		if (mysql_num_rows($get_media_query) == 0)
+		if ($get_media_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن الوصول إلى هذه الصفحة.");
 			return;
@@ -217,19 +216,19 @@ $dbh->execute();
 		
 		// Insert the like.
 		$insert_media_like_query = $dbh->prepare("INSERT INTO media_reaction (media_id, member_id, reaction, created) VALUES (:media_id, :member_id, 'like', :now)");
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->bindParam(":member_id", $member["id"]);
-$dbh->bindParam(":now", $now);
-$dbh->execute();
+        $insert_media_like_query->bindParam(":media_id", $media["id"]);
+        $insert_media_like_query->bindParam(":member_id", $member["id"]);
+        $insert_media_like_query->bindParam(":now", $now);
+        $insert_media_like_query->execute();
 
 
 		// Get the user of the media.
 		$get_media_user_query = $dbh->prepare("SELECT * FROM user WHERE member_id = :media_author_id");
-$dbh->bindParam(":media_author_id", $media["author_id"]);
-$dbh->execute();
+        $get_media_user_query->bindParam(":media_author_id", $media["author_id"]);
+        $get_media_user_query->execute();
 
 
-		if (mysql_num_rows($get_media_user_query) > 0)
+		if ($get_media_user_query->rowCount() > 0)
 		{
 			$fetch_media_user = $get_media_user_query->fetch(PDO::FETCH_ASSOC);
 			
@@ -258,11 +257,11 @@ $dbh->execute();
 		
 		// Check if the media does exist.
 		$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :media_id");
-$dbh->bindParam(":media_id", $media_id);
-$dbh->execute();
+        $get_media_query->bindParam(":media_id", $media_id);
+        $get_media_query->execute();
 
 		
-		if (mysql_num_rows($get_media_query) == 0)
+		if ($get_media_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن الوصول إلى هذه الصفحة.");
 			return;
@@ -285,18 +284,18 @@ $dbh->execute();
 			// Insert the comment.
 			$now = time();
 			$insert_media_comment_query = $dbh->prepare("INSERT INTO media_comment (media_id, content, author_id, created) VALUES (:media_id, :content, :member_id, :now)");
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->bindParam(":content", $content);
-$dbh->bindParam(":member_id", $member["id"]);
-$dbh->bindParam(":now", $now);
-$dbh->execute();
+            $insert_media_comment_query->bindParam(":media_id", $media["id"]);
+            $insert_media_comment_query->bindParam(":content", $content);
+            $insert_media_comment_query->bindParam(":member_id", $member["id"]);
+            $insert_media_comment_query->bindParam(":now", $now);
+            $insert_media_comment_query->execute();
 
 			$inserted_comment_id = $dbh->lastInsertId();
 			
 			// Get the count of media comments.
 			$get_media_comments_query = $dbh->prepare("SELECT COUNT(id) AS comments_count FROM media_comment WHERE media_id = :media_id");
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->execute();
+            $get_media_comments_query->bindParam(":media_id", $media["id"]);
+            $get_media_comments_query->execute();
 
 			$fetch_media_comments = $get_media_comments_query->fetch(PDO::FETCH_ASSOC);
 			
@@ -312,8 +311,8 @@ $dbh->execute();
 		
 			// Get the author id of the media.
 			$get_media_author_query = $dbh->prepare("SELECT id FROM user WHERE member_id = :media_author_id");
-$dbh->bindParam(":media_author_id", $media["author_id"]);
-$dbh->execute();
+            $get_media_author_query->bindParam(":media_author_id", $media["author_id"]);
+            $get_media_author_query->execute();
 
 			$fetch_media_author = $get_media_author_query->fetch(PDO::FETCH_ASSOC);
 			$media_author_user_id = $fetch_media_author["id"];
@@ -339,10 +338,10 @@ $dbh->execute();
 			
 			// Get the comments before this comment.
 			$get_users_before_query = $dbh->prepare("SELECT DISTINCT user.id AS id FROM media_comment, user WHERE media_comment.author_id = user.member_id AND media_comment.media_id = :media_id AND media_comment.created < :now :not_in_users_condition");
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->bindParam(":now", $now);
-$dbh->bindParam(":not_in_users_condition", $not_in_users_condition);
-$dbh->execute();
+            $get_users_before_query->bindParam(":media_id", $media["id"]);
+            $get_users_before_query->bindParam(":now", $now);
+            $get_users_before_query->bindParam(":not_in_users_condition", $not_in_users_condition);
+            $get_users_before_query->execute();
 
 			$users_before_count = $get_users_before_query->rowCount();
 			
@@ -392,8 +391,8 @@ $dbh->execute();
 		
 		// Get the media.
 		$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :comment_media_id");
-$dbh->bindParam(":comment_media_id", $comment["media_id"]);
-$dbh->execute();
+        $get_media_query->bindParam(":comment_media_id", $comment["media_id"]);
+        $get_media_query->execute();
 
 		$media = $get_media_query->fetch(PDO::FETCH_ASSOC);
 		
@@ -403,20 +402,20 @@ $dbh->execute();
 		{
 			// Delete related likes.
 			$delete_likes_query = $dbh->prepare("DELETE FROM media_comment_like WHERE media_comment_id = :comment_id");
-$dbh->bindParam(":comment_id", $comment["id"]);
-$dbh->execute();
+            $delete_likes_query->bindParam(":comment_id", $comment["id"]);
+            $delete_likes_query->execute();
 
 			
 			// Then, delete the comment itsef.
 			$delete_comment_query = $dbh->prepare("DELETE FROM media_comment WHERE id = :comment_id");
-$dbh->bindParam(":comment_id", $comment["id"]);
-$dbh->execute();
+            $delete_comment_query->bindParam(":comment_id", $comment["id"]);
+            $delete_comment_query->execute();
 
 			
 			// Count the comments, and update the media.
 			$get_media_comments_query = $dbh->prepare("SELECT COUNT(id) AS comments_count FROM media_comment WHERE media_id = :media_id");
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->execute();
+            $get_media_comments_query->bindParam(":media_id", $media["id"]);
+            $get_media_comments_query->execute();
 
 			$fetch_media_comments = $get_media_comments_query->fetch(PDO::FETCH_ASSOC);
 
@@ -443,11 +442,10 @@ $dbh->execute();
 		
 		// Check if the comment does exist.
 		$get_comment_query = $dbh->prepare("SELECT media_comment.*, media.title AS media_title FROM media_comment, media WHERE media.id = media_comment.media_id AND media_comment.id = :comment_id");
-$dbh->bindParam(":comment_id", $comment_id);
-$dbh->execute();
-
+        $get_comment_query->bindParam(":comment_id", $comment_id);
+        $get_comment_query->execute();
 		
-		if (mysql_num_rows($get_comment_query) == 0)
+		if ($get_comment_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن الوصول إلى هذه الصفحة.");
 			return;
@@ -458,12 +456,11 @@ $dbh->execute();
 		
 		// Check if the member has liked this comment before.
 		$get_member_likes_query = $dbh->prepare("SELECT * FROM media_comment_like WHERE media_comment_id = :comment_id AND member_id = :member_id");
-$dbh->bindParam(":comment_id", $comment["id"]);
-$dbh->bindParam(":member_id", $member["id"]);
-$dbh->execute();
+        $get_member_likes_query->bindParam(":comment_id", $comment["id"]);
+        $get_member_likes_query->bindParam(":member_id", $member["id"]);
+        $get_member_likes_query->execute();
 
-
-		if (mysql_num_rows($get_member_likes_query) > 0)
+		if ($get_member_likes_query->rowCount() > 0)
 		{
 			echo error_message("لا يمكنك أن تسجل إعجابك على التعليق مرّة أخرى.");
 			return;
@@ -477,12 +474,12 @@ $dbh->execute();
 		}
 		
 		$now = time();
-		$like_comment_query = $dbh->prepare("INSERT INTO media_comment_like (media_comment_id, member_id, created) VALUES (:comment_id, :member_id, :now)");
-$dbh->bindParam(":comment_id", $comment["id"]);
-$dbh->bindParam(":member_id", $member["id"]);
-$dbh->bindParam(":now", $now);
-$dbh->execute();
 
+		$like_comment_query = $dbh->prepare("INSERT INTO media_comment_like (media_comment_id, member_id, created) VALUES (:comment_id, :member_id, :now)");
+        $like_comment_query->bindParam(":comment_id", $comment["id"]);
+        $like_comment_query->bindParam(":member_id", $member["id"]);
+        $like_comment_query->bindParam(":now", $now);
+        $like_comment_query->execute();
 		
 		// Set the notification.
 		$desc = "$user[username] أُعجب بتعليقك على صورة: $comment[media_title].";
@@ -490,8 +487,8 @@ $dbh->execute();
 		
 		// Get the user id of the comment author.
 		$get_comment_user_query = $dbh->prepare("SELECT id FROM user WHERE member_id = :comment_author_id");
-$dbh->bindParam(":comment_author_id", $comment["author_id"]);
-$dbh->execute();
+        $get_comment_user_query->bindParam(":comment_author_id", $comment["author_id"]);
+        $get_comment_user_query->execute();
 
 		$fetch_comment_user = $get_comment_user_query->fetch(PDO::FETCH_ASSOC);
 		
@@ -511,11 +508,10 @@ $dbh->execute();
 		
 		// Check if the media does exist.
 		$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :media_id");
-$dbh->bindParam(":media_id", $media_id);
-$dbh->execute();
+        $get_media_query->bindParam(":media_id", $media_id);
+        $get_media_query->execute();
 
-		
-		if (mysql_num_rows($get_media_query) == 0)
+		if ($get_media_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن الوصول إلى هذه الصفحة.");
 			return;
@@ -566,11 +562,10 @@ $dbh->execute();
 		
 		// Check if the media does exist.
 		$get_media_query = $dbh->prepare("SELECT * FROM media WHERE id = :id");
-$dbh->bindParam(":id", $id);
-$dbh->execute();
-
+        $get_media_query->bindParam(":id", $id);
+        $get_media_query->execute();
 		
-		if (mysql_num_rows($get_media_query) == 0)
+		if ($get_media_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن الوصول إلى هذه الصفحة.");
 			return;
@@ -581,12 +576,12 @@ $dbh->execute();
 
 		// Get the already added tagmembers.
 		$get_tagmembers_query = $dbh->prepare("SELECT * FROM tagmember WHERE type = 'media' AND content_id = :media_id");
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->execute();
+        $get_tagmembers_query->bindParam(":media_id", $media["id"]);
+        $get_tagmembers_query->execute();
 
 		$already_tagmembers = array();
-		
-		if (mysql_num_rows($get_tagmembers_query) > 0)
+
+		if ($get_tagmembers_query->rowCount() > 0)
 		{
 			while ($tm = mysql_fetch_array($get_tagmembers_query))
 			{
@@ -606,11 +601,10 @@ $dbh->execute();
 		{
 			if (!in_array($already_tagmember, $tagmembers_array))
 			{
-				$dbh->prepare("DELETE FROM tagmember WHERE type = 'media' AND content_id = :media_id AND member_id = :already_tagmember");
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->bindParam(":already_tagmember", $already_tagmember);
-$dbh->execute();
-
+				$delete_member_tagmember_query = $dbh->prepare("DELETE FROM tagmember WHERE type = 'media' AND content_id = :media_id AND member_id = :already_tagmember");
+                $delete_member_tagmember_query->bindParam(":media_id", $media["id"]);
+                $delete_member_tagmember_query->bindParam(":already_tagmember", $already_tagmember);
+                $delete_member_tagmember_query->execute();
 			}
 		}
 		
@@ -620,12 +614,11 @@ $dbh->execute();
 		{
 			if (!in_array($tagmember, $already_tagmembers))
 			{
-				$dbh->prepare("INSERT INTO tagmember (type, content_id, member_id, created) VALUES ('media', :media_id, :tagmember, :now)");
-$dbh->bindParam(":media_id", $media["id"]);
-$dbh->bindParam(":tagmember", $tagmember);
-$dbh->bindParam(":now", $now);
-$dbh->execute();
-
+                $insert_member_tagmember_query = $dbh->prepare("INSERT INTO tagmember (type, content_id, member_id, created) VALUES ('media', :media_id, :tagmember, :now)");
+                $insert_member_tagmember_query->bindParam(":media_id", $media["id"]);
+                $insert_member_tagmember_query->bindParam(":tagmember", $tagmember);
+                $insert_member_tagmember_query->bindParam(":now", $now);
+                $insert_member_tagmember_query->execute();
 			}
 		}
 		
