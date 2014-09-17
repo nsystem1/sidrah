@@ -29,7 +29,7 @@ foreach ($hobbies as $hobby)
     $get_hobby_query->bindParam(":name", $name);
     $get_hobby_query->execute();
 	
-	if (mysql_num_rows($get_hobby_query) == 0)
+	if ($get_hobby_query->rowCount() == 0)
 	{
 		$insert_hobby = $dbh->prepare("INSERT INTO hobby (name, rank) VALUES (:name, :rank)");
         $insert_hobby->bindParam(":name", $name);
