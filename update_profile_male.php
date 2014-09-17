@@ -80,8 +80,8 @@ if ($member["fullname"] == "")
 	
 	// Get the member information again.
 	$get_member_query = $dbh->prepare("SELECT * FROM member WHERE id = :member_id");
-$dbh->bindParam(":member_id", $member["id"]);
-$dbh->execute();
+    $get_member_query->bindParam(":member_id", $member["id"]);
+    $get_member_query->execute();
 
 	$member = $get_member_query->fetch(PDO::FETCH_ASSOC);
 }
@@ -453,10 +453,9 @@ if (!empty($submit))
 	
 	// Check if the key does exist.
 	$get_request_query = $dbh->prepare("SELECT * FROM request WHERE affected_id = :id AND random_key = :qkey");
-$dbh->bindParam(":id", $id);
-$dbh->bindParam(":qkey", $qkey);
-$dbh->execute();
-
+    $get_request_query->bindParam(":id", $id);
+    $get_request_query->bindParam(":qkey", $qkey);
+    $get_request_query->execute();
 
 	// Set the assigned_to value.
 	$assign_request = assign_request($member["fullname"]);
@@ -474,29 +473,27 @@ $dbh->execute();
 	if (mysql_num_rows($get_request_query) == 0)
 	{
 		$insert_request = $dbh->prepare("INSERT INTO request (random_key, title, description, phpscript, affected_id, created_by, assigned_to, created) VALUES (:random_key, :title, :description, :php, :affected_id, :created_by, :assigned_to, :now)");
-$dbh->bindParam(":random_key", $random_key);
-$dbh->bindParam(":title", $title);
-$dbh->bindParam(":description", $description);
-$dbh->bindParam(":php", $php);
-$dbh->bindParam(":affected_id", $affected_id);
-$dbh->bindParam(":created_by", $created_by);
-$dbh->bindParam(":assigned_to", $assigned_to);
-$dbh->bindParam(":now", $now);
-$dbh->execute();
-
+        $insert_request->bindParam(":random_key", $random_key);
+        $insert_request->bindParam(":title", $title);
+        $insert_request->bindParam(":description", $description);
+        $insert_request->bindParam(":php", $php);
+        $insert_request->bindParam(":affected_id", $affected_id);
+        $insert_request->bindParam(":created_by", $created_by);
+        $insert_request->bindParam(":assigned_to", $assigned_to);
+        $insert_request->bindParam(":now", $now);
+        $insert_request->execute();
 	}
 	else
 	{
 		$request_info = $get_request_query->fetch(PDO::FETCH_ASSOC);
 		$random_key = $request_info["random_key"];
 		$update_request = $dbh->prepare("UPDATE request SET title = :title, description = :description, phpscript = :php, created = :now WHERE random_key = :random_key");
-$dbh->bindParam(":title", $title);
-$dbh->bindParam(":description", $description);
-$dbh->bindParam(":php", $php);
-$dbh->bindParam(":now", $now);
-$dbh->bindParam(":random_key", $random_key);
-$dbh->execute();
-
+        $update_request->bindParam(":title", $title);
+        $update_request->bindParam(":description", $description);
+        $update_request->bindParam(":php", $php);
+        $update_request->bindParam(":now", $now);
+        $update_request->bindParam(":random_key", $random_key);
+        $update_request->execute();
 	}
 
 	// Check if the user is admin
@@ -514,9 +511,9 @@ $dbh->execute();
 	// Update first time value.
 	if ($member["id"] == $user["member_id"] && $user["first_login"] == 1)
 	{
-		$update_first_login_query = $dbh->prepare("UPDATE user SET first_login = '0' WHERE id = :user_id");
-$dbh->bindParam(":user_id", $user["id"]);
-$dbh->execute();
+		$update_first_login_query = $dbh->prepare("UPDATE user SET first_login = 0 WHERE id = :user_id");
+        $update_first_login_query->bindParam(":user_id", $user["id"]);
+        $update_first_login_query->execute();
 
 		$redirect = "update_optional.php?id=$affected_id";
 	}
