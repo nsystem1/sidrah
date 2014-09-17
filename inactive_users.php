@@ -40,7 +40,7 @@ else
 {
 	$inactive_users = "";
 
-	while ($inactive_user = mysql_fetch_array($get_inactive_users_query))
+	while ($inactive_user = $get_inactive_users_query->fetch(PDO::FETCH_ASSOC))
 	{
 		if ($inactive_user["gender"] == 1)
 		{
