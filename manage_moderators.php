@@ -172,7 +172,7 @@ $dbh->execute();
 		}
 		else
 		{
-			while ($moderator = mysql_fetch_array($get_moderators_query))
+			while ($moderator = $get_moderators_query->fetch(PDO::FETCH_ASSOC))
 			{
 				// Get the member information.
 				$moderator_info = get_member_id($moderator["member_id"]);
