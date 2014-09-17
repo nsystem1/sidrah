@@ -14,7 +14,7 @@ $get_tribe_query = $dbh->prepare("SELECT id, name FROM tribe WHERE id = :tribe_i
 $get_tribe_query->bindParam(":tribe_id", $tribe_id);
 $get_tribe_query->execute();
 
-if (mysql_num_rows($get_tribe_query) > 0)
+if ($get_tribe_query->rowCount() > 0)
 {
 	$tribe_info = $get_tribe_query->fetch(PDO::FETCH_ASSOC);
 	$tribe_id = $tribe_info["id"];
