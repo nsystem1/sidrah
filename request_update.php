@@ -168,7 +168,7 @@ switch ($do)
 		{
 			$pendings = "";
 				
-			while ($update = mysql_fetch_array($get_pending_request))
+			while ($update = $get_pending_request->fetch(PDO::FETCH_ASSOC))
 			{
 				$affected_info = get_member_id($update["affected_id"]);
 				$created = arabic_date(date("d M Y, H:i:s", $update["created"]));
@@ -294,7 +294,7 @@ switch ($do)
 		{
 			$not_pendings = "";
 			
-			while ($not_pending_request = mysql_fetch_array($get_not_pending_query))
+			while ($not_pending_request = $get_not_pending_query->fetch(PDO::FETCH_ASSOC))
 			{
 				$affected_info = get_member_id($not_pending_request["affected_id"]);
 				$created = arabic_date(date("d M Y, H:i:s", $not_pending_request["created"]));
