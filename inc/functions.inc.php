@@ -1476,7 +1476,7 @@ function execute_request($key, $executed_by)
     $get_request_query->bindParam(":key", $key);
     $get_request_query->execute();
 
-	if (mysql_num_rows($get_request_query) > 0)
+	if ($get_request_query->rowCount() > 0)
 	{
 		$now = time();
 	
@@ -1551,7 +1551,7 @@ function get_company_id($company_name)
     $get_company_query->bindParam(":company_name", $company_name);
     $get_company_query->execute();
 	
-	if (mysql_num_rows($get_company_query) == 0)
+	if ($get_company_query->rowCount() == 0)
 	{
 		// Insert the company.
 		$insert_company = $dbh->prepare("INSERT INTO company (name) VALUES (:company_name)");
@@ -1630,7 +1630,7 @@ function get_recommended_hobbies($member_id)
     $get_hobbies_query->bindParam(":member_id", $member_id);
     $get_hobbies_query->execute();
 	
-	if (mysql_num_rows($get_hobbies_query) == 0)
+	if ($get_hobbies_query->rowCount() == 0)
 	{
 		return array();
 	}
@@ -1654,7 +1654,7 @@ function get_member_hobbies($member_id)
     $get_hobbies_query->bindParam(":member_id", $member_id);
     $get_hobbies_query->execute();
 	
-	if (mysql_num_rows($get_hobbies_query) == 0)
+	if ($get_hobbies_query->rowCount() == 0)
 	{
 		return array();
 	}
@@ -1702,7 +1702,7 @@ function add_hobby_to_member($hobby, $member_id)
     $get_hobby_query->bindParam(":hobby", $hobby);
     $get_hobby_query->execute();
 	
-	if (mysql_num_rows($get_hobby_query) == 0)
+	if ($get_hobby_query->rowCount() == 0)
 	{
 		// Insert the hobby.
 		$insert_hobby_query = $dbh->prepare("INSERT INTO hobby (name) VALUES (:hobby)");
@@ -1724,7 +1724,7 @@ function add_hobby_to_member($hobby, $member_id)
     $get_member_hobby_query->bindParam(":hobby_id", $hobby_id);
     $get_member_hobby_query->execute();
 	
-	if (mysql_num_rows($get_member_hobby_query) == 0)
+	if ($get_member_hobby_query->rowCount() == 0)
 	{
 		// Insert the hobby for the member.
 		$insert_member_hobby = $dbh->prepare("INSERT INTO member_hobby (member_id, hobby_id) VALUES (:member_id, :hobby_id)");
@@ -1829,7 +1829,7 @@ function get_range_stats($from, $cases, $condition = "", $order = "")
     $get_ranges_stats->bindParam(":order_by", $order_by);
     $get_ranges_stats->execute();
 	
-	if (mysql_num_rows($get_ranges_stats) > 0)
+	if ($get_ranges_stats->rowCount() > 0)
 	{
 		while ($range = mysql_fetch_array($get_ranges_stats))
 		{
@@ -1849,7 +1849,7 @@ function get_rows_stats($query)
 	$results = array();
 	$rows_query = mysql_query($query)or die(mysql_error());
 	
-	if (mysql_num_rows($rows_query) > 0)
+	if ($rows_query->rowCount() > 0)
 	{
 		while ($row = mysql_fetch_array($rows_query))
 		{
@@ -1999,7 +1999,7 @@ function get_husbands($member_id, $output = "array")
     $get_husbands_query->bindParam(":member_id", $member_id);
     $get_husbands_query->execute();
 	
-	if (mysql_num_rows($get_husbands_query) > 0)
+	if ($get_husbands_query->rowCount() > 0)
 	{
 		while ($husband = mysql_fetch_array($get_husbands_query))
 		{
@@ -2159,7 +2159,7 @@ function get_member_fullname($member_fullname, $condition = "")
     $get_member_fullname_query->bindParam(":condition_query", $condition_query);
     $get_member_fullname_query->execute();
 
-	if (mysql_num_rows($get_member_fullname_query) > 0)
+	if ($get_member_fullname_query->rowCount() > 0)
 	{
 		$one_member = $get_member_fullname_query->fetch(PDO::FETCH_ASSOC);
 		return $one_member;
@@ -2177,7 +2177,7 @@ function add_member($fullname, $gender = 1)
     $get_member_fullname_query->bindParam(":gender", $gender);
     $get_member_fullname_query->execute();
  
- 	if (mysql_num_rows($get_member_fullname_query) > 0)
+ 	if ($get_member_fullname_query->rowCount() > 0)
  	{
  		$member_info = $get_member_fullname_query->fetch(PDO::FETCH_ASSOC);
  		return $member_info["id"];
@@ -2196,7 +2196,7 @@ function add_member($fullname, $gender = 1)
         $get_father_fullname_query->bindParam(":fathername", $fathername);
         $get_father_fullname_query->execute();
  		
- 		if (mysql_num_rows($get_father_fullname_query) > 0)
+ 		if ($get_father_fullname_query->rowCount() > 0)
  		{
  			$father_info = $get_father_fullname_query->fetch(PDO::FETCH_ASSOC);
  			return add_child_to_member($firstname, $father_info["id"], $gender);
@@ -2238,7 +2238,7 @@ function add_member_walk($tribe_id, $walk_name, $father_id, $gender = 1)
         $get_member_query->bindParam(":gender", $gender);
         $get_member_query->execute();
 		
-		if (mysql_num_rows($get_member_query) > 0)
+		if ($get_member_query->rowCount() > 0)
 		{
 			$member_info = $get_member_query->fetch(PDO::FETCH_ASSOC);
 			return $member_info["id"];
@@ -2273,7 +2273,7 @@ function add_member_walk($tribe_id, $walk_name, $father_id, $gender = 1)
         $get_new_father_query->bindParam(":lastname", $lastname);
         $get_new_father_query->execute();
 		
-		if (mysql_num_rows($get_new_father_query) > 0)
+		if ($get_new_father_query->rowCount() > 0)
 		{
 			$new_father_info = $get_new_father_query->fetch(PDO::FETCH_ASSOC);
 			$new_father_id = $new_father_info["id"];
@@ -2342,7 +2342,7 @@ function assign_request($fullname)
 {
 	$get_moderators_query = mysql_query("SELECT user.id as user_id, member.fullname as assigned_fullname, LENGTH(member.fullname) as fullname_length FROM user, member WHERE user.assigned_root_id = member.id AND user.usergroup = 'moderator' ORDER BY fullname_length DESC")or die(mysql_error());
 	
-	if (mysql_num_rows($get_moderators_query) > 0)
+	if ($get_moderators_query->rowCount() > 0)
 	{
 		while ($moderator = mysql_fetch_array($get_moderators_query))
 		{
@@ -2358,7 +2358,7 @@ function assign_request($fullname)
 $dbh->execute();
 
 	
-	if (mysql_num_rows($get_rand_admin_query) > 0)
+	if ($get_rand_admin_query->rowCount() > 0)
 	{
 		$admin = $get_rand_admin_query->fetch(PDO::FETCH_ASSOC);
 		return $admin["id"];
@@ -2683,7 +2683,7 @@ function create_user($id, $name)
 		$sms_received = 0;
 		
 		// If there no users found.
-		if (mysql_num_rows($get_user_info_query) == 0)
+		if ($get_user_info_query->rowCount() == 0)
 		{
 			// Insert a new user
 			$insert_query = $dbh->prepare("INSERT INTO user (username, password, usergroup, member_id) VALUES (:username, :hashed_password, 'user', :id)");
@@ -2757,7 +2757,7 @@ function auto_reassign_requests($user_id)
     $get_assigned_requests_query->bindParam(":user_id", $user_id);
     $get_assigned_requests_query->execute();
 	
-	if (mysql_num_rows($get_assigned_requests_query) > 0)
+	if ($get_assigned_requests_query->rowCount() > 0)
 	{
 		while ($request = mysql_fetch_array($get_assigned_requests_query))
 		{
@@ -3107,7 +3107,7 @@ function get_committee_notifications()
     $get_head_query->bindParam(":user_member_id", $user["member_id"]);
     $get_head_query->execute();
 	
-	if (mysql_num_rows($get_head_query) == 0)
+	if ($get_head_query->rowCount() == 0)
 	{
 		return 0;
 	}
@@ -3177,7 +3177,7 @@ function get_committees_nominee_congratulations()
 
 	$congratulations = "";
 
-	if (mysql_num_rows($get_member_nominee_query) > 0)
+	if ($get_member_nominee_query->rowCount() > 0)
 	{
 		$nominee_committees_array = array();
 		
@@ -3466,7 +3466,7 @@ function notify($type, $user_id, $content, $link)
     $get_member_query->bindParam(":user_id", $user_id);
     $get_member_query->execute();
 	
-	if (mysql_num_rows($get_member_query) > 0)
+	if ($get_member_query->rowCount() > 0)
 	{
 		$member = $get_member_query->fetch(PDO::FETCH_ASSOC);
 		notify_email(array($member["email"]), $type, $content, $link);
@@ -3502,7 +3502,7 @@ function notify_many($type, $content, $link, $user_ids = array())
         $get_member_query->bindParam(":user_ids_string", $user_ids_string);
         $get_member_query->execute();
 	
-		if (mysql_num_rows($get_member_query) > 0)
+		if ($get_member_query->rowCount() > 0)
 		{
 			$emails = array();
 		
@@ -3525,7 +3525,7 @@ $dbh->execute();
 
 	$user_ids = array();
 	
-	if (mysql_num_rows($get_users_query) > 0)
+	if ($get_users_query->rowCount() > 0)
 	{
 		while ($user = mysql_fetch_array($get_users_query))
 		{
@@ -3575,7 +3575,7 @@ function get_all_mods_admins()
 $dbh->execute();
 
 	
-	if (mysql_num_rows($get_mods_admins_query) > 0)
+	if ($get_mods_admins_query->rowCount() > 0)
 	{
 		while ($mod_admin = mysql_fetch_array($get_mods_admins_query))
 		{
@@ -3815,7 +3815,7 @@ function check_user_availability($username, $new_username, $name)
     $check_exact_username_query->bindParam(":new_username", $new_username);
     $check_exact_username_query->execute();
 	
-	if (mysql_num_rows($check_exact_username_query) > 0)
+	if ($check_exact_username_query->rowCount() > 0)
 	{
 		return false;
 	}
@@ -3870,7 +3870,7 @@ function can_vote_to_dean($member_id, $dean_id)
     $get_dean_information_query->bindParam(":dean_id", $dean_id);
     $get_dean_information_query->execute();
 	
-	if (mysql_num_rows($get_dean_information_query) == 0)
+	if ($get_dean_information_query->rowCount() == 0)
 	{
 		return "VOTE_ERROR";
 	}
@@ -3889,7 +3889,7 @@ function can_vote_to_dean($member_id, $dean_id)
     $get_deanship_information_query->bindParam(":fetch_dean_information_period_id", $fetch_dean_information["period_id"]);
     $get_deanship_information_query->execute();
 	
-	if (mysql_num_rows($get_deanship_information_query) == 0)
+	if ($get_deanship_information_query->rowCount() == 0)
 	{
 		return "VOTE_ERROR";
 	}
@@ -3921,7 +3921,7 @@ function can_vote_to_dean($member_id, $dean_id)
     $get_user_information_query->bindParam(":member_info_id", $member_info["id"]);
     $get_user_information_query->execute();
 	
-	if (mysql_num_rows($get_user_information_query) == 0)
+	if ($get_user_information_query->rowCount() == 0)
 	{
 		return "VOTE_ERROR";
 	}
@@ -3934,7 +3934,7 @@ function can_vote_to_dean($member_id, $dean_id)
     $get_member_dean_query->bindParam(":fetch_dean_information_period_id", $fetch_dean_information["period_id"]);
     $get_member_dean_query->execute();
 	
-	if (mysql_num_rows($get_member_dean_query) > 0)
+	if ($get_member_dean_query->rowCount() > 0)
 	{
 		return "VOTE_ALREADY_VOTED";
 	}
@@ -4277,7 +4277,7 @@ function get_event_reaction($event_id, $member_id, $hijri_date)
     $get_event_query->bindParam(":hijri_date_int", $hijri_date_int);
     $get_event_query->execute();
 	
-	if (mysql_num_rows($get_event_query) == 0)
+	if ($get_event_query->rowCount() == 0)
 	{
 		return;
 	}
@@ -4291,7 +4291,7 @@ function get_event_reaction($event_id, $member_id, $hijri_date)
     $get_member_reaction_query->bindParam(":member_id", $member_id);
     $get_member_reaction_query->execute();
 	
-	if (mysql_num_rows($get_member_reaction_query) == 0)
+	if ($get_member_reaction_query->rowCount() == 0)
 	{
 		$html = "<td>تنوي الحضور؟</td><td><a href='calendar.php?action=react_event&id=$event[id]&reaction=come'>نعم</a> <strong>أو</strong> <a href='calendar.php?action=react_event&id=$event[id]&reaction=not_come'>لا</a></td>";
 	}
@@ -4347,7 +4347,7 @@ function get_event_comments($event_id, &$comments_count, $member_id)
             $get_member_likes_query->bindParam(":member_id", $member_id);
             $get_member_likes_query->execute();
 		
-			if (mysql_num_rows($get_member_likes_query) > 0)
+			if ($get_member_likes_query->rowCount() > 0)
 			{
 				$can_like = false;
 			}
@@ -4407,7 +4407,7 @@ function get_media_comments($media_id, &$comments_count, $member_id)
             $get_member_likes_query->bindParam(":member_id", $member_id);
             $get_member_likes_query->execute();
 		
-			if (mysql_num_rows($get_member_likes_query) > 0)
+			if ($get_member_likes_query->rowCount() > 0)
 			{
 				$can_like = false;
 			}
@@ -4456,7 +4456,7 @@ function media_member_can_like($media_id, $member_id)
     $get_media_query->bindParam(":media_id", $media_id);
     $get_media_query->execute();
 	
-	if (mysql_num_rows($get_media_query) == 0)
+	if ($get_media_query->rowCount() == 0)
 	{
 		return false;
 	}
@@ -4475,7 +4475,7 @@ function media_member_can_like($media_id, $member_id)
     $get_member_media_like_query->bindParam(":member_id", $member_id);
     $get_member_media_like_query->execute();
 	
-	if (mysql_num_rows($get_member_media_like_query) > 0)
+	if ($get_member_media_like_query->rowCount() > 0)
 	{
 		return false;
 	}
@@ -4876,7 +4876,7 @@ function identicon($member_id, $size = 64, $sprite_size = 128)
     $get_user_query->bindParam(":member_id", $member_id);
     $get_user_query->execute();
 	
-	if (mysql_num_rows($get_user_query) == 0)
+	if ($get_user_query->rowCount() == 0)
 	{
 		return;
 	}
@@ -4993,7 +4993,7 @@ function create_member_card($member_id, $colors = array(), $direction = "horizon
     $get_user_query->bindParam(":member_id", $member["id"]);
     $get_user_query->execute();
 
-	if (mysql_num_rows($get_user_query) == 0)
+	if ($get_user_query->rowCount() == 0)
 	{
 		return;
 	}
@@ -5103,7 +5103,7 @@ function media($event_id = -1)
         $get_event_query->bindParam(":event_id", $event_id);
         $get_event_query->execute();
 		
-		if (mysql_num_rows($get_event_query) > 0)
+		if ($get_event_query->rowCount() > 0)
 		{
 			$event = $get_event_query->fetch(PDO::FETCH_ASSOC);
 			$event_title = $event["title"];
