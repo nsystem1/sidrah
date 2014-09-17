@@ -34,7 +34,14 @@ function database_connect()
 	$database_server = database_server;
 	$database_name = database_name;
 
-	$dbh = new PDO("mysql:host=${database_server};dbname=${database_name}", database_username, database_password);
+    try
+    {
+        $dbh = new PDO("mysql:host=${database_server};dbname=${database_name}", database_username, database_password);
+    }
+	catch (Exception $e)
+    {
+        die("Error: Cannot connect to database.<br />" . $e->getMessage());
+    }
 
 	return $dbh;
 }
@@ -3858,7 +3865,7 @@ function is_accepted_dean($member_id)
     $check_member_dean_query->execute();
 	
 	// True, or False.
-	return ($check_member_dean_query) > 0->rowCount();
+	return ($check_member_dean_query->rowCount() > 0);
 }
 
 // public
