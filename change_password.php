@@ -52,11 +52,10 @@ if (!empty($submit))
 	// OK, update the password of the user.
 	$password = sha1_salt($new_password1);
 	$update_password_query = $dbh->prepare("UPDATE user SET password = :password WHERE member_id = :member_id");
-$dbh->bindParam(":password", $password);
-$dbh->bindParam(":member_id", $member_id);
-$dbh->execute();
-
-	
+    $update_password_query->bindParam(":password", $password);
+    $update_password_query->bindParam(":member_id", $member_id);
+    $update_password_query->execute();
+    
 	// Logout after all,
 	echo success_message(
 		"تم تغيير كلمة المرور بنجاح، قم بتسجيل الدخول مرة أخرى.",
