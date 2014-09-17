@@ -6,7 +6,7 @@ $iban = "SA0380000000000000000000";
 $get_suggested_subsribers_query = $dbh->prepare("SELECT * FROM member WHERE is_alive = 1 AND age >= 21");
 $get_suggested_subsribers_query->execute();
 
-while ($suggested = mysql_fetch_array($get_suggested_subsribers_query))
+while ($suggested = $get_suggested_subsribers_query->fetch(PDO::FETCH_ASSOC))
 {
 	$now = time();
 	$insert_subscriber_query = $dbh->prepare("INSERT INTO box_subscriber (member_id, created) VALUES (:suggested_id, :now)");
