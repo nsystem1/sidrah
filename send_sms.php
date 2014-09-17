@@ -31,7 +31,7 @@ $get_prepared_relations_query = $dbh->prepare("SELECT * FROM prepared_relation O
 $dbh->execute();
 
 
-if (mysql_num_rows($get_prepared_relations_query) > 0)
+if ($get_prepared_relations_query->rowCount() > 0)
 {
 	while ($prepared_relation = mysql_fetch_array($get_prepared_relations_query))
 	{
