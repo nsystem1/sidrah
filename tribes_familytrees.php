@@ -31,7 +31,7 @@ if ($tribes_count > 0)
 {
 	$table = "";
 
-	while ($tribe = mysql_fetch_array($get_all_tribes_query))
+	while ($tribe = $get_all_tribes_query->fetch(PDO::FETCH_ASSOC))
 	{
 		$table .= "<td><a href='familytree.php?tribe_id=$tribe[tribe_id]' target='_blank'>$tribe[tribe_name]</a> ($tribe[members_count])</td>";
 		$tr++;
