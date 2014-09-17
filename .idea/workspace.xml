@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4cc896fb-cd16-437c-8c2d-d02a526b281b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/inc/config.inc.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/views/familytree.rgraph.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/views/home.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/views/init.rgraph.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/views/init.spacetree.php" afterPath="" />
+    <list default="true" id="4cc896fb-cd16-437c-8c2d-d02a526b281b" name="Default" comment="Delete unecessary files, mainly in views folder.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/sidrah.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/init_database_tables.sql" afterPath="$PROJECT_DIR$/init_database_tables.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="sidrah.iws" />
@@ -150,11 +154,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="error_message.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="error_message.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/error_message.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25510204" vertical-offset="0" max-vertical-offset="690">
+            <state vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="690">
               <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="init_database_tables.sql" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/init_database_tables.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10170">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -202,6 +216,7 @@
         <option value="$PROJECT_DIR$/update_profile_female.php" />
         <option value="$PROJECT_DIR$/update_profile_male.php" />
         <option value="$PROJECT_DIR$/inc/functions.inc.php" />
+        <option value="$PROJECT_DIR$/init_database_tables.sql" />
       </list>
     </option>
   </component>
@@ -218,7 +233,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
@@ -263,6 +278,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -270,6 +286,12 @@
       <method />
     </configuration>
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="com.intellij.database.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
+      <option name="VM_PARAMETERS" value="" />
+      <option name="USER_CFG_CLASS" />
+      <option name="CONTEXT_PROVIDER" />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -508,12 +530,18 @@
       <option name="project" value="LOCAL" />
       <updated>1410978784212</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Delete unecessary files, mainly in views folder.">
+      <created>1410979150601</created>
+      <option name="number" value="00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1410979150601</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1680" height="1024" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="22" width="1680" height="1024" extended-state="7" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -527,7 +555,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20833333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20833333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -553,7 +581,6 @@
       <TodoPanelSettings />
     </option>
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Delete unnecessary files: fix_companies.php, fix_locations.php, and fix_mobiles." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in familytree.php, and replace with correct query handler." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in init.php, and replace with correct query handler." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in init_alive_toggle.php, and replace with correct query handler." />
@@ -578,7 +605,8 @@
     <MESSAGE value="Fixing some wrong declaring of $dbh in update_profile_male.php, and replace with correct query handler." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in inc/functions.inc.php, and replace with correct query handler." />
     <MESSAGE value="Fixing a syntax error occured when auto replacing." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing a syntax error occured when auto replacing." />
+    <MESSAGE value="Delete unecessary files, mainly in views folder." />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete unecessary files, mainly in views folder." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1154,8 +1182,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/error_message.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25510204" vertical-offset="0" max-vertical-offset="690">
+        <state vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="690">
           <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/init_database_tables.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="11580">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
