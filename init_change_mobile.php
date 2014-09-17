@@ -29,7 +29,7 @@ if (!empty($submit))
     $update_mobile_query->bindParam(":mobile", $mobile);
     $update_mobile_query->bindParam(":member_id", $member["id"]);
     $update_mobile_query->execute();
-    
+
 	echo success_message(
 			"تم تحديث الجوّال بنجاح.",
 			"familytree.php?id=$member[id]"
