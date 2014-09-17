@@ -53,7 +53,7 @@ if (!empty($submit))
     $get_user_query->execute();
 	
 	// Found?
-	if (mysql_num_rows($get_user_query) > 0)
+	if ($get_user_query->rowCount() > 0)
 	{
 		// Get the user information.
 		$user_info = $get_user_query->fetch(PDO::FETCH_ASSOC);
