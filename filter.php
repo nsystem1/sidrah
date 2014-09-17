@@ -405,9 +405,8 @@ switch ($action)
 		
 		// Check if the name already exists.
 		$get_prepared_relation_query = $dbh->prepare("SELECT * FROM prepared_relation WHERE name = :prepared_relation");
-$dbh->bindParam(":prepared_relation", $prepared_relation);
-$dbh->execute();
-
+        $get_prepared_relation_query->bindParam(":prepared_relation", $prepared_relation);
+        $get_prepared_relation_query->execute();
 		
 		if (mysql_num_rows($get_prepared_relation_query) > 0)
 		{
@@ -419,11 +418,10 @@ $dbh->execute();
 		// Insert the prepared relation.
 		$now = time();
 		$insert_prepared_relation_query = $dbh->prepare("INSERT INTO prepared_relation (name, relation, created) VALUES (:prepared_relation, :query, :now)");
-$dbh->bindParam(":prepared_relation", $prepared_relation);
-$dbh->bindParam(":query", $query);
-$dbh->bindParam(":now", $now);
-$dbh->execute();
-
+        $insert_prepared_relation_query->bindParam(":prepared_relation", $prepared_relation);
+        $insert_prepared_relation_query->bindParam(":query", $query);
+        $insert_prepared_relation_query->bindParam(":now", $now);
+        $insert_prepared_relation_query->execute();
 		
 		// Done.
 		echo success_message(
