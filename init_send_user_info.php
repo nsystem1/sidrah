@@ -29,9 +29,8 @@ if ($member["mobile"] == "0")
 
 // Update receiving messages for the user.
 $update_receive_message_query = $dbh->prepare("UPDATE user SET sms_received = '0' WHERE member_id = :member_id");
-$dbh->bindParam(":member_id", $member["id"]);
-$dbh->execute();
-
+$update_receive_message_query->bindParam(":member_id", $member["id"]);
+$update_receive_message_query->execute();
 
 // Then, create the user accordingly.
 create_user($member["id"], $member["name"]);
