@@ -381,7 +381,7 @@ switch ($action)
 		// Check if the comment exits.
 		$get_comment_query = mysql_query("SELECT * FROM media_comment WHERE id = '$comment_id'")or die(mysql_error());
 		
-		if (mysql_num_rows($get_comment_query) == 0)
+		if ($get_comment_query->rowCount() == 0)
 		{
 			echo error_message("لم يتم العثور على التعليق.");
 			return;
