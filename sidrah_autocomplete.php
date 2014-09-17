@@ -85,7 +85,7 @@ else
 		$search_for = escape_confusing("^" . implode(" ", $names) . ".*$");
 		$get_related_names_query = mysql_query("SELECT box_account.id AS id, box_account.iban AS iban, member.fullname AS fullname FROM box_account, member, box_subscriber WHERE box_account.subscriber_id = box_subscriber.id AND box_subscriber.member_id = member.id AND member.tribe_id = '$main_tribe_id' AND member.is_alive = 1 AND member.gender = '1' AND (fullname REGEXP '$search_for' OR iban REGEXP '$search_for') ORDER BY fullname ASC LIMIT 8")or die();
 		
-		if (mysql_num_rows($get_related_names_query) > 0)
+		if ($get_related_names_query->rowCount() > 0)
 		{
 			echo "<ul class='ul_result'>";
 			
@@ -207,7 +207,7 @@ else
         $get_childof_query->bindParam(":father_name", $father_name);
         $get_childof_query->execute();
 		
-		if (mysql_num_rows($get_childof_query) > 0)
+		if ($get_childof_query->rowCount() > 0)
 		{
 			while ($childof = mysql_fetch_array($get_childof_query))
 			{
