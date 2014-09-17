@@ -307,7 +307,7 @@ switch ($action)
 		// Get the results.
 		$execute_query = mysql_query($query);
 		
-		if (!$execute_query || mysql_num_rows($execute_query) == 0)
+		if (!$execute_query || $execute_query->rowCount() == 0)
 		{
 			echo error_message("لم يتم العثور على نتائج.");
 			return;
@@ -408,7 +408,7 @@ switch ($action)
         $get_prepared_relation_query->bindParam(":prepared_relation", $prepared_relation);
         $get_prepared_relation_query->execute();
 		
-		if (mysql_num_rows($get_prepared_relation_query) > 0)
+		if ($get_prepared_relation_query->rowCount() > 0)
 		{
 			echo error_message("اسم العلاقة المعدّة موجود مسبقاً، الرجاء إدخال اسم آخر.");
 			return;
