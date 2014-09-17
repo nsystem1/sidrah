@@ -40,7 +40,7 @@ switch ($action)
             $get_user_query->bindParam(":mobile", $mobile);
             $get_user_query->execute();
 	
-			if (mysql_num_rows($get_user_query) > 0)
+			if ($get_user_query->rowCount() > 0)
 			{
 				$user_info = $get_user_query->fetch(PDO::FETCH_ASSOC);
 				
@@ -207,7 +207,7 @@ $dbh->bindParam(":username", $username);
 $dbh->execute();
 
 	
-	if (mysql_num_rows($get_user_query) > 0)
+	if ($get_user_query->rowCount() > 0)
 	{
 		// Get user information.
 		$user_info = $get_user_query->fetch(PDO::FETCH_ASSOC);
