@@ -62,8 +62,8 @@ if ($member == false)
 	{
 		// Get the root of this tribe.
 		$get_tribe_root_query = $dbh->prepare("SELECT id FROM member WHERE tribe_id = :tribe_id AND father_id = '-1' AND gender = '1'");
-$dbh->bindParam(":tribe_id", $tribe_id);
-$dbh->execute();
+        $get_tribe_root_query->bindParam(":tribe_id", $tribe_id);
+        $get_tribe_root_query->execute();
 
 		$root_info = $get_tribe_root_query->fetch(PDO::FETCH_ASSOC);
 		$id = $root_info["id"];
