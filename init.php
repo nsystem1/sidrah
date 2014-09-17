@@ -20,9 +20,8 @@ $tables = array(
 foreach ($tables as $table)
 {
 	$drop_table = $dbh->prepare("DROP TABLE :table");
-$dbh->bindParam(":table", $table);
-$dbh->execute();
-
+    $drop_table->bindParam(":table", $table);
+    $drop_table->execute();
 }
 
 // Create tables.
