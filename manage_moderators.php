@@ -49,7 +49,7 @@ switch ($action)
         $get_user_member_query->bindParam(":moderator_info_id", $moderator_info["id"]);
         $get_user_member_query->execute();
 		
-		if (mysql_num_rows($get_user_member_query) == 0)
+		if ($get_user_member_query->rowCount() == 0)
 		{
 			echo error_message("لا يمكن العثور على مستخدم مرتبط باسم المشرف.");
 			return;
@@ -166,7 +166,7 @@ switch ($action)
 $dbh->execute();
 
 		
-		if (mysql_num_rows($get_moderators_query) == 0)
+		if ($get_moderators_query->rowCount() == 0)
 		{
 			$moderators_html = "<tr><td colspan='5' class='error'>لم يتم إضافة مشرفين بعد.</td></tr>";
 		}
