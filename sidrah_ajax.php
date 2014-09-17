@@ -418,7 +418,7 @@ switch ($action)
 
 			if ($get_children_query->rowCount() > 0)
 			{
-				while ($child = mysql_fetch_array($get_children_query))
+				while ($child = $get_children_query->fetch(PDO::FETCH_ASSOC))
 				{
 					// Get the number of children for this child.
 					$get_child_children_query = $dbh->prepare("SELECT id, name FROM member WHERE father_id = :child_id");
