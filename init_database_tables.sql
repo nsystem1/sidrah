@@ -13,7 +13,7 @@ CREATE TABLE `comment` (
   `author_id` int(11) NOT NULL,
   `created` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -27,26 +27,6 @@ CREATE TABLE `comment_like` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `comment_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
-  `created` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `committee`
---
-
-DROP TABLE IF EXISTS `committee`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `committee` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) NOT NULL,
-  `tasks` text NOT NULL,
-  `members_description` text NOT NULL,
-  `keywords` text NOT NULL,
-  `minimum_age` int(11) NOT NULL,
-  `priority` int(11) NOT NULL,
   `created` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -67,43 +47,6 @@ CREATE TABLE `company` (
   KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=278 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `dean`
---
-
-DROP TABLE IF EXISTS `dean`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dean` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `period_id` int(11) NOT NULL,
-  `member_id` int(11) NOT NULL,
-  `slogan` text NOT NULL,
-  `platform` text NOT NULL,
-  `selected` tinyint(1) NOT NULL,
-  `created` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `deanship_period`
---
-
-DROP TABLE IF EXISTS `deanship_period`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `deanship_period` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `from_period` date NOT NULL,
-  `to_period` date NOT NULL,
-  `status` enum('nomination','voting','ongoing','finished') NOT NULL,
-  `created` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `event`
