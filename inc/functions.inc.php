@@ -901,6 +901,10 @@ function template($name, $replacements = null)
 {
 	$content = file_get_contents($name);
 
+    // Replace with constants.
+    $content = str_replace("{sidrah_author}", sidrah_author, $content);
+    $content = str_replace("{main_tribe_name}", main_tribe_name, $content);
+
 	if ($replacements != null && is_array($replacements))
 	{
 		foreach ($replacements as $key => $value)

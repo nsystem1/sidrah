@@ -289,7 +289,7 @@ switch ($action)
 		$header = website_header(
 				"عرض المناسبات لشهر $hijri_month_name $hijri_year",
 				"صفحة من أجل إضافة مناسبة في تاريخ $hijri_day/$hijri_month/$hijri_year.",
-				array("عائلة", "الزغيبي", "إضافة", "مناسبة")
+				array("عائلة", main_tribe_name, "إضافة", "مناسبة")
 		);
 			
 		// Get the footer.
@@ -574,7 +574,7 @@ switch ($action)
 		$header = website_header(
 				$event["title"],
 				"صفحة من أجل عرض مناسبة $event[title]",
-				array("عائلة", "الزغيبي", "عرض", "مناسبة")
+				array("عائلة", main_tribe_name, "عرض", "مناسبة")
 		);
 			
 		// Get the footer.
@@ -733,7 +733,7 @@ switch ($action)
 			$header = website_header(
 				"إضافة مناسبة في تاريخ $hijri_day/$hijri_month/$hijri_year",
 				"صفحة من أجل إضافة مناسبة في تاريخ $hijri_day/$hijri_month/$hijri_year.",
-				array("عائلة", "الزغيبي", "إضافة", "مناسبة")
+				array("عائلة", main_tribe_name, "إضافة", "مناسبة")
 			);
 			
 			// Get the footer.
@@ -896,7 +896,7 @@ switch ($action)
 			$header = website_header(
 				"تعديل مناسبة :$event[title].",
 				"صفحة من أجل تعديل مناسبة :$event[title].",
-				array("عائلة", "الزغيبي", "إضافة", "مناسبة")
+				array("عائلة", main_tribe_name, "إضافة", "مناسبة")
 			);
 			
 			// Get the footer.

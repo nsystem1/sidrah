@@ -15,7 +15,8 @@ if ($user["group"] == "visitor")
 $main_tribe_id = main_tribe_id;
 
 // Get the locations of the members.
-$get_locations_query = mysql_query("SELECT * FROM (SELECT location, COUNT(id) AS members_count FROM member WHERE (privacy_mobile != 'related_circle' AND is_alive = 1 AND gender = 1 AND mobile LIKE '5%' AND tribe_id = '$main_tribe_id') GROUP BY location) AS locations WHERE locations.members_count > 0 ORDER BY locations.members_count DESC");
+$get_locations_query = $dbh->prepare("SELECT * FROM (SELECT location, COUNT(id) AS members_count FROM member WHERE (privacy_mobile != 'related_circle' AND is_alive = 1 AND gender = 1 AND mobile LIKE '5%' AND tribe_id = '$main_tribe_id') GROUP BY location) AS locations WHERE locations.members_count > 0 ORDER BY locations.members_count DESC");
+$get_locations_query->execute();
 
 if ($get_locations_query->rowCount() == 0)
 {
@@ -62,7 +63,7 @@ $header = website_header(
 	"دليل الجوّال",
 	"صفحة من أجل استعراض دليل الجوّال لأفراد عائلة الزغيبي.",
 	array(
-		"عائلة", "الزغيبي", "دليل", "الجوّال"
+		"عائلة", main_tribe_name, "دليل", "الجوّال"
 	)
 );
 

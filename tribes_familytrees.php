@@ -16,13 +16,13 @@ $header = website_header(
 	"شجر العوائل",
 	"صفحة من أجل عرض شجر العوائل جميعاً.",
 	array(
-		"عائلة", "الزغيبي", "شجر", "العوائل"
+		"عائلة", main_tribe_name, "شجر", "العوائل"
 	)
 );
 
 // Set the content.
 $get_all_tribes_query = $dbh->prepare("SELECT tribe_id, tribe_name, members_count FROM (SELECT tribe.id as tribe_id, tribe.name as tribe_name, COUNT(member.tribe_id) as members_count FROM member, tribe WHERE member.tribe_id = tribe.id GROUP BY member.tribe_id) as table1 ORDER BY members_count DESC");
-$dbh->execute();
+$get_all_tribes_query->execute();
 
 $tribes_count = $get_all_tribes_query->rowCount();
 $tr = 0;

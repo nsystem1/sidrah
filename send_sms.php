@@ -16,7 +16,7 @@ $header = website_header(
 		"إرسال SMS",
 		"صفحة من أجل إرسال SMS.",
 		array(
-			"إرسال", "SMS", "عائلة", "الزغيبي"
+			"إرسال", "SMS", "عائلة", main_tribe_name
 		)
 );
 
@@ -28,8 +28,7 @@ $tos = "";
 
 // Get the prepared relations.
 $get_prepared_relations_query = $dbh->prepare("SELECT * FROM prepared_relation ORDER BY id DESC");
-$dbh->execute();
-
+$get_prepared_relations_query->execute();
 
 if ($get_prepared_relations_query->rowCount() > 0)
 {
@@ -39,7 +38,9 @@ if ($get_prepared_relations_query->rowCount() > 0)
 		$query = str_replace("relation_table.*", "COUNT(member_id) AS counts", $query);
 		
 		// Execute the query.
-		$execute_query = mysql_query($query);
+		$execute_query = $dbh->prepare($query);
+        $execute_query->execute();
+
 		$fetch_query = $execute_query->fetch(PDO::FETCH_ASSOC);
 		$count = $fetch_query["counts"];
 

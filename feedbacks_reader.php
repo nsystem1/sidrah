@@ -13,7 +13,7 @@ if ($user["group"] != "admin")
 
 // Get all feedbacks that are bugs.
 $get_bugs_query = $dbh->prepare("SELECT * FROM feedback WHERE type = 'bug'");
-$dbh->execute();
+$get_bugs_query->execute();
 
 $bugs_count = $get_bugs_query->rowCount();
 $bugs_html = "";
@@ -33,7 +33,7 @@ else
 
 // Get all feedbacks that are ideas.
 $get_ideas_query = $dbh->prepare("SELECT * FROM feedback WHERE type = 'idea'");
-$dbh->execute();
+$get_ideas_query->execute();
 
 $ideas_count = $get_ideas_query->rowCount();
 $ideas_html = "";
@@ -53,7 +53,7 @@ else
 
 // Get all feedbacks that are praises.
 $get_praises_query = $dbh->prepare("SELECT * FROM feedback WHERE type = 'praise'");
-$dbh->execute();
+$get_praises_query->execute();
 
 $praises_count = $get_praises_query->rowCount();
 $praises_html = "";
@@ -88,7 +88,7 @@ $header = website_header(
 	"ردود فعل الزوّار",
 	"صفحة من أجل عرض ردود فعل الزوّار",
 	array(
-		"ردود", "فعل", "زوار", "عائلة", "الزغيبي"
+		"ردود", "فعل", "زوار", "عائلة", main_tribe_name
 	)
 );
 // Get the footer.
