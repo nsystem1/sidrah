@@ -2708,7 +2708,7 @@ function create_user($id, $name)
 			// Send SMS.
 			if ($member["mobile"] != 0)
 			{
-				$content = "عضويتك في موقع الزغيبي\nاسم المستخدم: $username\nكلمة المرور: $password";
+				$content = "عضويتك في موقع {main_tribe_name}\nاسم المستخدم: $username\nكلمة المرور: $password";
 				$sms_received = send_sms(array("966" . $member["mobile"]), $content);
 				
 				// Update the value of sms received.
@@ -2733,7 +2733,7 @@ function create_user($id, $name)
                 $update_query->bindParam(":user_id", $user_id);
                 $update_query->execute();
 			
-				$content = "عضويتك في موقع الزغيبي\nاسم المستخدم: $user_info[username]\nكلمة المرور: $password";
+				$content = "عضويتك في موقع {main_tribe_name}\nاسم المستخدم: $user_info[username]\nكلمة المرور: $password";
 				$sms_received = send_sms(array("966" . $member["mobile"]), $content);
 
 				// Update the value of sms received.
@@ -3551,7 +3551,7 @@ $dbh->execute();
 // public
 function notify_email($to = array(), $type, $content, $link)
 {
-	$subject_prefix = "موقع عائلة الزغيبي: ";
+	$subject_prefix = "موقع عائلة {main_tribe_name}: ";
 
 	switch ($type)
 	{
@@ -3561,7 +3561,7 @@ function notify_email($to = array(), $type, $content, $link)
 		break;
 	}
 	
-	$footer = "موقع عائلة الزغيبي - جميع الحقوق محفوظة.";
+	$footer = "موقع عائلة {main_tribe_name} - جميع الحقوق محفوظة.";
 
 	$email_content = template(
 		"views/email_message.html",
@@ -3750,6 +3750,8 @@ function privacy_select($select_name, $selected_value)
 // public
 function privacy_display($member_id, $privacy_name, $usergroup, $is_me, $is_relative_user, $is_accepted_moderator)
 {
+    global $dbh;
+
 	// Get the privacy name for the entered member.
 	$get_privacy_name_query = $dbh->prepare("SELECT privacy_{$privacy_name} FROM member WHERE id = :member_id");
     $get_privacy_name_query->bindParam(":member_id", $member_id);

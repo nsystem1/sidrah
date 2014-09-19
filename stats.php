@@ -251,7 +251,7 @@ foreach ($stats["top_hobbies"] as $range)
 // Get the header.
 $header = website_header(
 	"إحصاءات",
-	"صفحة من أجل عرض بعض الإحصاءات ذات العلاقة بعائلة الزغيبي.",
+	"صفحة من أجل عرض بعض الإحصاءات ذات العلاقة بعائلة {main_tribe_name}.",
 	array(
 		"عائلة", main_tribe_name, "شجرة", "إحصاءات"
 	)

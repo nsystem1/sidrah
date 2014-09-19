@@ -61,7 +61,7 @@ $content = template(
 // Get the header.
 $header = website_header(
 	"دليل الجوّال",
-	"صفحة من أجل استعراض دليل الجوّال لأفراد عائلة الزغيبي.",
+	"صفحة من أجل استعراض دليل الجوّال لأفراد عائلة {main_tribe_name}.",
 	array(
 		"عائلة", main_tribe_name, "دليل", "الجوّال"
 	)

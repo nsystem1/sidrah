@@ -282,7 +282,7 @@ switch ($action)
 		// Get the header.
 		$header = website_header(
 			"بحث (متقدّم)",
-			"صفحة من أجل إجراء بحث تفصيلي في سجلات عائلة الزغيبي.",
+			"صفحة من أجل إجراء بحث تفصيلي في سجلات عائلة {main_tribe_name}.",
 			array(
 				"عائلة", main_tribe_name, "بحث", "متقدّم"
 			)
@@ -320,11 +320,11 @@ switch ($action)
 		// Set some properties.
 		$objPHPExcel->getProperties()->setCreator(shorten_name($member["fullname"]));
 		$objPHPExcel->getProperties()->setLastModifiedBy(shorten_name($member["fullname"]));
-		$objPHPExcel->getProperties()->setTitle("نتائج البحث من موقع عائلة الزغيبي");
-		$objPHPExcel->getProperties()->setSubject("نتائج البحث من موقع عائلة الزغيبي");
-		$objPHPExcel->getProperties()->setDescription("تصدير نتائج البحث من موقع عائلة الزغيبي.");
-		$objPHPExcel->getProperties()->setKeywords("عائلة الزغيبي بحث");
-		$objPHPExcel->getProperties()->setCategory("عائلة الزغيبي");
+		$objPHPExcel->getProperties()->setTitle("نتائج البحث من موقع عائلة {main_tribe_name}");
+		$objPHPExcel->getProperties()->setSubject("نتائج البحث من موقع عائلة {main_tribe_name}");
+		$objPHPExcel->getProperties()->setDescription("تصدير نتائج البحث من موقع عائلة {main_tribe_name}.");
+		$objPHPExcel->getProperties()->setKeywords("عائلة {main_tribe_name} بحث");
+		$objPHPExcel->getProperties()->setCategory("عائلة {main_tribe_name}");
 		
 		// Add all columns.
 		$i = 0; $prefix = "";

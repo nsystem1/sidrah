@@ -1,37 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4cc896fb-cd16-437c-8c2d-d02a526b281b" name="Default" comment="Alot of replaces in pervious tribe name to be {main_tribe_name} constant value.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/calendar.php" afterPath="$PROJECT_DIR$/calendar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/change_avatar.php" afterPath="$PROJECT_DIR$/change_avatar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/change_password.php" afterPath="$PROJECT_DIR$/change_password.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/change_username.php" afterPath="$PROJECT_DIR$/change_username.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/edit_cv.php" afterPath="$PROJECT_DIR$/edit_cv.php" />
+    <list default="true" id="4cc896fb-cd16-437c-8c2d-d02a526b281b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/error_message.html" afterPath="$PROJECT_DIR$/views/error_message.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/familytree.php" afterPath="$PROJECT_DIR$/familytree.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/feedback.php" afterPath="$PROJECT_DIR$/feedback.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/feedbacks_reader.php" afterPath="$PROJECT_DIR$/feedbacks_reader.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/family_dean_info_box.html" afterPath="$PROJECT_DIR$/views/family_dean_info_box.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/family_dean_nomination_box.html" afterPath="$PROJECT_DIR$/views/family_dean_nomination_box.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/family_dean_voting_box.html" afterPath="$PROJECT_DIR$/views/family_dean_voting_box.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/filter.php" afterPath="$PROJECT_DIR$/filter.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inc/functions.inc.php" afterPath="$PROJECT_DIR$/inc/functions.inc.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/header.html" afterPath="$PROJECT_DIR$/views/header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inactive_users.php" afterPath="$PROJECT_DIR$/inactive_users.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/install_header.html" afterPath="$PROJECT_DIR$/views/install_header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/login.php" afterPath="$PROJECT_DIR$/login.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/jobs.html" afterPath="$PROJECT_DIR$/views/jobs.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/main_page.html" afterPath="$PROJECT_DIR$/views/main_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manage_moderators.php" afterPath="$PROJECT_DIR$/manage_moderators.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manage_privacy.php" afterPath="$PROJECT_DIR$/manage_privacy.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile_book.php" afterPath="$PROJECT_DIR$/mobile_book.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/prepared_relations.php" afterPath="$PROJECT_DIR$/prepared_relations.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/request_update.php" afterPath="$PROJECT_DIR$/request_update.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reset_password.php" afterPath="$PROJECT_DIR$/reset_password.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/send_sms.php" afterPath="$PROJECT_DIR$/send_sms.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stats.php" afterPath="$PROJECT_DIR$/stats.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/success_message.html" afterPath="$PROJECT_DIR$/views/success_message.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tribes_familytrees.php" afterPath="$PROJECT_DIR$/tribes_familytrees.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/update_optional.php" afterPath="$PROJECT_DIR$/update_optional.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/update_profile_female.php" afterPath="$PROJECT_DIR$/update_profile_female.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/update_profile_male.php" afterPath="$PROJECT_DIR$/update_profile_male.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="sidrah.iws" />
@@ -56,84 +37,7 @@
     <favorites_list name="sidrah" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="install_header.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/install_header.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.125" vertical-offset="57" max-vertical-offset="630">
-              <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="feedbacks_reader.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/feedbacks_reader.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.9583335" vertical-offset="634" max-vertical-offset="1590">
-              <caret line="55" column="18" selection-start-line="55" selection-start-column="18" selection-end-line="55" selection-end-column="18" />
-              <folding>
-                <marker date="1411075870000" expanded="true" signature="249:290" placeholder="SELECT * FRO..feedback..." />
-                <marker date="1411075870000" expanded="true" signature="926:968" placeholder="SELECT * FRO..feedback..." />
-                <marker date="1411075870000" expanded="true" signature="1621:1665" placeholder="SELECT * FRO..feedback..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="send_sms.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/send_sms.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.9583335" vertical-offset="454" max-vertical-offset="1095">
-              <caret line="43" column="33" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
-              <folding>
-                <marker date="1411075931000" expanded="true" signature="515:563" placeholder="SELECT * FRO..prepared_relation..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mobile_book.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mobile_book.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.9583335" vertical-offset="394" max-vertical-offset="1260">
-              <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
-              <folding>
-                <marker date="1411075978000" expanded="true" signature="315:617" placeholder="SELECT * FRO..location..." />
-                <marker date="1411075978000" expanded="true" signature="330:531" placeholder="SELECT locat..member..." />
-                <marker date="1411075978000" expanded="true" signature="1335:1614" placeholder="SELECT id, f..member..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tribes_familytrees.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tribes_familytrees.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.291667" vertical-offset="161" max-vertical-offset="900">
-              <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
-              <folding>
-                <marker date="1411076030000" expanded="true" signature="399:658" placeholder="SELECT tribe..id..." />
-                <marker date="1411076030000" expanded="true" signature="448:619" placeholder="SELECT tribe..member..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="inactive_users.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/inactive_users.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.34729493" vertical-offset="266" max-vertical-offset="1335">
-              <caret line="31" column="435" selection-start-line="31" selection-start-column="435" selection-end-line="31" selection-end-column="435" />
-              <folding>
-                <marker date="1411075742000" expanded="true" signature="599:1032" placeholder="SELECT user...user..." />
-                <marker date="1411075742000" expanded="true" signature="759:841" placeholder="SELECT COUNT..request..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -163,10 +67,7 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/init_database_tables.sql" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/views/header.html" />
         <option value="$PROJECT_DIR$/views/install_header.html" />
-        <option value="$PROJECT_DIR$/views/main_page.html" />
-        <option value="$PROJECT_DIR$/inc/functions.inc.php" />
         <option value="$PROJECT_DIR$/calendar.php" />
         <option value="$PROJECT_DIR$/change_avatar.php" />
         <option value="$PROJECT_DIR$/change_password.php" />
@@ -174,7 +75,6 @@
         <option value="$PROJECT_DIR$/edit_cv.php" />
         <option value="$PROJECT_DIR$/familytree.php" />
         <option value="$PROJECT_DIR$/feedback.php" />
-        <option value="$PROJECT_DIR$/filter.php" />
         <option value="$PROJECT_DIR$/inactive_users.php" />
         <option value="$PROJECT_DIR$/login.php" />
         <option value="$PROJECT_DIR$/manage_moderators.php" />
@@ -182,16 +82,25 @@
         <option value="$PROJECT_DIR$/prepared_relations.php" />
         <option value="$PROJECT_DIR$/request_update.php" />
         <option value="$PROJECT_DIR$/reset_password.php" />
-        <option value="$PROJECT_DIR$/stats.php" />
         <option value="$PROJECT_DIR$/update_optional.php" />
         <option value="$PROJECT_DIR$/update_profile_female.php" />
         <option value="$PROJECT_DIR$/update_profile_male.php" />
-        <option value="$PROJECT_DIR$/views/error_message.html" />
-        <option value="$PROJECT_DIR$/views/success_message.html" />
         <option value="$PROJECT_DIR$/feedbacks_reader.php" />
         <option value="$PROJECT_DIR$/send_sms.php" />
-        <option value="$PROJECT_DIR$/mobile_book.php" />
         <option value="$PROJECT_DIR$/tribes_familytrees.php" />
+        <option value="$PROJECT_DIR$/filter.php" />
+        <option value="$PROJECT_DIR$/mobile_book.php" />
+        <option value="$PROJECT_DIR$/stats.php" />
+        <option value="$PROJECT_DIR$/views/error_message.html" />
+        <option value="$PROJECT_DIR$/views/family_dean_info_box.html" />
+        <option value="$PROJECT_DIR$/views/family_dean_nomination_box.html" />
+        <option value="$PROJECT_DIR$/views/family_dean_voting_box.html" />
+        <option value="$PROJECT_DIR$/views/header.html" />
+        <option value="$PROJECT_DIR$/views/jobs.html" />
+        <option value="$PROJECT_DIR$/views/main_page.html" />
+        <option value="$PROJECT_DIR$/views/success_message.html" />
+        <option value="$PROJECT_DIR$/views/inside_not_logged.html" />
+        <option value="$PROJECT_DIR$/inc/functions.inc.php" />
       </list>
     </option>
   </component>
@@ -257,20 +166,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sidrah" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sidrah" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="inc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -562,7 +457,25 @@
       <option name="project" value="LOCAL" />
       <updated>1411074989480</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Some fixes on PDO calls.">
+      <created>1411076067422</created>
+      <option name="number" value="00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1411076067422</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Replace the static name of the tribe with a constant value.">
+      <created>1411084684603</created>
+      <option name="number" value="00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1411084684603</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Replace the remaining static name of the tribe with a constant value.">
+      <created>1411084908059</created>
+      <option name="number" value="00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1411084908059</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -571,13 +484,13 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32939914" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32939914" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -629,9 +542,6 @@
       <TodoPanelSettings />
     </option>
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Fixing some wrong declaring of $dbh in init_change_name.php, and replace with correct query handler." />
-    <MESSAGE value="Fixing some wrong declaring of $dbh in init_change_nickname.php, and replace with correct query handler." />
-    <MESSAGE value="Fixing some wrong declaring of $dbh in init_hobbies.php, and replace with correct query handler." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in init_send_user_info.php, and replace with correct query handler." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in init_subscribers.php, and replace with correct query handler." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in manage_privacy.php, and replace with correct query handler." />
@@ -654,7 +564,10 @@
     <MESSAGE value="Fix init_database_tables.sql encoding." />
     <MESSAGE value="Done with checking MySQL tables encoding, and updating MySQL calls to be PDOs rather than regular mysql_ functions." />
     <MESSAGE value="Alot of replaces in pervious tribe name to be {main_tribe_name} constant value." />
-    <option name="LAST_COMMIT_MESSAGE" value="Alot of replaces in pervious tribe name to be {main_tribe_name} constant value." />
+    <MESSAGE value="Some fixes on PDO calls." />
+    <MESSAGE value="Replace the static name of the tribe with a constant value." />
+    <MESSAGE value="Replace the remaining static name of the tribe with a constant value." />
+    <option name="LAST_COMMIT_MESSAGE" value="Replace the remaining static name of the tribe with a constant value." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -663,48 +576,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6810631" vertical-offset="0" max-vertical-offset="2235">
-          <caret line="41" column="41" selection-start-line="41" selection-start-column="41" selection-end-line="41" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fix_media_comments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.10204082" vertical-offset="0" max-vertical-offset="588">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/init.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="1005">
-          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/init_alive_toggle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5867347" vertical-offset="0" max-vertical-offset="588">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/init_change_name.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.0" vertical-offset="597" max-vertical-offset="1185">
-          <caret line="67" column="4" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/init_change_nickname.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7091837" vertical-offset="138" max-vertical-offset="750">
-          <caret line="37" column="38" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/init_hobbies.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-18.125" vertical-offset="0" max-vertical-offset="675">
@@ -785,143 +656,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/inc/config.inc.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24916944" vertical-offset="0" max-vertical-offset="903">
-          <caret line="15" column="23" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/inc/config.inc.default.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8622449" vertical-offset="168" max-vertical-offset="780">
-          <caret line="45" column="21" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/inc/functions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="904">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/inc/functions.inc.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4028103" vertical-offset="13201" max-vertical-offset="79200">
-          <caret line="903" column="30" selection-start-line="903" selection-start-column="30" selection-end-line="903" selection-end-column="30" />
-          <folding>
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id, f..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE tribe..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT name ..company..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..tribe..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..married..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE marri..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..request..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE reque..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE user ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT name ..company..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..company..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT hobby..hobby..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member_hobby..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT hobby..hobby..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE hobby..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..hobby..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member_hobby..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE hobby..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..from..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT fathe..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT marri..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT marri..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT user...user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT user...user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE user ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE user ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE user ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT reque..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE reque..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT count..request..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT count..notification..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT commi..member_committee..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..member_committee..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT commi..committee..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT count..user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..job..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..tribe..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT user...user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT priva..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT usern..user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..dean..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..deanship_period..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member_dean..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..dean..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..event..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..event_reaction..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT comme..comment..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT count..comment_like..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..comment_like..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT media..media_comment..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT count..media_comment_like..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..media_comment_like..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..media..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..media_reaction..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..event..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..media..." />
-            <marker date="1411075543000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -981,14 +720,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/filter.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.291667" vertical-offset="4091" max-vertical-offset="6600">
-          <caret line="286" column="25" selection-start-line="286" selection-start-column="25" selection-end-line="286" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/login.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.9583335" vertical-offset="1519" max-vertical-offset="2100">
@@ -1037,30 +768,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stats.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.9583335" vertical-offset="3634" max-vertical-offset="4680">
-          <caret line="255" column="17" selection-start-line="255" selection-start-column="17" selection-end-line="255" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/error_message.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.375" vertical-offset="0" max-vertical-offset="690">
-          <caret line="7" column="55" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="1080">
-          <caret line="10" column="46" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/update_profile_male.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.31738624" vertical-offset="11503" max-vertical-offset="12360">
@@ -1087,22 +794,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/main_page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17045455" vertical-offset="0" max-vertical-offset="1500">
-          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/success_message.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20454545" vertical-offset="0" max-vertical-offset="880">
-          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/view.member.user.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="735">
@@ -1119,66 +810,290 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/install_header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.125" vertical-offset="57" max-vertical-offset="630">
-          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/feedbacks_reader.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.9583335" vertical-offset="634" max-vertical-offset="1590">
+        <state vertical-scroll-proportion="0.21704546" vertical-offset="634" max-vertical-offset="1590">
           <caret line="55" column="18" selection-start-line="55" selection-start-column="18" selection-end-line="55" selection-end-column="18" />
           <folding>
-            <marker date="1411075870000" expanded="true" signature="249:290" placeholder="SELECT * FRO..feedback..." />
-            <marker date="1411075870000" expanded="true" signature="926:968" placeholder="SELECT * FRO..feedback..." />
-            <marker date="1411075870000" expanded="true" signature="1621:1665" placeholder="SELECT * FRO..feedback..." />
+            <marker date="1411075870000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..feedback..." />
+            <marker date="1411075870000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..feedback..." />
+            <marker date="1411075870000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..feedback..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/send_sms.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.9583335" vertical-offset="454" max-vertical-offset="1095">
+        <state vertical-scroll-proportion="0.48863637" vertical-offset="215" max-vertical-offset="1095">
           <caret line="43" column="33" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
           <folding>
-            <marker date="1411075931000" expanded="true" signature="515:563" placeholder="SELECT * FRO..prepared_relation..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mobile_book.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.9583335" vertical-offset="394" max-vertical-offset="1260">
-          <caret line="39" column="50" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
-          <folding>
-            <marker date="1411075978000" expanded="true" signature="315:617" placeholder="SELECT * FRO..location..." />
-            <marker date="1411075978000" expanded="true" signature="330:531" placeholder="SELECT locat..member..." />
-            <marker date="1411075978000" expanded="true" signature="1335:1614" placeholder="SELECT id, f..member..." />
+            <marker date="1411075931000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..prepared_relation..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tribes_familytrees.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.291667" vertical-offset="161" max-vertical-offset="900">
+        <state vertical-scroll-proportion="0.38636363" vertical-offset="20" max-vertical-offset="900">
           <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
           <folding>
-            <marker date="1411076030000" expanded="true" signature="399:658" placeholder="SELECT tribe..id..." />
-            <marker date="1411076030000" expanded="true" signature="448:619" placeholder="SELECT tribe..member..." />
+            <marker date="1411076030000" expanded="true" signature="-1:-1" placeholder="SELECT tribe..id..." />
+            <marker date="1411076030000" expanded="true" signature="-1:-1" placeholder="SELECT tribe..member..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/inactive_users.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34729493" vertical-offset="266" max-vertical-offset="1335">
-          <caret line="31" column="435" selection-start-line="31" selection-start-column="435" selection-end-line="31" selection-end-column="435" />
+        <state vertical-scroll-proportion="0.22613636" vertical-offset="266" max-vertical-offset="1335">
+          <caret line="31" column="47" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
           <folding>
-            <marker date="1411075742000" expanded="true" signature="599:1032" placeholder="SELECT user...user..." />
-            <marker date="1411075742000" expanded="true" signature="759:841" placeholder="SELECT COUNT..request..." />
+            <marker date="1411075742000" expanded="true" signature="-1:-1" placeholder="SELECT user...user..." />
+            <marker date="1411075742000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..request..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/filter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.9583335" vertical-offset="4699" max-vertical-offset="6600">
+          <caret line="326" column="58" selection-start-line="326" selection-start-column="58" selection-end-line="326" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inc/config.inc.default.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-20.5" vertical-offset="183" max-vertical-offset="780">
+          <caret line="45" column="30" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inc/config.inc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-20.5" vertical-offset="183" max-vertical-offset="780">
+          <caret line="45" column="30" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/install.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.291667" vertical-offset="17801" max-vertical-offset="23265">
+          <caret line="1200" column="37" selection-start-line="1200" selection-start-column="37" selection-end-line="1200" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mobile_book.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.75" vertical-offset="663" max-vertical-offset="1260">
+          <caret line="63" column="51" selection-start-line="63" selection-start-column="51" selection-end-line="63" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stats.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.291667" vertical-offset="3596" max-vertical-offset="4680">
+          <caret line="253" column="54" selection-start-line="253" selection-start-column="54" selection-end-line="253" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/error_message.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="690">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/family_dean_info_box.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.25" vertical-offset="0" max-vertical-offset="360">
+          <caret line="2" column="41" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/family_dean_nomination_box.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="315">
+          <caret line="1" column="35" selection-start-line="1" selection-start-column="35" selection-end-line="1" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/family_dean_voting_box.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.9583335" vertical-offset="139" max-vertical-offset="825">
+          <caret line="22" column="56" selection-start-line="22" selection-start-column="56" selection-end-line="22" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.625" vertical-offset="357" max-vertical-offset="1080">
+          <caret line="36" column="54" selection-start-line="36" selection-start-column="54" selection-end-line="36" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/install_header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10471204" vertical-offset="0" max-vertical-offset="630">
+          <caret line="4" column="42" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/jobs.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="139" max-vertical-offset="735">
+          <caret line="22" column="54" selection-start-line="22" selection-start-column="54" selection-end-line="22" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/main_page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31937173" vertical-offset="297" max-vertical-offset="1500">
+          <caret line="32" column="54" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/success_message.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7853403" vertical-offset="0" max-vertical-offset="705">
+          <caret line="30" column="51" selection-start-line="30" selection-start-column="51" selection-end-line="30" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/inside_not_logged.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2356021" vertical-offset="0" max-vertical-offset="573">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inc/functions.inc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3071553" vertical-offset="56104" max-vertical-offset="79230">
+          <caret line="3752" column="12" selection-start-line="3752" selection-start-column="12" selection-end-line="3752" selection-end-column="12" />
+          <folding>
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id, f..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE tribe..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT name ..company..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..tribe..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..married..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE marri..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..request..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE reque..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE user ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT name ..company..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..company..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT hobby..hobby..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member_hobby..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT hobby..hobby..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE hobby..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..hobby..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member_hobby..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE hobby..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..from..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT fathe..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT marri..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT marri..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT user...user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT user...user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE user ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE user ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE user ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT reque..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE reque..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT count..request..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT count..notification..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT commi..member_committee..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..member_committee..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT commi..committee..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT count..user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..job..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..tribe..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT user...user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT priva..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT usern..user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..dean..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..deanship_period..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member_dean..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..dean..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..event..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..event_reaction..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT comme..comment..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT count..comment_like..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..comment_like..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT media..media_comment..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT count..media_comment_like..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..media_comment_like..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..media..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..media_reaction..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..event..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..media..." />
+            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
