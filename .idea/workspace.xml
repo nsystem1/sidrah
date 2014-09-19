@@ -2,17 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cc896fb-cd16-437c-8c2d-d02a526b281b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/error_message.html" afterPath="$PROJECT_DIR$/views/error_message.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/family_dean_info_box.html" afterPath="$PROJECT_DIR$/views/family_dean_info_box.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/family_dean_nomination_box.html" afterPath="$PROJECT_DIR$/views/family_dean_nomination_box.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/family_dean_voting_box.html" afterPath="$PROJECT_DIR$/views/family_dean_voting_box.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/filter.php" afterPath="$PROJECT_DIR$/filter.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inc/functions.inc.php" afterPath="$PROJECT_DIR$/inc/functions.inc.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/header.html" afterPath="$PROJECT_DIR$/views/header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/jobs.html" afterPath="$PROJECT_DIR$/views/jobs.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/main_page.html" afterPath="$PROJECT_DIR$/views/main_page.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile_book.php" afterPath="$PROJECT_DIR$/mobile_book.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stats.php" afterPath="$PROJECT_DIR$/stats.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="sidrah.iws" />
@@ -475,7 +464,13 @@
       <option name="project" value="LOCAL" />
       <updated>1411084908059</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Replace the remaining static name of the tribe with a constant value.">
+      <created>1411085359150</created>
+      <option name="number" value="00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1411085359150</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="ToolWindowManager">
