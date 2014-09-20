@@ -314,8 +314,6 @@ switch ($action)
         $get_member_query->bindParam(":id", $id);
         $get_member_query->execute();
 
-		// TODO: Do some extra checking.
-
 		if ($get_member_query->rowCount() == 0)
 		{
 			$data = array(
@@ -331,7 +329,7 @@ switch ($action)
 				"id" => -1,
 				"name" => ""
 			);
-			
+
 			if ($member["father_id"] != -1)
 			{
 				$get_parent_query = $dbh->prepare("SELECT * FROM member WHERE id = :member_father_id");
@@ -365,7 +363,7 @@ switch ($action)
 				}
 			}
 
-			$conditions = array("father_id = '$id'");
+			$conditions = array("father_id = $member[id] ");
 	
 			if ($user["group"] == "visitor")
 			{
@@ -395,14 +393,14 @@ switch ($action)
 				{
 					if ($display_daughters == false)
 					{
-						$conditions []= "gender = '1'";
+						$conditions []= "gender = 1";
 					}
 				}
 				break;
 
 				case "moderator":
 				{
-					$conditions []= "(gender = '1' OR (gender = '0' AND fullname LIKE '%$related_fullname'))";
+					$conditions []= "(gender = 1 OR (gender = 0 AND fullname LIKE '%$related_fullname'))";
 				}
 				break;
 			}
@@ -410,8 +408,7 @@ switch ($action)
 			$condition = implode("AND ", $conditions);
 
 			// Get the children of the member.
-			$get_children_query = $dbh->prepare("SELECT * FROM member WHERE :condition");
-            $get_children_query->bindParam(":condition", $condition);
+			$get_children_query = $dbh->prepare("SELECT * FROM member WHERE $condition");
             $get_children_query->execute();
 
 			$children = array();
