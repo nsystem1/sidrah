@@ -2,6 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cc896fb-cd16-437c-8c2d-d02a526b281b" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/inc/functions.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/views/view.member.admin.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inc/functions.inc.php" afterPath="$PROJECT_DIR$/inc/functions.inc.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/header.html" afterPath="$PROJECT_DIR$/views/header.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/main_page.html" afterPath="$PROJECT_DIR$/views/main_page.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="sidrah.iws" />
@@ -39,7 +44,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/fix_media_comments.php" />
         <option value="$PROJECT_DIR$/init.php" />
         <option value="$PROJECT_DIR$/init_alive_toggle.php" />
         <option value="$PROJECT_DIR$/init_change_mobile.php" />
@@ -84,12 +88,13 @@
         <option value="$PROJECT_DIR$/views/family_dean_info_box.html" />
         <option value="$PROJECT_DIR$/views/family_dean_nomination_box.html" />
         <option value="$PROJECT_DIR$/views/family_dean_voting_box.html" />
-        <option value="$PROJECT_DIR$/views/header.html" />
         <option value="$PROJECT_DIR$/views/jobs.html" />
-        <option value="$PROJECT_DIR$/views/main_page.html" />
         <option value="$PROJECT_DIR$/views/success_message.html" />
         <option value="$PROJECT_DIR$/views/inside_not_logged.html" />
+        <option value="$PROJECT_DIR$/views/footer.html" />
         <option value="$PROJECT_DIR$/inc/functions.inc.php" />
+        <option value="$PROJECT_DIR$/views/header.html" />
+        <option value="$PROJECT_DIR$/views/main_page.html" />
       </list>
     </option>
   </component>
@@ -125,7 +130,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -160,6 +164,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -175,17 +180,20 @@
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
     <configuration default="true" type="com.intellij.database.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
       <option name="VM_PARAMETERS" value="" />
       <option name="USER_CFG_CLASS" />
       <option name="CONTEXT_PROVIDER" />
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
     <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
       <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -194,9 +202,6 @@
       <tasks />
       <pass-parent-env-vars>false</pass-parent-env-vars>
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <list size="0" />
@@ -470,7 +475,13 @@
       <option name="project" value="LOCAL" />
       <updated>1411085359150</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Remove Twitter follow button from the footer of the pages.">
+      <created>1411086382357</created>
+      <option name="number" value="00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1411086382357</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -479,24 +490,24 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32939914" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21367522" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21611722" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32939914" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -516,9 +527,9 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21367522" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -537,7 +548,6 @@
       <TodoPanelSettings />
     </option>
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Fixing some wrong declaring of $dbh in init_send_user_info.php, and replace with correct query handler." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in init_subscribers.php, and replace with correct query handler." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in manage_privacy.php, and replace with correct query handler." />
     <MESSAGE value="Fixing some wrong declaring of $dbh in change_mobile.php, and replace with correct query handler." />
@@ -562,7 +572,8 @@
     <MESSAGE value="Some fixes on PDO calls." />
     <MESSAGE value="Replace the static name of the tribe with a constant value." />
     <MESSAGE value="Replace the remaining static name of the tribe with a constant value." />
-    <option name="LAST_COMMIT_MESSAGE" value="Replace the remaining static name of the tribe with a constant value." />
+    <MESSAGE value="Remove Twitter follow button from the footer of the pages." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove Twitter follow button from the footer of the pages." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -571,13 +582,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/init_hobbies.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.125" vertical-offset="0" max-vertical-offset="675">
-          <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/init_send_user_info.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.65816325" vertical-offset="93" max-vertical-offset="705">
@@ -631,7 +635,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.049889136" vertical-offset="0" max-vertical-offset="902">
           <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -639,7 +642,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6855">
           <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -647,15 +649,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.40453073" vertical-offset="0" max-vertical-offset="927">
           <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/inc/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="904">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -663,7 +656,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.9583335" vertical-offset="13279" max-vertical-offset="18480">
           <caret line="898" column="31" selection-start-line="898" selection-start-column="31" selection-end-line="898" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -671,7 +663,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.291667" vertical-offset="1841" max-vertical-offset="2445">
           <caret line="136" column="53" selection-start-line="136" selection-start-column="53" selection-end-line="136" selection-end-column="53" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -679,7 +670,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.25" vertical-offset="873" max-vertical-offset="1470">
           <caret line="73" column="12" selection-start-line="73" selection-start-column="12" selection-end-line="73" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -687,7 +677,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.291667" vertical-offset="716" max-vertical-offset="1335">
           <caret line="61" column="12" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -695,7 +684,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-13.625" vertical-offset="828" max-vertical-offset="1425">
           <caret line="77" column="13" selection-start-line="77" selection-start-column="13" selection-end-line="77" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -703,7 +691,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.625" vertical-offset="948" max-vertical-offset="1545">
           <caret line="77" column="8" selection-start-line="77" selection-start-column="8" selection-end-line="77" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -711,7 +698,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.625" vertical-offset="858" max-vertical-offset="1455">
           <caret line="71" column="21" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -719,7 +705,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.9583335" vertical-offset="1519" max-vertical-offset="2100">
           <caret line="114" column="12" selection-start-line="114" selection-start-column="12" selection-end-line="114" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -727,7 +712,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.9583335" vertical-offset="2974" max-vertical-offset="3585">
           <caret line="211" column="25" selection-start-line="211" selection-start-column="25" selection-end-line="211" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -735,7 +719,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-13.291667" vertical-offset="4691" max-vertical-offset="5265">
           <caret line="334" column="20" selection-start-line="334" selection-start-column="20" selection-end-line="334" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -743,7 +726,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.9583335" vertical-offset="1924" max-vertical-offset="2535">
           <caret line="141" column="25" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -751,7 +733,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.9583335" vertical-offset="4909" max-vertical-offset="5580">
           <caret line="340" column="25" selection-start-line="340" selection-start-column="25" selection-end-line="340" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -759,7 +740,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.9166665" vertical-offset="3635" max-vertical-offset="4185">
           <caret line="255" column="12" selection-start-line="255" selection-start-column="12" selection-end-line="255" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -767,7 +747,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.31738624" vertical-offset="11503" max-vertical-offset="12360">
           <caret line="789" column="21" selection-start-line="789" selection-start-column="21" selection-end-line="789" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -775,7 +754,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.40490082" vertical-offset="10843" max-vertical-offset="11700">
           <caret line="750" column="21" selection-start-line="750" selection-start-column="21" selection-end-line="750" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -783,9 +761,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4715909" vertical-offset="2975" max-vertical-offset="3855">
           <caret line="226" column="12" selection-start-line="226" selection-start-column="12" selection-end-line="226" selection-end-column="12" />
-          <folding>
-            <marker date="1411075742000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -793,15 +768,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="735">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/view.member.admin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32386363" vertical-offset="0" max-vertical-offset="880">
-          <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -809,11 +775,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.21704546" vertical-offset="634" max-vertical-offset="1590">
           <caret line="55" column="18" selection-start-line="55" selection-start-column="18" selection-end-line="55" selection-end-column="18" />
-          <folding>
-            <marker date="1411075870000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..feedback..." />
-            <marker date="1411075870000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..feedback..." />
-            <marker date="1411075870000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..feedback..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -821,9 +782,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.48863637" vertical-offset="215" max-vertical-offset="1095">
           <caret line="43" column="33" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
-          <folding>
-            <marker date="1411075931000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..prepared_relation..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -831,10 +789,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.38636363" vertical-offset="20" max-vertical-offset="900">
           <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
-          <folding>
-            <marker date="1411076030000" expanded="true" signature="-1:-1" placeholder="SELECT tribe..id..." />
-            <marker date="1411076030000" expanded="true" signature="-1:-1" placeholder="SELECT tribe..member..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -842,10 +796,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.22613636" vertical-offset="266" max-vertical-offset="1335">
           <caret line="31" column="47" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
-          <folding>
-            <marker date="1411075742000" expanded="true" signature="-1:-1" placeholder="SELECT user...user..." />
-            <marker date="1411075742000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..request..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -853,7 +803,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.9583335" vertical-offset="4699" max-vertical-offset="6600">
           <caret line="326" column="58" selection-start-line="326" selection-start-column="58" selection-end-line="326" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -861,7 +810,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-20.5" vertical-offset="183" max-vertical-offset="780">
           <caret line="45" column="30" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -869,7 +817,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-20.5" vertical-offset="183" max-vertical-offset="780">
           <caret line="45" column="30" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -877,7 +824,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.291667" vertical-offset="17801" max-vertical-offset="23265">
           <caret line="1200" column="37" selection-start-line="1200" selection-start-column="37" selection-end-line="1200" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -885,7 +831,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.75" vertical-offset="663" max-vertical-offset="1260">
           <caret line="63" column="51" selection-start-line="63" selection-start-column="51" selection-end-line="63" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -893,7 +838,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.291667" vertical-offset="3596" max-vertical-offset="4680">
           <caret line="253" column="54" selection-start-line="253" selection-start-column="54" selection-end-line="253" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -901,7 +845,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="690">
           <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -909,7 +852,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.25" vertical-offset="0" max-vertical-offset="360">
           <caret line="2" column="41" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -917,7 +859,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.625" vertical-offset="0" max-vertical-offset="315">
           <caret line="1" column="35" selection-start-line="1" selection-start-column="35" selection-end-line="1" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -925,15 +866,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.9583335" vertical-offset="139" max-vertical-offset="825">
           <caret line="22" column="56" selection-start-line="22" selection-start-column="56" selection-end-line="22" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.625" vertical-offset="357" max-vertical-offset="1080">
-          <caret line="36" column="54" selection-start-line="36" selection-start-column="54" selection-end-line="36" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -941,7 +873,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.10471204" vertical-offset="0" max-vertical-offset="630">
           <caret line="4" column="42" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -949,15 +880,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334" vertical-offset="139" max-vertical-offset="735">
           <caret line="22" column="54" selection-start-line="22" selection-start-column="54" selection-end-line="22" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/main_page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31937173" vertical-offset="297" max-vertical-offset="1500">
-          <caret line="32" column="54" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -965,7 +887,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7853403" vertical-offset="0" max-vertical-offset="705">
           <caret line="30" column="51" selection-start-line="30" selection-start-column="51" selection-end-line="30" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -973,123 +894,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2356021" vertical-offset="0" max-vertical-offset="573">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/inc/functions.inc.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3071553" vertical-offset="56104" max-vertical-offset="79230">
-          <caret line="3752" column="12" selection-start-line="3752" selection-start-column="12" selection-end-line="3752" selection-end-column="12" />
-          <folding>
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id, f..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE tribe..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT name ..company..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..tribe..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..married..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE marri..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..request..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE reque..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE user ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT name ..company..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..company..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT hobby..hobby..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member_hobby..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT hobby..hobby..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE hobby..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..hobby..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member_hobby..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE hobby..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..from..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT fathe..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT marri..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT marri..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT user...user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT user...user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE user ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE user ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE user ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT reque..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE reque..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT count..request..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT count..notification..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT commi..member_committee..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..member_committee..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT commi..committee..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT count..user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..job..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..tribe..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT user...user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT priva..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT usern..user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT membe..member..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..dean..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..deanship_period..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..member_dean..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT id FR..dean..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..event..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..event_reaction..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT comme..comment..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT count..comment_like..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..comment_like..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT media..media_comment..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT count..media_comment_like..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..media_comment_like..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..media..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..media_reaction..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="UPDATE membe..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..user..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..event..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..media..." />
-            <marker date="1411084966000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-          </folding>
+        <state vertical-scroll-proportion="-0.9817518" vertical-offset="49123" max-vertical-offset="79215">
+          <caret line="3239" column="19" selection-start-line="3239" selection-start-column="19" selection-end-line="3239" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2617801" vertical-offset="0" max-vertical-offset="1050">
+          <caret line="10" column="15" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="597">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/main_page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5016611" vertical-offset="282" max-vertical-offset="1470">
+          <caret line="49" column="75" selection-start-line="49" selection-start-column="75" selection-end-line="49" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/inactive_users.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="597">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/footer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32386363" vertical-offset="0" max-vertical-offset="880">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>

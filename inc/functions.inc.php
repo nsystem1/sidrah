@@ -3356,7 +3356,6 @@ function website_header($title = "", $description = "", $keywords = array(), $js
 	}
 	else
 	{
-		// TODO: Uncomment when committees have been released. $congratulations = get_committees_nominee_congratulations();
 		$congratulations = "";
 
 	}
