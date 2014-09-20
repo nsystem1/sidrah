@@ -8,7 +8,7 @@ require_once("inc/functions.inc.php");
 $page = @$_GET["page"];
 
 switch ($page)
-
+{
 	default: case "feedback":
 		$session_name = "feedback";
 	break;
@@ -27,17 +27,17 @@ $_SESSION[$session_name] = $sha1_random_number;
 
 // Draw the image.
 $image = imagecreatetruecolor(46, 20);
-$backgrund_color = imagecolorallocate($image, 170, 170, 170);
+$background_color = imagecolorallocate($image, 170, 170, 170);
 $foreground_color = imagecolorallocate($image, 33, 33, 33);
 
 // Fill the background.
-imagefill($image, 0, 0, $backgrund_color);
+imagefill($image, 0, 0, $background_color);
 
 // Draw the foreground text.
 imagestring($image, 4, 3, 3, $random_number, $foreground_color);
 
 // Make the background transparent
-imagecolortransparent($image, $backgrund_color);
+imagecolortransparent($image, $background_color);
 
 // Output the image.
 header("Content-type: image/png");
